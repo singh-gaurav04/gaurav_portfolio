@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Projects from "./components/Projects";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -7,12 +7,40 @@ import Contact from "./components/Contact";
 import Certificates from "./components/Certificates";
 import Skills from "./components/Skills";
 import LocomotiveScroll from "locomotive-scroll";
-
+import Loader from "./components/Loader";
+import { motion } from "framer-motion";
+import Lottie from "lottie-react";
+import preloader from "./assets/animation/preloader.json";
 
 function App() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1500); // Simulate loading for 2 seconds
+    // return () => clearTimeout(timer);
+  }, []);
+
   const locomotiveScroll = new LocomotiveScroll();
+
+  if (loading) {
+    return (
+      <div className='flex justify-center items-center h-screen bg-[#1B1B1D]'>
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1 ,ease:'linear'}}
+        >
+         <Lottie animationData={preloader} loop={true} />
+        </motion.div>
+      </div>
+    );
+  }
+
   return (
-    <div className='grid grid-cols-14 h-screen text-[#967AA1] bg-[url("/bgimage.jpg")]  bg-cover '>
+    <motion.div
+
+      className='grid grid-cols-14 h-screen text-[#967AA1] bg-[url("/bgimage.jpg")]   bg-cover '
+    >
       <div className=' col-span-1 md:col-span-1 h-full overflow-hidden '>
         <Navbar />
       </div>
@@ -26,7 +54,7 @@ function App() {
         <div id='home'>
           <Hero />
         </div>
-        
+
         <div id='projects'>
           <Projects />
         </div>
@@ -41,7 +69,7 @@ function App() {
         </div>
         <Footer />
       </div>
-    </div>
+    </motion.div>
   );
 }
 
