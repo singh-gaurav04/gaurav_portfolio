@@ -21,7 +21,7 @@ function App() {
           scrollbarWidth: "none", // For Firefox
           msOverflowStyle: "none", // For IE and Edge
         }}
-        className='col-span-13 md:col-span-13 overflow-auto border-r-2 border-gray-700 pt-4 '
+        className='col-span-13 md:col-span-13 overflow-auto border-r-2 border-gray-700 pt-4 overflow-x-hidden'
       >
         <div id='home'>
           <Hero />
