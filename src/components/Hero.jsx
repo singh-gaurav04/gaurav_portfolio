@@ -8,12 +8,12 @@ import Button2 from "./Button2";
 import Button1 from "./Button1";
 
 const photos = [
-  "public/IMG_20240914_134557514.jpg",
-  "public/IMG_20230506_111823338.jpg",
-  "public/Screenshot_20241229-141117.png",
-  "public/IMG_20240309_144317531.jpg",
-  "public/20240611_215645.jpg",
-  "public/Screenshot_20241229-141418.png",
+  "/IMG_20240914_134557514.jpg",
+  "/IMG_20230506_111823338.jpg",
+  "/Screenshot_20241229-141117.png",
+  "/IMG_20240309_144317531.jpg",
+  "/20240611_215645.jpg",
+  "/Screenshot_20241229-141418.png",
 ];
 
 const Hero = () => {
@@ -39,16 +39,14 @@ const Hero = () => {
             {text.split("").map((char, index) => (
               <motion.span
                 key={index}
-                initial={{opacity:0, y: -20 }} // Fixed x value
-                animate={{opacity:1, y: 0 }}
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{
-                  delay: index * 0.1, // Staggered animation for smooth effect
+                  delay: index * 0.1,
                   duration: 0.3,
                   ease: "easeInOut",
-                  repeat: Infinity, // Keeps repeating
-                  repeatDelay: 3, // Adds a delay between repeats
                 }}
-                style={{ display: "inline-block" }} // Prevents spacing issues
+                style={{ display: "inline-block" }}
               >
                 {char}
               </motion.span>

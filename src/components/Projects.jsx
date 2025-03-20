@@ -37,7 +37,11 @@ const Projects = () => {
         >
           My Projects
         </motion.h2>
-        <div className='space-y-10'>
+        <motion.div 
+        initial={{opacity:0}}
+        whileInView={{opacity:1}}
+        transition={{duration:0.5}}
+        className='space-y-10'>
           {projectsData.map((project, index) => (
             <motion.div
               key={index}
@@ -51,15 +55,11 @@ const Projects = () => {
               {/* Image Section */}
               <motion.div
                 className='flex-shrink-0 w-full md:w-1/2 flex items-center justify-center p-4'
-                initial={{ y: -10 }}
-                animate={{
-                  y: 0,
-                  transition: {
-                    duration: 0.6,
-                    repeat: Infinity,
-                    repeatType: "reverse",
-                    ease: "easeInOut",
-                  },
+                initial={{ y: -10, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{
+                  duration: 0.6,
+                  ease: "easeInOut",
                 }}
               >
                 <img
@@ -91,7 +91,7 @@ const Projects = () => {
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </div>
   );
