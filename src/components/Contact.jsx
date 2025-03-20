@@ -62,7 +62,7 @@ const Contact = () => {
 
         {/* Right Side: Form */}
         <motion.div
-          className='rounded-lg bg-[#354F52] shadow-lg p-8'
+          className='rounded-lg bg-[#354F52]  p-8 shadow-[0_0_10px_#ffffff]'
           initial={{ opacity: 0, x: 50 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
@@ -70,7 +70,7 @@ const Contact = () => {
           <h2 className='text-3xl font-bold mb-6 text-center text-green-400'>
             Get in Touch
           </h2>
-          <form onSubmit={submitHandler} className="text-white">
+          <form onSubmit={submitHandler} className="text-white ">
             <div className='mb-4'>
               <label htmlFor='name' className='block font-semibold mb-2'>
                 Name
@@ -132,17 +132,7 @@ const Contact = () => {
           </form>
         </motion.div>
       </div>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
+      <ToastContainer position="top-right" autoClose={5000} />
     </div>
   );
 };

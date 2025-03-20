@@ -53,7 +53,7 @@ const Navbar = () => {
             whileHover={{ scale: 1.1 }}
             src={logo}
             alt='GS'
-            className='h-[6vw] w-[6vw] md:h-[5vw] md:w-[5vw] rounded-full shadow-[0_0_10px_#ffffff] '
+            className='scale-200 md:scale-100  md:h-[6vw] md:w-[6vw] rounded-full shadow-[0_0_10px_#ffffff] '
           />
         </a>
 
@@ -79,7 +79,7 @@ const Navbar = () => {
               target='_blank'
               rel='noopener noreferrer'
               className='text-gray-300 hover:text-white flex items-center gap-2 text-lg'
-              whileHover={{ scale: 1.2 }}
+              whileHover={{ scale: 2, color: "pink" }}
               whileTap={{ scale: 0.9 }}
             >
               {link.icon}

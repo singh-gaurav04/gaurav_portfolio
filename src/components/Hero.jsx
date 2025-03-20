@@ -27,7 +27,7 @@ const Hero = () => {
       transition={{ duration: 3 }}
     >
       {/* Left Section: Text and Button */}
-      <div className='flex flex-col items-start justify-center px-[3vw] w-full md:w-1/2 space-y-6 text-left md:px-[1vw]'>
+      <div className='flex flex-col text-white items-start justify-center px-[3vw] w-full md:w-1/2 space-y-6 text-left md:px-[1vw]'>
         <motion.h1
           className='text-5xl font-bold '
           initial={{ x: -100, opacity: 0 }}
@@ -35,18 +35,20 @@ const Hero = () => {
           transition={{ duration: 1 }}
         >
           I'm {" "}
-          <span className='font-bold text-[#160ba4]'>
+          <span className='font-bold text-[#d91414]'>
             {text.split("").map((char, index) => (
               <motion.span
                 key={index}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{opacity:0, y: -20 }} // Fixed x value
+                animate={{opacity:1, y: 0 }}
                 transition={{
-                  delay: index * 0.1,
+                  delay: index * 0.1, // Staggered animation for smooth effect
                   duration: 0.3,
                   ease: "easeInOut",
+                  repeat: Infinity, // Keeps repeating
+                  repeatDelay: 3, // Adds a delay between repeats
                 }}
-                style={{ display: "inline-block" }}
+                style={{ display: "inline-block" }} // Prevents spacing issues
               >
                 {char}
               </motion.span>
@@ -55,12 +57,12 @@ const Hero = () => {
         </motion.h1>
 
         <motion.p
-          className='text-md text-left '
+          className='text-md text-left text-[#967AA1]'
           initial={{ x: -100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 1, delay: 0.2 }}
         >
-          I'm <span className="font-bold  text-[#949cd0]">Gaurav singh</span>, a third-year B. Tech student in the Artificial
+          I'm <span className="font-bold  text-[#99a2dd]">Gaurav singh</span>, a third-year B. Tech student in the Artificial
           Intelligence and Machine Learning <span className="font-bold text-[#77df93]">(AIML)</span> department at Lakshmi Narain
           College of Technology, Bhopal. My skills span multiple programming
           languages, including <span className="text-red-400 bold">C++</span> and <span className="font-bold text-pink-600">Python</span>, and I have a solid
