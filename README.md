@@ -12,7 +12,7 @@ Follow these steps to set up and run this project locally:
 
 1. **Clone the repository:**
    ```sh
-   git clone <repository-url>
+   git clone <https://github.com/singh-gaurav04/gaurav_portfolio.git>
    ```
 2. **Navigate to the project directory:**
    ```sh
@@ -40,18 +40,7 @@ Follow these steps to set up and run this project locally:
   ```sh
   npm run build
   ```
-- **To preview the production build:**
-  ```sh
-  npm run preview
-  ```
-- **To format code using Prettier (if configured):**
-  ```sh
-  npm run format
-  ```
-- **To lint code (if ESLint is configured):**
-  ```sh
-  npm run lint
-  ```
+
 
 ## Contributing
 If you wish to contribute, feel free to fork the repository and submit a pull request.
