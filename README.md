@@ -1,12 +1,60 @@
-# React + Vite
+# My Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is built using **React* and **Tailwind CSS**. For animations, **Framer Motion** has been used to enhance the user experience.
 
-Currently, two official plugins are available:
+## Prerequisites
+Before running the project, ensure you have the following installed:
+- **Node.js** (Latest LTS version recommended)
+- **npm** (Comes with Node.js)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Installation and Setup
+Follow these steps to set up and run this project locally:
 
-## Expanding the ESLint configuration
+1. **Clone the repository:**
+   ```sh
+   git clone <repository-url>
+   ```
+2. **Navigate to the project directory:**
+   ```sh
+   cd <project-folder>
+   ```
+3. **Install all dependencies:**
+   ```sh
+   npm i
+   ```
+4. **Start the development server:**
+   ```sh
+   npm run dev
+   ```
+5. **Open the project in your browser:**
+   - Once the server starts, you can access the project at `http://localhost:5173/` or the specified port in your terminal.
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Features
+- Built with **React**
+- Styled using **Tailwind CSS**
+- Smooth animations powered by **Framer Motion**
+- Easy installation and setup
+
+## Additional Commands
+- **To build the project for production:**
+  ```sh
+  npm run build
+  ```
+- **To preview the production build:**
+  ```sh
+  npm run preview
+  ```
+- **To format code using Prettier (if configured):**
+  ```sh
+  npm run format
+  ```
+- **To lint code (if ESLint is configured):**
+  ```sh
+  npm run lint
+  ```
+
+## Contributing
+If you wish to contribute, feel free to fork the repository and submit a pull request.
+
+Enjoy coding! 🚀
+
