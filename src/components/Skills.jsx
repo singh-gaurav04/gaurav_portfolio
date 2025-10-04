@@ -1,69 +1,172 @@
-import React from "react";
-import { motion } from "framer-motion";
-
-const skillsData = [
-  { name: "C++", color: "text-blue-500" },
-  { name: "DSA", color: "text-green-500" },
-  { name: "MERN Full Stack", color: "text-yellow-500" },
-  { name: "MySQL", color: "text-red-500" },
-  { name: "Python", color: "text-pink-500" },
-  { name: "AIML", color: "text-teal-500" },
-  { name: "Git/GitHub", color: "text-orange-500" },
-  { name: "Vs Code & Jupyter", color: "text-indigo-500" },
-  { name: "Numpy", color: "text-cyan-500" },
-  { name: "Pandas", color: "text-lime-500" },
-];
-
-const containerVariants = {
-  hidden: { opacity: 0, scale: 0.8 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      delayChildren: 0.2, //kitne der me aayega
-      staggerChildren: 0.1, //baccha kitne der me aayega
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
-};
+import React, { useState } from 'react'
+import { motion } from 'framer-motion'
+import { Code, Globe, Cpu, Zap, Star } from 'lucide-react'
+import { Card, CardContent } from './ui/card'
+import { Button } from './ui/button'
+import { portfolioData, animationVariants } from '../data/portfolioData'
 
 const Skills = () => {
+  const [selectedCategory, setSelectedCategory] = useState('all')
+  const { skills } = portfolioData
+
+  const skillCategories = [
+    { id: 'all', name: 'All Skills', icon: Star },
+    { id: 'programming', name: 'Languages', icon: Code },
+    { id: 'frameworks', name: 'Frameworks', icon: Globe },
+    { id: 'tools', name: 'Tools', icon: Cpu }
+  ]
+
+  const containerVariants = animationVariants.container
+  const itemVariants = animationVariants.item
+
+  // Get all skills or filtered by category
+  const getDisplaySkills = () => {
+    if (selectedCategory === 'all') {
+      return Object.values(skills).flat()
+    }
+    return skills[selectedCategory] || []
+  }
+
+  // Simple skill card component
+  const SkillCard = ({ skill, index }) => (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      whileHover={{ y: -5, scale: 1.02 }}
+      className="group"
+    >
+      <Card className="h-full hover:shadow-lg transition-all duration-300 border hover:border-primary/50 bg-gradient-to-br from-background to-secondary/20">
+        <CardContent className="p-6">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center space-x-3">
+              <span className="text-2xl">{skill.icon}</span>
+              <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                {skill.name}
+              </h3>
+            </div>
+            <span className="text-sm font-medium text-primary">
+              {skill.level}%
+            </span>
+          </div>
+          
+          <div className="w-full bg-secondary rounded-full h-2">
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: `${skill.level}%` }}
+              transition={{ duration: 1, delay: index * 0.1 + 0.3 }}
+              className="h-2 bg-gradient-to-r from-primary to-blue-600 rounded-full"
+            />
+          </div>
+        </CardContent>
+      </Card>
+    </motion.div>
+  )
+
   return (
-    <section className="py-10 ">
-      <div className="container mx-auto px-5">
-        <motion.h2
-          className="text-4xl font-bold text-center mb-8 text-white"
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          My Skills
-        </motion.h2>
+    <section id="skills" className="py-20 px-4 bg-gradient-to-br from-background to-secondary/20">
+      <div className="container mx-auto">
+        {/* Header */}
         <motion.div
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <motion.div
+            initial={{ scale: 0 }}
+            whileInView={{ scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-full mb-6"
+          >
+            <Zap className="h-8 w-8 text-primary-foreground" />
+          </motion.div>
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+            Skills & Expertise
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Technologies and tools I work with to build amazing digital experiences
+          </p>
+        </motion.div>
+
+        {/* Category Filter */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          viewport={{ once: true }}
+          className="flex justify-center mb-12"
+        >
+          <div className="bg-secondary rounded-lg p-1 flex space-x-1 overflow-x-auto">
+            {skillCategories.map((category) => (
+              <Button
+                key={category.id}
+                variant={selectedCategory === category.id ? 'default' : 'ghost'}
+                onClick={() => setSelectedCategory(category.id)}
+                className="px-4 whitespace-nowrap"
+              >
+                <category.icon className="h-4 w-4 mr-2" />
+                {category.name}
+              </Button>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Skills Grid */}
+        <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
+          viewport={{ once: true }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          {skillsData.map((skill, index) => (
-            <motion.div
-              key={index}
-              className={`bg-[#354F52] rounded-lg shadow-[0_0_10px_#ffffff]  p-5 flex items-center justify-center ${skill.color}`}
-              variants={itemVariants}
-              whileHover={{ scale: 1.1, rotate: 5 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <h3 className="text-xl font-bold">{skill.name}</h3>
-            </motion.div>
+          {getDisplaySkills().map((skill, index) => (
+            <SkillCard key={skill.name} skill={skill} index={index} />
           ))}
+        </motion.div>
+
+        {/* Skills Summary */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          viewport={{ once: true }}
+          className="mt-16"
+        >
+          <div className="bg-gradient-to-r from-primary/10 to-blue-600/10 rounded-2xl p-8 border border-primary/20">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+              <div className="space-y-2">
+                <div className="text-3xl font-bold text-primary">
+                  {Object.values(skills).flat().length}
+                </div>
+                <div className="text-sm text-muted-foreground">Total Skills</div>
+              </div>
+              <div className="space-y-2">
+                <div className="text-3xl font-bold text-primary">
+                  {Math.round(Object.values(skills).flat().reduce((acc, skill) => acc + skill.level, 0) / Object.values(skills).flat().length)}%
+                </div>
+                <div className="text-sm text-muted-foreground">Average Level</div>
+              </div>
+              <div className="space-y-2">
+                <div className="text-3xl font-bold text-primary">
+                  {Object.values(skills).flat().filter(skill => skill.level >= 90).length}
+                </div>
+                <div className="text-sm text-muted-foreground">Expert Level</div>
+              </div>
+              <div className="space-y-2">
+                <div className="text-3xl font-bold text-primary">
+                  {skillCategories.length - 1}
+                </div>
+                <div className="text-sm text-muted-foreground">Categories</div>
+              </div>
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default Skills;
+export default Skills

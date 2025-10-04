@@ -1,105 +1,205 @@
-import React from "react";
-import { motion } from "framer-motion";
-import Button3 from "./Button3";
-import { SiRefinedgithub } from "react-icons/si";
-
-const projectsData = [
-  {
-    image: "/Localshopwala.png",
-    name: "LocalShopWala - AI integrated Grocery App",
-    description:
-      "Empowering Local Businesses: Created an e-commerce platform that enables local shop owners to sell products online, fostering trust and accessibility for nearby customers. Developed a scheduled delivery system covering a 5km radius, catering to small towns where instant and home delivery services are unavailable. AI-Powered Smart Search: This is my future plan to implement machine learning algorithms to enhance product search and recommendations, improving user experience.",
-    github: "https://github.com/singh-gaurav04/LocalShopWala",
-  },
-  {
-    image: "/ochi.png",
-    name: "Awwwarded website clone - OCHI",
-    description: "I developed a clone of the award-winning website Ochi, focusing on its high-quality animations and smooth user interactions. This project enhanced my React animation skills, utilizing Framer Motion and advanced CSS techniques to replicate the fluid experience of the original site. The clone captures the essence of Ochi's modern UI/UX design, improving my expertise in frontend development and micro-interactions.",
-    github: "https://github.com/singh-gaurav04/Ochi-Clone",
-  },
-  {
-    image: "/carPrediction.png",
-    name: "Car Price Prediction",
-    description: "Developed a car price prediction model using Linear Regression with Pandas and Scikit-Learn, providing accurate price of old cars.Full-Stack Implementation: Built a web-based application using React.js + Vite, Flask, and Tailwind CSS, ensuring a smooth and interactive UI/UX.",
-    github: "https://github.com/singh-gaurav04/Car_predictor_app",
-  },
-];
+import React, { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Code, ExternalLink, Github, Star, Calendar, Users, Zap, Eye } from 'lucide-react'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card'
+import { Button } from './ui/button'
+import { portfolioData, animationVariants } from '../data/portfolioData'
 
 const Projects = () => {
+  const [selectedCategory, setSelectedCategory] = useState('all')
+  const { projects } = portfolioData
+
+  // Add more projects to the data
+  const extendedProjects = [
+    ...projects,
+    {
+      id: 4,
+          title: "Car Price Predictor App",
+          description: "A web application that predicts the price of a car based on its features using linear regression.",
+      technologies: ["React", "Node.js", "Machine Learning","Linear Regression","Python","scikit-learn"],
+      github: "https://github.com/singh-gaurav04/Car_predictor_app",
+      demo: "https://github.com/singh-gaurav04/Car_predictor_app",
+      image: "🤖",
+      category: "ai",
+      status: "completed",
+      featured: true
+    },
+   
+  ]
+
+  const categories = [
+    { id: 'all', name: 'All Projects', icon: '🚀' },
+    { id: 'web', name: 'Web Apps', icon: '🌐' },
+    { id: 'mobile', name: 'Mobile Apps', icon: '📱' },
+    { id: 'ai', name: 'AI/ML', icon: '🤖' }
+  ]
+
+  const filteredProjects = selectedCategory === 'all' 
+    ? extendedProjects 
+    : extendedProjects.filter(project => project.category === selectedCategory)
+
+  const featuredProjects = extendedProjects.filter(project => project.featured)
+
+  const containerVariants = animationVariants.container
+  const itemVariants = animationVariants.item
+  const cardVariants = animationVariants.card
+
   return (
-    <div className='py-10'>
-      <div className='container mx-auto px-5'>
-        <motion.h2
-          className='text-4xl font-bold text-center mb-8 text-white'
-          initial={{ opacity: 0, y: -20 }}
+    <section id="projects" className=" px-4 bg-gradient-to-br from-background to-secondary/20">
+      <div className="container mx-auto">
+
+
+        {/* Category Filter */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          viewport={{ once: true }}
+          className="flex justify-center mb-12"
         >
-          My Projects
-        </motion.h2>
-        <motion.div 
-        initial={{opacity:0}}
-        whileInView={{opacity:1}}
-        transition={{duration:0.5}}
-        className='space-y-10'>
-          {projectsData.map((project, index) => (
-            <motion.div
-              key={index}
-              className={`flex flex-col ${
-                index % 2 === 0 ? "md:flex-row " : "md:flex-row-reverse "
-              } items-center  rounded-lg  overflow-hidden py-[4vw] `}
-              whileHover={{ scale: 1.02 }}
-              transition={{ duration: 0.3 }}
-            >
-              {/* //left side */}
-              {/* Image Section */}
-              <motion.div
-                className='flex-shrink-0 w-full md:w-1/2 flex items-center justify-center p-4'
-                initial={{ y: -10 }}
-                animate={{
-                  
-                  y: 0,
-                  transition: {
-                    duration: 0.6,
-                    repeat: Infinity,
-                    repeatType: "reverse",
-                    ease: "easeInOut",
-                  },
-                }}
+          <div className="bg-secondary rounded-lg p-1 flex space-x-1 overflow-x-auto">
+            {categories.map((category) => (
+              <Button
+                key={category.id}
+                variant={selectedCategory === category.id ? 'default' : 'ghost'}
+                onClick={() => setSelectedCategory(category.id)}
+                className="px-4 whitespace-nowrap"
               >
-                <img
-                  src={project.image}
-                  alt={project.name}
-                  className='w-[70%] h-auto max-h-[250px] object-cover rounded-lg
-                  shadow-[0_0_10px_#ffffff]
-                  -rotate-3 blur-[0.8px]'
-                />
+                <span className="mr-2">{category.icon}</span>
+                {category.name}
+              </Button>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* All Projects Grid */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          <AnimatePresence mode="wait">
+            {filteredProjects.map((project, index) => (
+              <motion.div
+                key={project.id}
+                variants={itemVariants}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
+                whileHover={{ y: -5 }}
+                className="group"
+              >
+                <Card className="h-full hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/50">
+                  <CardHeader>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-3xl">{project.image}</span>
+                      <div className="flex space-x-2">
+                        <motion.a
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.95 }}
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-2 rounded-full bg-secondary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+                        >
+                          <Github className="h-4 w-4" />
+                        </motion.a>
+                        <motion.a
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.95 }}
+                          href={project.demo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-2 rounded-full bg-secondary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+                        >
+                          <ExternalLink className="h-4 w-4" />
+                        </motion.a>
+                      </div>
+                    </div>
+                    <CardTitle className="group-hover:text-primary transition-colors">
+                      {project.title}
+                    </CardTitle>
+                    <div className="flex items-center space-x-2 mt-2">
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                        project.status === 'completed' 
+                          ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+                          : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
+                      }`}>
+                        {project.status === 'completed' ? 'Completed' : 'In Progress'}
+                      </span>
+                      <span className="text-xs text-muted-foreground">
+                        {project.category}
+                      </span>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <CardDescription className="text-sm leading-relaxed">
+                      {project.description}
+                    </CardDescription>
+                    
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-2 text-sm">Technologies:</h4>
+                      <div className="flex flex-wrap gap-1">
+                        {project.technologies.map((tech) => (
+                          <span
+                            key={tech}
+                            className="px-2 py-1 bg-secondary rounded text-xs text-foreground"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
               </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
 
-              {/* Content Section */}
-              <div className='flex flex-col gap-[1vw]  p-5 w-full md:w-1/2'>
-                <h3 className='text-3xl mb-2 text-center font-bold text-white'>
-                  {project.name}
-                </h3>
-                <p className='text-[#967AA1] text-center mb-4'>
-                  {project.description}
-                </p>
-
-                <a
-                  href={project.github}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className="flex justify-center"
-                >
-                  <Button3 name='View Code' icon={SiRefinedgithub} />
-                </a>
-              </div>
-            </motion.div>
-          ))}
+        {/* Call to Action */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          viewport={{ once: true }}
+          className="text-center mt-16"
+        >
+          <div className="bg-gradient-to-r from-primary/10 to-blue-600/10 rounded-2xl p-8 border border-primary/20">
+            <h3 className="text-2xl font-bold text-foreground mb-4">
+              Interested in Collaborating?
+            </h3>
+            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+              I'm always excited to work on new projects and explore innovative solutions. 
+              Let's discuss how we can bring your ideas to life!
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button 
+                size="lg"
+                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                className="group"
+              >
+                <Eye className="mr-2 h-4 w-4 group-hover:animate-pulse" />
+                View More Projects
+              </Button>
+              <Button 
+                variant="outline" 
+                size="lg"
+                onClick={() => window.open("https://github.com/singh-gaurav04", '_blank')}
+                className="group"
+              >
+                <Github className="mr-2 h-4 w-4 group-hover:animate-bounce" />
+                GitHub Profile
+              </Button>
+            </div>
+          </div>
         </motion.div>
       </div>
-    </div>
-  );
-};
+    </section>
+  )
+}
 
-export default Projects;
+export default Projects

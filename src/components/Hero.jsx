@@ -1,119 +1,193 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
-import { Pagination, Autoplay } from "swiper/modules";
-import Button2 from "./Button2";
-import Button1 from "./Button1";
-
-const photos = [
-  "/IMG_20240914_134557514.jpg",
-  "/IMG_20230506_111823338.jpg",
-  "/Screenshot_20241229-141117.png",
-  "/IMG_20240309_144317531.jpg",
-  "/20240611_215645.jpg",
-  "/Screenshot_20241229-141418.png",
-];
+import React from 'react'
+import { motion } from 'framer-motion'
+import { Download, Github, Linkedin, Mail, MapPin, Calendar } from 'lucide-react'
+import { Button } from './ui/button'
+import { portfolioData, animationVariants } from '../data/portfolioData'
 
 const Hero = () => {
-  const text = "Full_Stack_Developer";
+  const { personal, social } = portfolioData
+  const containerVariants = animationVariants.container
+  const itemVariants = animationVariants.item
+  const imageVariants = animationVariants.image
 
   return (
-    <motion.section
-      className='flex flex-col gap-4 md:flex-row items-center py-[5vw] justify-between h-auto md:px-8 rounded-2xl'
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 3 }}
-    >
-      {/* Left Section: Text and Button */}
-      <div className='flex flex-col text-white items-start justify-center px-[3vw] w-full md:w-1/2 space-y-6 text-left md:px-[1vw]'>
-        <motion.h1
-          className='text-5xl font-bold '
-          initial={{ x: -100, opacity: 0 }}
-          whileInView={{ x: 0, opacity: 1 }}
-          transition={{ duration: 1 }}
+    <section id="about" className="min-h-screen flex items-center justify-center pt-16 pb-20 px-4">
+      <div className="container mx-auto">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="grid lg:grid-cols-2 gap-12 items-center"
         >
-          I'm {" "}
-          <span className='font-bold text-[#d91414]'>
-            {text.split("").map((char, index) => (
-              <motion.span
-                key={index}
-                initial={{opacity:0, y: -20 }} // Fixed x value
-                animate={{opacity:1, y: 0 }}
-                transition={{
-                  delay: index * 0.1, // Staggered animation for smooth effect
-                  duration: 0.3,
-                  ease: "easeInOut",
-                  repeat: Infinity, // Keeps repeating
-                  repeatDelay: 3, // Adds a delay between repeats
-                }}
-                style={{ display: "inline-block" }} // Prevents spacing issues
+          {/* Content */}
+          <div className="space-y-8">
+            <motion.div variants={itemVariants} className="space-y-4">
+              <motion.h1 
+                variants={itemVariants}
+                className="text-4xl md:text-6xl font-bold text-foreground leading-tight"
               >
-                {char}
-              </motion.span>
-            ))}
-          </span>
-        </motion.h1>
+                Hi, I'm{' '}
+                <span className="text-primary">{personal.name}</span>
+              </motion.h1>
+              <motion.h2 
+                variants={itemVariants}
+                className="text-2xl md:text-3xl text-muted-foreground font-medium"
+              >
+                {personal.title}
+              </motion.h2>
+            </motion.div>
 
-        <motion.p
-          className='text-md text-left text-[#967AA1]'
-          initial={{ x: -100, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 1, delay: 0.2 }}
-        >
-          I'm <span className="font-bold  text-[#99a2dd]">Gaurav singh</span>, a third-year B. Tech student in the Artificial
-          Intelligence and Machine Learning <span className="font-bold text-[#77df93]">(AIML)</span> department at Lakshmi Narain
-          College of Technology, Bhopal. My skills span multiple programming
-          languages, including <span className="text-red-400 bold">C++</span> and <span className="font-bold text-pink-600">Python</span>, and I have a solid
-          understanding of data structures and algorithms. I have also worked on
-          frontend projects as well as <span className="font-bold text-cyan-400">Full Stack Projects</span>, which have strengthened my development expertise. I
-          enjoy problem-solving and am passionate about learning new
-          technologies to build innovative solutions.
-        </motion.p>
-        <div className='flex space-x-4'>
-          <a href='/gaurav_resume.pdf' download>
-            <Button2 name='Resume' />
-          </a>
-          <a href='https://www.linkedin.com/in/gaurav26lnct/' target="_blank">
-            <Button1 />
-          </a>
-        </div>
-      </div>
+            <motion.p 
+              variants={itemVariants}
+              className="text-lg text-muted-foreground leading-relaxed max-w-2xl"
+            >
+              {personal.bio}
+            </motion.p>
 
-      {/* Right Section: Swiper Slider */}
-      <Swiper
-        modules={[Pagination, Autoplay]}
-        spaceBetween={2}
-        slidesPerView={1}
-        pagination={{ clickable: true }}
-        autoplay={{ delay: 1000, disableOnInteraction: true }}
-        className='rounded-lg overflow-hidden w-full md:w-1/2'
-      >
-        {photos.map((photo, index) => (
-          <SwiperSlide
-            key={index}
-            modules={[Pagination, Autoplay]}
-            spaceBetween={30}
-            slidesPerView={1}
-            pagination={{ clickable: true }}
-            autoplay={{ delay: 1000, disableOnInteraction: true }}
-            className='rounded-lg overflow-hidden '
+            {/* Quick Info */}
+            <motion.div 
+              variants={itemVariants}
+              className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+            >
+              <div className="flex items-center space-x-3 text-muted-foreground">
+                <MapPin className="h-5 w-5 text-primary" />
+                <span>{personal.location}</span>
+              </div>
+              <div className="flex items-center space-x-3 text-muted-foreground">
+                <Calendar className="h-5 w-5 text-primary" />
+                <span>Expected Graduation: {personal.graduationYear}</span>
+              </div>
+            </motion.div>
+
+            {/* Action Buttons */}
+            <motion.div 
+              variants={itemVariants}
+              className="flex flex-col sm:flex-row gap-4"
+            >
+              <Button 
+                size="lg" 
+                className="group"
+                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                <Mail className="mr-2 h-4 w-4 group-hover:animate-pulse" />
+                Get In Touch
+              </Button>
+              <Button 
+                variant="outline" 
+                size="lg"
+                className="group"
+                onClick={() => window.open(personal.resumeUrl, '_blank')}
+              >
+                <Download className="mr-2 h-4 w-4 group-hover:animate-bounce" />
+                Download Resume
+              </Button>
+            </motion.div>
+
+            {/* Social Links */}
+            <motion.div 
+              variants={itemVariants}
+              className="flex space-x-4"
+            >
+              <motion.a
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                whileTap={{ scale: 0.95 }}
+                href={social.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 rounded-full bg-secondary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+              >
+                <Github className="h-6 w-6" />
+              </motion.a>
+              <motion.a
+                whileHover={{ scale: 1.1, rotate: -5 }}
+                whileTap={{ scale: 0.95 }}
+                href={social.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 rounded-full bg-secondary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+              >
+                <Linkedin className="h-6 w-6" />
+              </motion.a>
+              <motion.a
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                whileTap={{ scale: 0.95 }}
+                href={social.email}
+                className="p-3 rounded-full bg-secondary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+              >
+                <Mail className="h-6 w-6" />
+              </motion.a>
+            </motion.div>
+          </div>
+
+          {/* Profile Image */}
+          <motion.div 
+            variants={imageVariants}
+            className="flex justify-center lg:justify-end"
           >
-            <div className='flex justify-center items-center py-8'>
-              <motion.img
-                whileHover={{ scale: 1.1 }}
-                transition={{ duration: 0.3 }}
-                src={photo}
-                alt='slider'
-                className='w-[70%] h-[350px] object-cover shadow-[0_0_10px_#ffffff] blur-[1px] rounded-lg contrast-125'
+            <div className="relative">
+              <motion.div
+                animate={{ 
+                  rotate: [0, 5, -5, 0],
+                }}
+                transition={{ 
+                  duration: 6,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+                className="absolute inset-0 bg-gradient-to-r from-primary to-blue-600 rounded-full blur-3xl opacity-20 scale-110"
               />
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="relative w-80 h-80 rounded-full overflow-hidden border-4 border-primary/20 shadow-2xl"
+              >
+                <img
+                  src={personal.profileImage}
+                  alt={personal.name}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    console.error('Profile image failed to load:', personal.profileImage);
+                    e.target.src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face';
+                  }}
+                />
+              </motion.div>
+              
+              {/* Floating Elements */}
+              <motion.div
+                animate={{ 
+                  y: [0, -20, 0],
+                  rotate: [0, 10, 0]
+                }}
+                transition={{ 
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+                className="absolute -top-4 -right-4 w-16 h-16 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold text-lg shadow-lg"
+              >
+                💻
+              </motion.div>
+              
+              <motion.div
+                animate={{ 
+                  y: [0, 15, 0],
+                  rotate: [0, -10, 0]
+                }}
+                transition={{ 
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 1
+                }}
+                className="absolute -bottom-4 -left-4 w-12 h-12 bg-secondary rounded-full flex items-center justify-center text-foreground font-bold shadow-lg"
+              >
+                🚀
+              </motion.div>
             </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </motion.section>
-  );
-};
+          </motion.div>
+        </motion.div>
+      </div>
+    </section>
+  )
+}
 
-export default Hero;
+export default Hero
