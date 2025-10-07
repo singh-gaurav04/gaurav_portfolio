@@ -10,7 +10,13 @@ export const portfolioData = {
     email: "gaurav26lnct@gmail.com",
     phone: "+91 7479582593",
     profileImage: "/assets/images/profile.png",
-    resumeUrl: "/assets/documents/resume.pdf"
+    resumeUrl: "/assets/documents/resume.pdf",
+    placementStatus: {
+      isPlaced: true,
+      status: "Open to work",
+      company: "",
+      role: ""
+    }
   },
 
   // Social Media Links

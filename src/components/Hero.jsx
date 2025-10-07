@@ -1,6 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Download, Github, Linkedin, Mail, MapPin, Calendar } from 'lucide-react'
+import { Download, Github, Linkedin, Mail, MapPin, Calendar, Code, Briefcase } from 'lucide-react'
 import { Button } from './ui/button'
 import { portfolioData, animationVariants } from '../data/portfolioData'
 
@@ -80,6 +80,38 @@ const Hero = () => {
               >
                 <Download className="mr-2 h-4 w-4 group-hover:animate-bounce" />
                 Download Resume
+              </Button>
+            </motion.div>
+
+            {/* Additional Info Buttons */}
+            <motion.div 
+              variants={itemVariants}
+              className="flex flex-col sm:flex-row gap-4"
+            >
+              <Button 
+                variant="secondary" 
+                size="lg"
+                className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white border-0"
+                onClick={() => window.open(social.Leetcode, '_blank')}
+              >
+                <Code className="mr-2 h-4 w-4" />
+                LeetCode Profile
+              </Button>
+              <Button 
+                variant="secondary" 
+                size="lg"
+                className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white border-0"
+                onClick={() => {
+                  if (personal.placementStatus.isPlaced == "Placed") {
+                    alert(`Placed at ${personal.placementStatus.company} as ${personal.placementStatus.role}`);
+                  } else {
+                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                  }
+                 
+                }}
+              >
+                <Briefcase className="mr-2 h-4 w-4" />
+                {personal.placementStatus.status}
               </Button>
             </motion.div>
 
