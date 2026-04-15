@@ -197,7 +197,7 @@ const Footer = () => {
       </div>
 
       {/* Back to Top Button */}
-      <motion.div
+      {/* <motion.div
         initial={{ opacity: 0, scale: 0 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 1 }}
@@ -212,7 +212,7 @@ const Footer = () => {
         >
           <ArrowUp className="h-5 w-5" />
         </motion.button>
-      </motion.div>
+      </motion.div> */}
     </footer>
   )
 }

@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/
 import { Button } from './ui/button'
 import { portfolioData, animationVariants } from '../data/portfolioData'
 
-const Projects = () => {
+const Projects = ({ openBot }) => {
   const [selectedCategory, setSelectedCategory] = useState('all')
   const { projects } = portfolioData
 
@@ -139,6 +139,21 @@ const Projects = () => {
                     <CardDescription className="text-sm leading-relaxed">
                       {project.description}
                     </CardDescription>
+
+                    {project.title.toLowerCase().includes('ai personal assistant') && (
+                      <Button
+                        type="button"
+                        variant="secondary"
+                        size="sm"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          openBot?.()
+                        }}
+                        className="w-full"
+                      >
+                        Open Assistant
+                      </Button>
+                    )}
                     
                     <div>
                       <h4 className="font-semibold text-foreground mb-2 text-sm">Technologies:</h4>
