@@ -1,0 +1,18 @@
+# Resume/CV Placeholder
+
+Replace this file with your actual resume or CV.
+
+Recommended specifications:
+- Format: PDF (preferred) or DOC/DOCX
+- File size: < 2MB
+- Name: resume.pdf or cv.pdf
+
+Example usage in code:
+```javascript
+resumeUrl: "/assets/documents/resume.pdf"
+```
+
+For download links in components:
+```jsx
+<a href="/assets/documents/resume.pdf" download>Download Resume</a>
+```

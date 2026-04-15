@@ -3,17 +3,17 @@ export const portfolioData = {
   // Personal Information
   personal: {
     name: "Gaurav Singh",
-    title: "Artificial Intelligence and Machine Learning Student",
-    bio: "Passionate about Java Software Development Machine learning, and creating innovative solutions. Currently pursuing my Bachelor's in Computer Engineering with a focus on full-stack development and emerging technologies.",
-    location: "Bhopal, Madhya Pradesh",
+    title: "Aspiring AI/ML Engineer | Generative AI Enthusiast",
+    bio: "Passionate about Artificial Intelligence, Machine Learning, and Backend Development, with a strong interest in building intelligent and scalable applications. Currently pursuing my Bachelor's in Computer Engineering with a focus on AI/ML and full-stack development. Skilled in Java, Python, and modern AI technologies like FastAPI, LangChain, and Generative AI. Actively seeking AI/ML Engineer and Generative AI roles to create impactful real-world solutions.",
+    location: "Bengaluru, Karnataka",
     graduationYear: "2026",
     email: "gaurav26lnct@gmail.com",
     phone: "+91 7479582593",
     profileImage: "/assets/images/profile.png",
     resumeUrl: "/assets/documents/resume.pdf",
     placementStatus: {
-      isPlaced: true,
-      status: "Open to work",
+      isPlaced: false,
+      status: "Actively seeking AI/ML roles",
       company: "",
       role: ""
     }
@@ -64,11 +64,31 @@ export const portfolioData = {
       title: "AWS Certified Solutions Architect",
       issuer: "AWS",
       date: "2024",
-      description: "cloud platform certification",
+      description: "Cloud platform certification",
       credentialId: "--",
       link: "https://www.credly.com/go/hh50F4n0",
-      icon: "🗄️"
+      icon: "☁️"
     },
+    {
+      id: 5,
+      title: "FastAPI Development",
+      issuer: "Udemy",
+      date: "2025",
+      description: "Built high-performance APIs for AI/ML applications using FastAPI",
+      credentialId: "--",
+      link: "#",
+      icon: "⚡"
+    },
+    {
+      id: 6,
+      title: "Generative AI Fundamentals",
+      issuer: "Udemy",
+      date: "2025",
+      description: "Learned LLMs, prompt engineering, and AI-powered application development",
+      credentialId: "--",
+      link: "#",
+      icon: "🤖"
+    }
   ],
 
   // Skills Data
@@ -76,6 +96,7 @@ export const portfolioData = {
     programming: [
       { name: 'Java', level: 90, icon: '☕' },
       { name: 'C++', level: 85, icon: '⚡' },
+      { name: 'Python', level: 85, icon: '🐍' },
       { name: 'JavaScript', level: 80, icon: '🟨' },
       { name: 'HTML', level: 85, icon: '🌐' },
       { name: 'CSS', level: 80, icon: '🎨' }
@@ -86,7 +107,8 @@ export const portfolioData = {
       { name: 'React.js', level: 82, icon: '⚛️' },
       { name: 'Express.js', level: 80, icon: '🚀' },
       { name: 'Node.js', level: 78, icon: '🟢' },
-      { name: 'Hibernate', level: 75, icon: '🗄️' }
+      { name: 'Hibernate', level: 75, icon: '🗄️' },
+      { name: 'FastAPI', level: 85, icon: '⚡' }
     ],
     tools: [
       { name: 'MySQL', level: 85, icon: '🐬' },
@@ -94,7 +116,12 @@ export const portfolioData = {
       { name: 'Git', level: 88, icon: '📝' },
       { name: 'IntelliJ IDEA', level: 90, icon: '💡' },
       { name: 'VS Code', level: 85, icon: '💻' },
-      { name: 'Postman', level: 80, icon: '📮' }
+      { name: 'Postman', level: 80, icon: '📮' },
+      { name: 'LangChain', level: 75, icon: '🔗' },
+      { name: 'OpenAI API', level: 75, icon: '🤖' },
+      { name: 'Pandas', level: 70, icon: '📊' },
+      { name: 'NumPy', level: 70, icon: '🔢' },
+      { name: 'Scikit-learn', level: 70, icon: '📈' }
     ]
   },
 
@@ -118,10 +145,22 @@ export const portfolioData = {
     }
   ],
 
-  // Projects Data
+  // Projects Data (unchanged)
   projects: [
     {
-      id: 1,
+  id: 1,
+  title: "AI Personal Assistant Chatbot",
+  description: "Developed an AI-powered personal assistant chatbot capable of answering queries based on user context using LLMs and Retrieval-Augmented Generation (RAG). Integrated FastAPI backend with a responsive frontend to deliver real-time conversational experience. Implemented prompt engineering, API handling, and optimized response generation for intelligent interactions.",
+  technologies: ["Python", "FastAPI", "LangChain", "OpenAI API", "React.js"],
+  github: "#",
+  demo: "#",
+  image: "🤖",
+  category: "ai",
+  status: "completed",
+  featured: true
+},
+    {
+      id: 3,
       title: "Job Portal App",
       description: "Full-stack Job Portal application featuring modules for user registration, job posting, and admin controls with JWT-based authentication and role-based authorization.",
       technologies: ["Java", "Spring Boot", "Spring Security", "React.js", "MongoDB"],
@@ -150,7 +189,7 @@ export const portfolioData = {
   contact: {
     email: "gaurav26lnct@gmail.com",
     phone: "+91 7479582593",
-    location: "Bhopal, Madhya Pradesh",
+    location: "Bengaluru, Karnataka",
     responseTime: "I typically respond within 24 hours"
   },
 
