@@ -1,0 +1,14 @@
+# Profile Image Placeholder
+
+Replace this file with your actual profile image.
+
+Recommended specifications:
+- Format: JPG or PNG
+- Size: 400x400 pixels (square)
+- File size: < 500KB
+- Name: profile.jpg or profile.png
+
+Example usage in code:
+```javascript
+profileImage: "/assets/images/profile.jpg"
+```

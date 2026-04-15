@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Menu, X, Code, Sun, Moon } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import { Button } from './ui/button'
 import { useTheme } from '../contexts/ThemeContext'
 import { portfolioData } from '../data/portfolioData'
@@ -9,6 +10,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const { isDarkMode, toggleTheme } = useTheme()
+  const navigate = useNavigate()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,13 +20,13 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const navItems = portfolioData.navigation
+  const navItems = portfolioData.navigation.map((item) => ({
+    ...item,
+    path: item.href === '#about' ? '/' : item.href.replace('#', '/')
+  }))
 
-  const scrollToSection = (href) => {
-    const element = document.querySelector(href)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
-    }
+  const navigateTo = (path) => {
+    navigate(path)
     setIsOpen(false)
   }
 
@@ -57,14 +59,14 @@ const Navbar = () => {
                 key={item.name}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => scrollToSection(item.href)}
+                onClick={() => navigateTo(item.path)}
                 className="text-foreground hover:text-primary transition-colors duration-200 font-medium"
               >
                 {item.name}
               </motion.button>
             ))}
             <Button 
-              onClick={() => scrollToSection('#contact')}
+              onClick={() => navigateTo('/contact')}
               className="ml-4"
             >
               Get In Touch
@@ -107,14 +109,14 @@ const Navbar = () => {
               <motion.button
                 key={item.name}
                 whileHover={{ x: 10 }}
-                onClick={() => scrollToSection(item.href)}
+                onClick={() => navigateTo(item.path)}
                 className="block w-full text-left text-foreground hover:text-primary transition-colors duration-200 font-medium py-2"
               >
                 {item.name}
               </motion.button>
             ))}
             <Button 
-              onClick={() => scrollToSection('#contact')}
+              onClick={() => navigateTo('/contact')}
               className="w-full mt-4"
             >
               Get In Touch
