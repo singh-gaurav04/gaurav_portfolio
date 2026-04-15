@@ -37,7 +37,7 @@ const Navbar = () => {
       transition={{ duration: 0.5 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled 
-          ? 'bg-background/95 backdrop-blur-md border-b border-border shadow-lg' 
+          ? 'bg-background/95 backdrop-blur-sm border-b-4 border-black shadow-[8px_8px_0px_rgba(0,0,0,0.12)]' 
           : 'bg-transparent'
       }`}
     >
@@ -60,7 +60,7 @@ const Navbar = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => navigateTo(item.path)}
-                className="text-foreground hover:text-primary transition-colors duration-200 font-medium"
+                className="text-foreground hover:text-primary transition-all duration-200 font-semibold"
               >
                 {item.name}
               </motion.button>
@@ -77,7 +77,7 @@ const Navbar = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={toggleTheme}
-              className="ml-4 p-2 rounded-lg bg-secondary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+              className="ml-4 p-2 rounded-sm border-2 border-black bg-secondary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
               aria-label="Toggle dark mode"
             >
               {isDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
@@ -88,7 +88,7 @@ const Navbar = () => {
           <motion.button
             whileTap={{ scale: 0.95 }}
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-md text-foreground hover:text-primary transition-colors"
+            className="md:hidden p-2 rounded-sm border-2 border-black text-foreground hover:text-primary transition-all duration-200"
           >
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </motion.button>
@@ -102,7 +102,7 @@ const Navbar = () => {
             height: isOpen ? 'auto' : 0 
           }}
           transition={{ duration: 0.3 }}
-          className="md:hidden overflow-hidden bg-background/95 backdrop-blur-md border-t border-border"
+          className="md:hidden overflow-hidden bg-background/95 backdrop-blur-sm border-t-4 border-black"
         >
           <div className="px-4 py-4 space-y-4">
             {navItems.map((item) => (
@@ -127,7 +127,7 @@ const Navbar = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={toggleTheme}
-              className="w-full mt-4 p-3 rounded-lg bg-secondary hover:bg-primary hover:text-primary-foreground transition-all duration-300 flex items-center justify-center space-x-2"
+              className="w-full mt-4 p-3 rounded-sm border-2 border-black bg-secondary hover:bg-primary hover:text-primary-foreground transition-all duration-300 flex items-center justify-center space-x-2"
             >
               {isDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
               <span>{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>

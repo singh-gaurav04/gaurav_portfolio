@@ -11,7 +11,7 @@ const Hero = () => {
   const imageVariants = animationVariants.image
 
   return (
-    <section id="about" className="min-h-screen flex items-center justify-center pt-16 pb-20 px-4">
+    <section id="about" className="min-h-screen flex items-center justify-center pt-16 pb-20 px-4 bg-background">
       <div className="container mx-auto">
         <motion.div
           variants={containerVariants}
@@ -126,7 +126,7 @@ const Hero = () => {
                 href={social.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-full bg-secondary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+                className="p-3 rounded-sm border-2 border-black bg-secondary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
               >
                 <Github className="h-6 w-6" />
               </motion.a>
@@ -136,7 +136,7 @@ const Hero = () => {
                 href={social.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-full bg-secondary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+                className="p-3 rounded-sm border-2 border-black bg-secondary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
               >
                 <Linkedin className="h-6 w-6" />
               </motion.a>
@@ -144,7 +144,7 @@ const Hero = () => {
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 whileTap={{ scale: 0.95 }}
                 href={social.email}
-                className="p-3 rounded-full bg-secondary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+                className="p-3 rounded-sm border-2 border-black bg-secondary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
               >
                 <Mail className="h-6 w-6" />
               </motion.a>
@@ -170,7 +170,7 @@ const Hero = () => {
               />
               <motion.div
                 whileHover={{ scale: 1.05 }}
-                className="relative w-80 h-80 rounded-full overflow-hidden border-4 border-primary/20 shadow-2xl"
+                className="relative w-80 h-80 rounded-2xl overflow-hidden border-4 border-black shadow-[15px_15px_0px_rgba(0,0,0,0.75)]"
               >
                 <img
                   src={personal.profileImage}
@@ -194,7 +194,7 @@ const Hero = () => {
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}
-                className="absolute -top-4 -right-4 w-16 h-16 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold text-lg shadow-lg"
+                className="absolute -top-4 -right-4 w-16 h-16 bg-primary rounded-2xl border-2 border-black flex items-center justify-center text-primary-foreground font-bold text-lg shadow-[6px_6px_0px_rgba(0,0,0,0.45)]"
               >
                 💻
               </motion.div>
@@ -210,7 +210,7 @@ const Hero = () => {
                   ease: "easeInOut",
                   delay: 1
                 }}
-                className="absolute -bottom-4 -left-4 w-12 h-12 bg-secondary rounded-full flex items-center justify-center text-foreground font-bold shadow-lg"
+                className="absolute -bottom-4 -left-4 w-12 h-12 bg-secondary rounded-2xl border-2 border-black flex items-center justify-center text-foreground font-bold shadow-[6px_6px_0px_rgba(0,0,0,0.45)]"
               >
                 🚀
               </motion.div>

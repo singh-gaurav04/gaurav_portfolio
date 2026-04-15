@@ -57,13 +57,13 @@ const Projects = ({ openBot }) => {
           viewport={{ once: true }}
           className="flex justify-center mb-12"
         >
-          <div className="bg-secondary rounded-lg p-1 flex space-x-1 overflow-x-auto">
+          <div className="bg-secondary rounded-sm border-4 border-black p-1 flex space-x-1 overflow-x-auto">
             {categories.map((category) => (
               <Button
                 key={category.id}
                 variant={selectedCategory === category.id ? 'default' : 'ghost'}
                 onClick={() => setSelectedCategory(category.id)}
-                className="px-4 whitespace-nowrap"
+                className="px-4 whitespace-nowrap border-2 border-black"
               >
                 <span className="mr-2">{category.icon}</span>
                 {category.name}
@@ -92,7 +92,7 @@ const Projects = ({ openBot }) => {
                 whileHover={{ y: -5 }}
                 className="group"
               >
-                <Card className="h-full hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/50">
+                <Card className="h-full hover:shadow-[15px_15px_0px_rgba(0,0,0,0.75)] transition-all duration-300 border-4 border-black hover:border-primary/50">
                   <CardHeader>
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-3xl">{project.image}</span>
@@ -103,7 +103,7 @@ const Projects = ({ openBot }) => {
                           href={project.github}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-2 rounded-full bg-secondary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+                          className="p-2 rounded-sm border-2 border-black bg-secondary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
                         >
                           <Github className="h-4 w-4" />
                         </motion.a>
@@ -113,7 +113,7 @@ const Projects = ({ openBot }) => {
                           href={project.demo}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-2 rounded-full bg-secondary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+                          className="p-2 rounded-sm border-2 border-black bg-secondary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
                         >
                           <ExternalLink className="h-4 w-4" />
                         </motion.a>
@@ -123,7 +123,7 @@ const Projects = ({ openBot }) => {
                       {project.title}
                     </CardTitle>
                     <div className="flex items-center space-x-2 mt-2">
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      <span className={`px-2 py-1 rounded-sm border-2 border-black text-xs font-medium ${
                         project.status === 'completed' 
                           ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
                           : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
@@ -161,7 +161,7 @@ const Projects = ({ openBot }) => {
                         {project.technologies.map((tech) => (
                           <span
                             key={tech}
-                            className="px-2 py-1 bg-secondary rounded text-xs text-foreground"
+                            className="px-2 py-1 bg-secondary border-2 border-black rounded-sm text-xs text-foreground"
                           >
                             {tech}
                           </span>
@@ -183,7 +183,7 @@ const Projects = ({ openBot }) => {
           viewport={{ once: true }}
           className="text-center mt-16"
         >
-          <div className="bg-gradient-to-r from-primary/10 to-blue-600/10 rounded-2xl p-8 border border-primary/20">
+          <div className="bg-gradient-to-r from-primary/10 to-blue-600/10 rounded-sm p-8 border-4 border-black">
             <h3 className="text-2xl font-bold text-foreground mb-4">
               Interested in Collaborating?
             </h3>
