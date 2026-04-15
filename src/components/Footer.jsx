@@ -55,7 +55,7 @@ const Footer = () => {
   const itemVariants = animationVariants.item
 
   return (
-    <footer className="bg-background border-t border-border">
+    <footer className="bg-background border-t-4 border-black">
       <div className="container mx-auto px-4 py-16">
         <motion.div
           variants={containerVariants}
@@ -83,7 +83,7 @@ const Footer = () => {
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  className={`p-3 rounded-full bg-secondary hover:bg-primary hover:text-primary-foreground transition-all duration-300 ${social.color}`}
+                  className={`p-3 rounded-sm border-2 border-black bg-secondary hover:bg-primary hover:text-primary-foreground transition-all duration-300 ${social.color}`}
                   aria-label={social.name}
                 >
                   <social.icon className="h-5 w-5" />
@@ -173,7 +173,7 @@ const Footer = () => {
           viewport={{ once: true }}
           className="mt-12 pt-8 border-t border-border"
         >
-          <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+          <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 border-t-4 border-black pt-8">
             <div className="flex items-center space-x-2 text-muted-foreground">
               <span>© 2025 {personal.name}. Made with</span>
               <motion.div

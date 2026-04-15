@@ -173,13 +173,13 @@ const Contact = () => {
                   whileHover={{ x: 10 }}
                   className="block"
                 >
-                  <Card className="hover:shadow-lg transition-all duration-300 border-2 hover:border-primary/50 group">
+                  <Card className="hover:shadow-[15px_15px_0px_rgba(0,0,0,0.75)] transition-all duration-300 border-4 border-black group">
                     <CardContent className="p-6">
                       <div className="flex items-center space-x-4">
                         <motion.div
                           whileHover={{ rotate: 360 }}
                           transition={{ duration: 0.6 }}
-                          className="p-3 rounded-full bg-primary/10 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300"
+                          className="p-3 rounded-sm border-2 border-black bg-primary/10 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300"
                         >
                           <info.icon className="h-6 w-6" />
                         </motion.div>
@@ -211,7 +211,7 @@ const Contact = () => {
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.1, y: -2 }}
                     whileTap={{ scale: 0.95 }}
-                    className={`p-3 rounded-full bg-secondary hover:bg-primary hover:text-primary-foreground transition-all duration-300 ${social.color}`}
+                    className={`p-3 rounded-sm border-2 border-black bg-secondary hover:bg-primary hover:text-primary-foreground transition-all duration-300 ${social.color}`}
                   >
                     <social.icon className="h-6 w-6" />
                   </motion.a>
@@ -268,7 +268,7 @@ const Contact = () => {
                       <motion.div
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg"
+                        className="p-4 bg-red-50 dark:bg-red-900/20 border-4 border-black rounded-sm"
                       >
                         <div className="flex items-center">
                           <div className="flex-shrink-0">

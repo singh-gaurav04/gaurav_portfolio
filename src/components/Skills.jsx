@@ -36,7 +36,7 @@ const Skills = () => {
       whileHover={{ y: -5, scale: 1.02 }}
       className="group"
     >
-      <Card className="h-full hover:shadow-lg transition-all duration-300 border hover:border-primary/50 bg-gradient-to-br from-background to-secondary/20">
+      <Card className="h-full hover:shadow-[15px_15px_0px_rgba(0,0,0,0.75)] transition-all duration-300 border-4 border-black hover:border-primary/50 bg-gradient-to-br from-background to-secondary/20">
         <CardContent className="p-6">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-3">
@@ -50,12 +50,12 @@ const Skills = () => {
             </span>
           </div>
           
-          <div className="w-full bg-secondary rounded-full h-2">
+          <div className="w-full bg-secondary rounded-sm h-2 overflow-hidden">
             <motion.div
               initial={{ width: 0 }}
               animate={{ width: `${skill.level}%` }}
               transition={{ duration: 1, delay: index * 0.1 + 0.3 }}
-              className="h-2 bg-gradient-to-r from-primary to-blue-600 rounded-full"
+              className="h-2 bg-gradient-to-r from-primary to-blue-600 rounded-sm"
             />
           </div>
         </CardContent>
@@ -79,7 +79,7 @@ const Skills = () => {
             whileInView={{ scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             viewport={{ once: true }}
-            className="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-full mb-6"
+            className="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-sm mb-6 border-2 border-black"
           >
             <Zap className="h-8 w-8 text-primary-foreground" />
           </motion.div>
@@ -99,13 +99,13 @@ const Skills = () => {
           viewport={{ once: true }}
           className="flex justify-center mb-12"
         >
-          <div className="bg-secondary rounded-lg p-1 flex space-x-1 overflow-x-auto">
+          <div className="bg-secondary rounded-sm border-4 border-black p-1 flex space-x-1 overflow-x-auto">
             {skillCategories.map((category) => (
               <Button
                 key={category.id}
                 variant={selectedCategory === category.id ? 'default' : 'ghost'}
                 onClick={() => setSelectedCategory(category.id)}
-                className="px-4 whitespace-nowrap"
+                className="px-4 whitespace-nowrap border-2 border-black"
               >
                 <category.icon className="h-4 w-4 mr-2" />
                 {category.name}
@@ -135,7 +135,7 @@ const Skills = () => {
           viewport={{ once: true }}
           className="mt-16"
         >
-          <div className="bg-gradient-to-r from-primary/10 to-blue-600/10 rounded-2xl p-8 border border-primary/20">
+          <div className="bg-gradient-to-r from-primary/10 to-blue-600/10 rounded-sm p-8 border-4 border-black">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               <div className="space-y-2">
                 <div className="text-3xl font-bold text-primary">

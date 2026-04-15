@@ -96,7 +96,7 @@ export default function Bot({ isOpen: controlledIsOpen, setIsOpen: setControlled
           />
 
           {/* Chat Box */}
-          <div className="fixed bottom-24 right-4 sm:right-6 w-[92%] sm:w-[360px] h-[70vh] bg-white border-4 border-black shadow-[10px_10px_0px_black] flex flex-col rounded-xl">
+          <div className="fixed bottom-24 right-4 sm:right-6 w-[92%] sm:w-[360px] h-[70vh] bg-white border-4 border-black shadow-[10px_10px_0px_black] flex flex-col rounded-sm">
             {/* Header */}
             <div className="bg-indigo-500 text-white border-b-4 border-black p-4 text-center font-semibold text-lg">
               Gaurav's Assistant
