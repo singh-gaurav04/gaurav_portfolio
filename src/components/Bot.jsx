@@ -39,7 +39,7 @@ export default function Bot({ isOpen: controlledIsOpen, setIsOpen: setControlled
     setError(null);
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/chat", {
+      const res = await fetch("https://mychatbot-app.onrender.com/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query: message }),
