@@ -578,7 +578,7 @@ const ProfileCardComponent = ({
                   {name}
                 </h3>
                 <p
-                  className="font-semibold whitespace-nowrap mx-auto w-min"
+                  className="font-semibold whitespace-nowrap mx-auto w-min mb-10"
                   style={{
                     position: 'relative',
                     top: '-12px',

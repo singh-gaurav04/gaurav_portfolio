@@ -42,7 +42,7 @@ export default function Bot({ isOpen: controlledIsOpen, setIsOpen: setControlled
       const res = await fetch("https://mychatbot-app.onrender.com/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query: message }),
+        body: JSON.stringify({ query: message,conversation:messages  }),
       });
 
       const data = await res.json();
@@ -74,7 +74,7 @@ export default function Bot({ isOpen: controlledIsOpen, setIsOpen: setControlled
       {/* Floating Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 w-24 h-24   text-xl font-bold hover:translate-x-1 hover:translate-y-1 transition-all"
+        className="fixed bottom-6 right-6 w-24 h-24 z-50  text-xl font-bold hover:translate-x-1 hover:translate-y-1 transition-all"
       >
         <span>
           {isOpen ? (
