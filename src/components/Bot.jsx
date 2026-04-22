@@ -4,16 +4,20 @@ import hiAnimation from "/public/chatbot.json";
 import boxAnimation from "/public/AIchatbot.json";
 import chatBubble from "/public/chatBubble.json";
 
-export default function Bot({ isOpen: controlledIsOpen, setIsOpen: setControlledIsOpen }) {
+export default function Bot({
+  isOpen: controlledIsOpen,
+  setIsOpen: setControlledIsOpen,
+}) {
   const [internalOpen, setInternalOpen] = useState(false);
   const [messages, setMessages] = useState([]);
+  const [conversation, setConversation] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [message, setMessage] = useState("");
   const messagesEndRef = useRef(null);
 
-  const isOpen = controlledIsOpen ?? internalOpen
-  const setIsOpen = setControlledIsOpen ?? setInternalOpen
+  const isOpen = controlledIsOpen ?? internalOpen;
+  const setIsOpen = setControlledIsOpen ?? setInternalOpen;
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -33,6 +37,14 @@ export default function Bot({ isOpen: controlledIsOpen, setIsOpen: setControlled
       timestamp: new Date(),
     };
 
+    const userHistory = {
+      role: "user",
+      content: message,
+    };
+
+      const updatedConversation = [...conversation, userHistory];
+
+  setConversation(updatedConversation);
     setMessages((prev) => [...prev, userMessage]);
     setMessage("");
     setLoading(true);
@@ -42,10 +54,15 @@ export default function Bot({ isOpen: controlledIsOpen, setIsOpen: setControlled
       const res = await fetch("https://mychatbot-app.onrender.com/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query: message,conversation:messages  }),
+        body: JSON.stringify({ query: message, conversation: updatedConversation }),
       });
 
       const data = await res.json();
+
+      const aiHistory = {
+        role: "assistant",
+        content: data.response,
+      };
 
       const aiMessage = {
         id: (Date.now() + 1).toString(),
@@ -54,6 +71,7 @@ export default function Bot({ isOpen: controlledIsOpen, setIsOpen: setControlled
         timestamp: new Date(),
       };
 
+      setConversation((prev) => [...prev, aiHistory]);
       setMessages((prev) => [...prev, aiMessage]);
     } catch (err) {
       setError("Failed to get response.");
