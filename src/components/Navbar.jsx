@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Menu, X, Code, Sun, Moon } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
+import { Menu, X, Code } from 'lucide-react'
 import { Button } from './ui/button'
-import { useTheme } from '../contexts/ThemeContext'
 import { portfolioData } from '../data/portfolioData'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const { isDarkMode, toggleTheme } = useTheme()
-  const navigate = useNavigate()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,15 +16,18 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const navItems = portfolioData.navigation.map((item) => ({
-    ...item,
-    path: item.href === '#about' ? '/' : item.href.replace('#', '/')
-  }))
-
-  const navigateTo = (path) => {
-    navigate(path)
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
     setIsOpen(false)
   }
+
+  const navItems = portfolioData.navigation.map((item) => ({
+    ...item,
+    id: item.href.replace('#', '')
+  }))
 
   return (
     <motion.nav
@@ -59,29 +58,18 @@ const Navbar = () => {
                 key={item.name}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => navigateTo(item.path)}
+                onClick={() => scrollToSection(item.id)}
                 className="text-foreground hover:text-primary transition-all duration-200 font-semibold"
               >
                 {item.name}
               </motion.button>
             ))}
             <Button 
-              onClick={() => navigateTo('/contact')}
+              onClick={() => scrollToSection('contact')}
               className="ml-4"
             >
               Get In Touch
             </Button>
-            
-            {/* Dark Mode Toggle */}
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={toggleTheme}
-              className="ml-4 p-2 rounded-sm border-2 border-black bg-secondary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
-              aria-label="Toggle dark mode"
-            >
-              {isDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-            </motion.button>
           </div>
 
           {/* Mobile menu button */}
@@ -109,29 +97,18 @@ const Navbar = () => {
               <motion.button
                 key={item.name}
                 whileHover={{ x: 10 }}
-                onClick={() => navigateTo(item.path)}
+                onClick={() => scrollToSection(item.id)}
                 className="block w-full text-left text-foreground hover:text-primary transition-colors duration-200 font-medium py-2"
               >
                 {item.name}
               </motion.button>
             ))}
             <Button 
-              onClick={() => navigateTo('/contact')}
+              onClick={() => scrollToSection('contact')}
               className="w-full mt-4"
             >
               Get In Touch
             </Button>
-            
-            {/* Mobile Dark Mode Toggle */}
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={toggleTheme}
-              className="w-full mt-4 p-3 rounded-sm border-2 border-black bg-secondary hover:bg-primary hover:text-primary-foreground transition-all duration-300 flex items-center justify-center space-x-2"
-            >
-              {isDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-              <span>{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>
-            </motion.button>
           </div>
         </motion.div>
       </div>

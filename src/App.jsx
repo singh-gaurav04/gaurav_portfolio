@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import React from 'react'
 import { ThemeProvider } from './contexts/ThemeContext'
+import { AppProvider } from './contexts/AppContext'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Projects from './components/Projects'
@@ -9,41 +9,56 @@ import Certifications from './components/Certifications'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import Bot from './components/Bot'
+import { useApp } from './hooks'
 
-function Home({ onOpenBot }) {
+import { useEffect } from 'react'
+
+function AppContent() {
+  const { isBotOpen, setIsBotOpen } = useApp()
+
+ useEffect(() => {
+    const sendVisit = async () => {
+      try {
+        await axios.post("https://your-backend.com/track-visit", {
+          page: window.location.href,
+          userAgent: navigator.userAgent,
+          referrer: document.referrer
+        });
+      } catch (err) {
+        console.error("Tracking error:", err);
+      }
+    };
+
+    // prevent spam (send only once per user)
+    if (!localStorage.getItem("visited")) {
+      sendVisit();
+      localStorage.setItem("visited", "true");
+    }
+
+  }, []);
+
   return (
-    <>
-      <Hero />
-      <Projects openBot={onOpenBot} />
-      <Skills />
-      <Certifications />
-      <Contact />
-    </>
+    <div className="overflow-x-hidden min-h-screen bg-[#120F17] text-white transition-colors duration-300">
+      <Navbar />
+      <main className="pt-20">
+        <Hero />
+        <Projects />
+        <Skills />
+        <Certifications />
+        <Contact />
+      </main>
+      <Footer />
+      <Bot isOpen={isBotOpen} setIsOpen={setIsBotOpen} />
+    </div>
   )
 }
 
 function App() {
-  const [isBotOpen, setIsBotOpen] = useState(false)
-  const openBot = () => setIsBotOpen(true)
-
   return (
     <ThemeProvider>
-      <BrowserRouter>
-        <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
-          <Navbar />
-          <main className="pt-20">
-            <Routes>
-              <Route path="/" element={<Home onOpenBot={openBot} />} />
-              <Route path="/projects" element={<Projects openBot={openBot} />} />
-              <Route path="/skills" element={<Skills />} />
-              <Route path="/certifications" element={<Certifications />} />
-              <Route path="/contact" element={<Contact />} />
-            </Routes>
-          </main>
-          <Footer />
-          <Bot isOpen={isBotOpen} setIsOpen={setIsBotOpen} />
-        </div>
-      </BrowserRouter>
+      <AppProvider>
+        <AppContent />
+      </AppProvider>
     </ThemeProvider>
   )
 }
