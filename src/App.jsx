@@ -19,7 +19,7 @@ function AppContent() {
  useEffect(() => {
     const sendVisit = async () => {
       try {
-        await axios.post("https://your-backend.com/track-visit", {
+        await axios.post("https://mychatbot-app.onrender.com/track-visit", {
           page: window.location.href,
           userAgent: navigator.userAgent,
           referrer: document.referrer
