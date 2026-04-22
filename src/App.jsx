@@ -10,6 +10,7 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import Bot from './components/Bot'
 import { useApp } from './hooks'
+import axios from 'axios'
 
 import { useEffect } from 'react'
 
