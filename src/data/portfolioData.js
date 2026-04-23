@@ -92,38 +92,66 @@ export const portfolioData = {
   ],
 
   // Skills Data
-  skills: {
-    programming: [
-      { name: 'Java', level: 90, icon: '☕' },
-      { name: 'C++', level: 85, icon: '⚡' },
-      { name: 'Python', level: 85, icon: '🐍' },
-      { name: 'JavaScript', level: 80, icon: '🟨' },
-      { name: 'HTML', level: 85, icon: '🌐' },
-      { name: 'CSS', level: 80, icon: '🎨' }
-    ],
-    frameworks: [
-      { name: 'Spring Boot', level: 88, icon: '🍃' },
-      { name: 'Spring Security', level: 85, icon: '🔒' },
-      { name: 'React.js', level: 82, icon: '⚛️' },
-      { name: 'Express.js', level: 80, icon: '🚀' },
-      { name: 'Node.js', level: 78, icon: '🟢' },
-      { name: 'Hibernate', level: 75, icon: '🗄️' },
-      { name: 'FastAPI', level: 85, icon: '⚡' }
-    ],
-    tools: [
-      { name: 'MySQL', level: 85, icon: '🐬' },
-      { name: 'MongoDB', level: 80, icon: '🍃' },
-      { name: 'Git', level: 88, icon: '📝' },
-      { name: 'IntelliJ IDEA', level: 90, icon: '💡' },
-      { name: 'VS Code', level: 85, icon: '💻' },
-      { name: 'Postman', level: 80, icon: '📮' },
-      { name: 'LangChain', level: 75, icon: '🔗' },
-      { name: 'OpenAI API', level: 75, icon: '🤖' },
-      { name: 'Pandas', level: 70, icon: '📊' },
-      { name: 'NumPy', level: 70, icon: '🔢' },
-      { name: 'Scikit-learn', level: 70, icon: '📈' }
-    ]
-  },
+skills: {
+  AI_STACK: [
+    { name: 'LangChain', level: 90, icon: '🔗' },
+    { name: 'LangGraph', level: 85, icon: '🧠' },
+    { name: 'RAG Systems', level: 90, icon: '📚' },
+    { name: 'Prompt Engineering', level: 88, icon: '✍️' },
+    { name: 'Agentic AI', level: 85, icon: '🤖' },
+    { name: 'Hugging Face Transformers', level: 85, icon: '🤗' },
+    { name: 'OpenAI API', level: 85, icon: '⚡' },
+    { name: 'Mistral API', level: 80, icon: '🌪️' },
+    { name: 'Embeddings & Vector Search', level: 88, icon: '🔍' },
+    { name: 'Multi-Agent Systems', level: 85, icon: '🧩' }
+  ],
+
+  programming: [
+    { name: 'Python', level: 92, icon: '🐍' },
+    { name: 'Java', level: 88, icon: '☕' },
+    { name: 'C++', level: 85, icon: '⚡' },
+    { name: 'JavaScript', level: 80, icon: '🟨' }
+  ],
+
+  frameworks: [
+    { name: 'FastAPI', level: 90, icon: '⚡' },
+    { name: 'Spring Boot', level: 85, icon: '🍃' },
+    { name: 'React.js', level: 82, icon: '⚛️' },
+    { name: 'Node.js', level: 78, icon: '🟢' },
+    { name: 'Express.js', level: 78, icon: '🚀' }
+  ],
+
+  ml_dl: [
+    { name: 'PyTorch', level: 85, icon: '🔥' },
+    { name: 'Scikit-learn', level: 80, icon: '📈' },
+    { name: 'Pandas', level: 82, icon: '📊' },
+    { name: 'NumPy', level: 80, icon: '🔢' },
+    { name: 'Model Training', level: 85, icon: '🏋️' },
+    { name: 'Fine-tuning', level: 80, icon: '🎯' },
+    { name: 'Model Evaluation', level: 85, icon: '📏' }
+  ],
+
+  vector_db: [
+    { name: 'Pinecone', level: 85, icon: '🌲' },
+    { name: 'Qdrant', level: 0, icon: '📦' }
+  ],
+
+  deployment: [
+    { name: 'Docker', level: 88, icon: '🐳' },
+    { name: 'AWS EC2', level: 80, icon: '☁️' },
+    { name: 'AWS S3', level: 78, icon: '🗂️' },
+    { name: 'Model Deployment', level: 85, icon: '🚀' },
+    { name: 'REST API (FastAPI)', level: 90, icon: '🔌' }
+  ],
+
+  tools: [
+    { name: 'Git', level: 90, icon: '📝' },
+    { name: 'GitHub', level: 88, icon: '🐙' },
+    { name: 'Postman', level: 82, icon: '📮' },
+    { name: 'VS Code', level: 90, icon: '💻' }
+  ]
+  
+},
 
   // Experience Data
   experiences: [
@@ -145,6 +173,7 @@ export const portfolioData = {
     }
   ],
 
+
   // Projects Data (unchanged)
   projects: [
     {
@@ -152,10 +181,22 @@ export const portfolioData = {
   title: "AI Personal Assistant Chatbot",
   description: "Developed an AI-powered personal assistant chatbot capable of answering queries based on user context using LLMs and Retrieval-Augmented Generation (RAG). Integrated FastAPI backend with a responsive frontend to deliver real-time conversational experience. Implemented prompt engineering, API handling, and optimized response generation for intelligent interactions.",
   technologies: ["Python", "FastAPI", "LangChain", "OpenAI API", "React.js"],
-  github: "#",
-  demo: "#",
+  github: "https://github.com/singh-gaurav04/Gaurav_AI_Assistant",
+  demo: "https://gaurav26lnct.netlify.app/",
   image: "🤖",
-  category: "ai",
+  category: "AI",
+  status: "completed",
+  featured: true
+},
+    {
+  id: 4,
+  title: "AI-Powered EDI Converter & Learning Platform",
+  description: "Developed an AI-powered tool that converts EDI (Electronic Data Interchange) data into human-readable, printable formats. The platform also includes an interactive learning module to help users understand EDI concepts and prepare for interviews with curated questions and explanations.",
+  technologies: ["Python", "FastAPI", "LangChain", "GPT", "React.js"],
+  github: "https://github.com/singh-gaurav04/KnowEDI",
+  demo: "https://knowedi.vercel.app/",
+  image: "🤖",
+  category: "AI",
   status: "completed",
   featured: true
 },
@@ -170,25 +211,15 @@ export const portfolioData = {
       category: "web",
       status: "completed",
       featured: true
-    },
-    {
-      id: 2,
-      title: "Hotel Booking App",
-      description: "Full-stack hotel booking application with user authentication, hotel/room management, and real-time search/filter features with secure authentication and authorization.",
-      technologies: ["React", "Node.js", "Express", "MongoDB", "JWT"],
-      github: "#",
-      demo: "#",
-      image: "🏨",
-      category: "web",
-      status: "in Progress",
-      featured: true
     }
+
+
   ],
 
   // Contact Information
   contact: {
     email: "gaurav26lnct@gmail.com",
-    phone: "+91 7479582593",
+    phone: "+91-7479582593",
     location: "Bengaluru, Karnataka",
     responseTime: "I typically respond within 24 hours"
   },

@@ -1,6 +1,13 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Briefcase, Mail, Download, Github, Linkedin } from "lucide-react";
+import {
+  Briefcase,
+  Mail,
+  Download,
+  Github,
+  Linkedin,
+  Code,
+} from "lucide-react";
 import { portfolioData } from "../data/portfolioData";
 import { useEffect, useState } from "react";
 import SplitText from "./SplitText";
@@ -45,45 +52,43 @@ export default function LeftHero() {
 
   return (
     // Outer container with a dark background (slate-950)
-    <div className="min-h-screen  flex flex-col px-4 sm:px-6 lg:px-8 font-sans selection:bg-emerald-500/30 ">
+    <div className=" flex flex-col px-4 sm:px-6 lg:px-8 font-sans selection:bg-emerald-500/30">
       {/* Main Content Wrapper */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="flex flex-col justify-center items-center text-center space-y-8 max-w-3xl w-full  mt-10"
+        className="flex flex-col justify-center items-center text-center space-y-6 sm:space-y-8 max-w-4xl w-full mt-10 b"
       >
-        {/* Location + Open to Work Badge */}
         <motion.div variants={itemVariants} className="">
-            <div>
+          <div>
             <SplitText
-            text={greeting}
-            className="text-5xl text-center font-extrabold "
-            delay={150}
-            duration={1.50}
-            ease="bounce.out"
-            splitType="chars"
-            from={{ opacity: 0, y: 100 }}
-            to={{ opacity: 1, y: 0 }}
-            threshold={0.1}
-            rootMargin="-100px"
-            textAlign="center"
-            showCallback
-          />
+              text={greeting}
+              className="text-3xl sm:text-4xl lg:text-5xl text-center font-extrabold"
+              delay={150}
+              duration={1.5}
+              ease="bounce.out"
+              splitType="chars"
+              from={{ opacity: 0, y: 100 }}
+              to={{ opacity: 1, y: 0 }}
+              threshold={0.1}
+              rootMargin="-100px"
+              textAlign="center"
+              showCallback
+            />
           </div>
-         
         </motion.div>
 
         {/* Name with Gradient */}
 
-          
-          <div className="text-6xl font-extrabold text-emerald-400 ">Gaurav Here</div>
-
+        <div className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-emerald-400">
+          Gaurav Here
+        </div>
 
         {/* Short Intro */}
         <motion.p
           variants={itemVariants}
-          className="text-md text-slate-500 leading-relaxed max-w-2xl"
+          className="text-sm sm:text-base lg:text-md text-slate-500 leading-relaxed max-w-2xl px-4 sm:px-0"
         >
           I’m{" "}
           <span
@@ -100,7 +105,7 @@ export default function LeftHero() {
         {/* CTA Buttons & Socials */}
         <motion.div
           variants={itemVariants}
-          className="flex flex-row items-center gap-5  md:gap-20 pt-4"
+          className="flex  items-center justify-center gap-4 sm:gap-6 lg:gap-8 pt-4 w-full"
         >
           {/* Contact Button (Primary) */}
           <div className="relative">
@@ -113,19 +118,19 @@ export default function LeftHero() {
         animate-[borderFlow_4s_linear_infinite]
         blur-[6px] opacity-70
         group-hover:opacity-100
-        
       "
             ></span>
 
             {/* Inner Button */}
             <a
-             href="mailto:gaurav26lnct@gmail.com?subject=Let's%20Connect&body=Hi%20Gaurav,"
+              href="mailto:gaurav26lnct@gmail.com?subject=Let's%20Connect&body=Hi%20Gaurav,"
               className="
-        relative z-10 px-6 py-3 ml-4
+        relative  px-6 py-3
         rounded-full bg-green-300 text-black font-semibold
         transition transform duration-200
         hover:scale-105 active:scale-95
-        flex gap-2
+        flex gap-2 items-center justify-center
+        min-w-[140px]
       "
             >
               <Mail /> Contact
@@ -150,14 +155,15 @@ export default function LeftHero() {
 
             {/* Inner Button */}
             <a
-            href="/assets/documents/Resume.pdf"
-            download="Gaurav_Resume.pdf"
+              href="/assets/documents/Resume.pdf"
+              download="Gaurav_Resume.pdf"
               className="
-        relative z-10 px-6 py-3 ml-4
+        relative  px-6 py-3
         rounded-full bg-black text-white font-semibold
         transition transform duration-200
         hover:scale-105 active:scale-95
-        flex gap-2
+        flex gap-2 items-center justify-center
+        min-w-[140px]
         cursor-pointer
       "
             >
@@ -167,46 +173,70 @@ export default function LeftHero() {
         </motion.div>
 
         {/* Social Icons Row */}
-<div className="flex items-center gap-3 mt-4 sm:mt-0 sm:ml-2">
-  {/* GitHub */}
-  <a
-    href="https://github.com/singh-gaurav04"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="Visit Gaurav's GitHub"
-    className="
-      group p-4 rounded-xl
-      bg-slate-900 border border-slate-800
-      text-slate-400
-      flex items-center justify-center
-      transition-all duration-300
-      hover:text-white hover:border-slate-600 hover:bg-slate-800 hover:scale-110 hover:shadow-lg
-      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500
-    "
-  >
-    <Github className="h-5 w-5" />
-  </a>
-
-  {/* LinkedIn */}
-  <a
-    href="https://www.linkedin.com/in/gaurav26lnct/"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="Visit Gaurav's LinkedIn"
-    className="
-      group p-4 rounded-xl
-      bg-slate-900 border border-slate-800
-      text-slate-400
-      flex items-center justify-center
-      transition-all duration-300
-      hover:text-white hover:border-slate-600 hover:bg-slate-800 hover:scale-110 hover:shadow-lg
-      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500
-    "
-  >
-    <Linkedin className="h-5 w-5" />
-  </a>
-</div>
+        
       </motion.div>
+      <motion.div
+          variants={itemVariants}
+          className="flex items-center justify-center gap-3 mt-6"
+        >
+          {/* GitHub */}
+          <a
+            href="https://github.com/singh-gaurav04"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visit Gaurav's GitHub"
+            className="
+              group p-4 rounded-xl
+              bg-slate-900 border border-slate-800
+              text-slate-400
+              flex items-center justify-center
+              transition-all duration-300
+              hover:text-white hover:border-slate-600 hover:bg-slate-800 hover:scale-110 hover:shadow-lg
+              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500
+            "
+          >
+            <Github className="h-5 w-5" />
+          </a>
+
+          {/* LinkedIn */}
+          <a
+            href="https://www.linkedin.com/in/gaurav26lnct/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visit Gaurav's LinkedIn"
+            className="
+              group p-4 rounded-xl
+              bg-slate-900 border border-slate-800
+              text-slate-400
+              flex items-center justify-center
+              transition-all duration-300
+              hover:text-white hover:border-slate-600 hover:bg-slate-800 hover:scale-110 hover:shadow-lg
+              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500
+            "
+          >
+            <Linkedin className="h-5 w-5" />
+          </a>
+
+          {/* LeetCode */}
+          <a
+            href="https://leetcode.com/u/Gaurav__04/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visit Gaurav's LeetCode"
+            className="
+              group p-4 rounded-xl
+              bg-slate-900 border border-slate-800
+              text-slate-400
+              flex items-center justify-center
+              transition-all duration-300
+              hover:text-white hover:border-slate-600 hover:bg-slate-800 hover:scale-110 hover:shadow-lg
+              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500
+              cursor-pointer
+            "
+          >
+            <Code className="h-5 w-5" />
+          </a>
+        </motion.div>
     </div>
   );
 }

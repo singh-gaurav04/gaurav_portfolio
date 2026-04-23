@@ -44,7 +44,7 @@ const Projects = ({ openBot }) => {
       github: "https://github.com/singh-gaurav04/Car_predictor_app",
       demo: "https://github.com/singh-gaurav04/Car_predictor_app",
       image: "🤖",
-      category: "ai",
+      category: "AI",
       status: "completed",
       featured: true,
     },
@@ -54,7 +54,7 @@ const Projects = ({ openBot }) => {
     { id: "all", name: "All Projects", icon: "🚀" },
     { id: "web", name: "Web Apps", icon: "🌐" },
     { id: "mobile", name: "Mobile Apps", icon: "📱" },
-    { id: "ai", name: "AI/ML", icon: "🤖" },
+    { id: "AI", name: "AI/ML", icon: "🤖" },
   ];
 
   const filteredProjects =

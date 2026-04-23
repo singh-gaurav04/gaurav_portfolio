@@ -89,35 +89,39 @@ export default function Bot({
 
   return (
     <>
-      {/* Floating Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 w-24 h-24 z-50  text-xl font-bold hover:translate-x-1 hover:translate-y-1 transition-all"
-      >
-        <span>
-          {isOpen ? (
-            <div>X</div>
-          ) : (
+      {/* Floating Button - only show when chat is closed */}
+      {!isOpen && (
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="fixed bottom-6 right-6 w-24 h-24 z-50 text-xl font-bold hover:translate-x-1 hover:translate-y-1 transition-all"
+        >
+          <span>
             <div>
               <Lottie className="scale-150" animationData={hiAnimation} loop />
             </div>
-          )}
-        </span>
-      </button>
+          </span>
+        </button>
+      )}
 
       {isOpen && (
         <>
           {/* Overlay */}
           <div
-            className="fixed inset-0 bg-black/20 backdrop-blur-[2px]"
+            className="fixed inset-0 bg-black/20 backdrop-blur-[2px] -z-80"
             onClick={() => setIsOpen(false)}
           />
 
           {/* Chat Box */}
-          <div className="fixed bottom-24 right-4 sm:right-6 w-[92%] sm:w-[360px] h-[70vh] bg-white border-4 border-black shadow-[10px_10px_0px_black] flex flex-col rounded-sm">
-            {/* Header */}
-            <div className="bg-indigo-500 text-white border-b-4 border-black p-4 text-center font-semibold text-lg">
-              Gaurav's Assistant
+          <div className="fixed bottom-6 right-4 sm:right-6 w-[92%] sm:w-[360px] h-[70vh] bg-white border-4 border-black shadow-[10px_10px_0px_black] flex flex-col rounded-sm">
+            {/* Header with Close Button */}
+            <div className="bg-indigo-500 text-white border-b-4 border-black p-4 flex justify-between items-center font-semibold text-lg">
+              <span>Gaurav's Assistant</span>
+              <button
+                onClick={() => setIsOpen(false)}
+                className="text-white hover:text-gray-200 text-2xl font-bold leading-none"
+              >
+                ×
+              </button>
             </div>
 
             {/* Messages */}

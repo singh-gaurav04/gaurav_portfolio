@@ -1,6 +1,12 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Code, Globe, Cpu, Zap, Star } from 'lucide-react'
+import { 
+  Brain, 
+  Database, 
+  Cloud, 
+  Wrench 
+} from "lucide-react";
 import { Card, CardContent } from './ui/card'
 import { Button } from './ui/button'
 import { portfolioData, animationVariants } from '../data/portfolioData'
@@ -9,12 +15,16 @@ const Skills = () => {
   const [selectedCategory, setSelectedCategory] = useState('all')
   const { skills } = portfolioData
 
-  const skillCategories = [
-    { id: 'all', name: 'All Skills', icon: Star },
-    { id: 'programming', name: 'Languages', icon: Code },
-    { id: 'frameworks', name: 'Frameworks', icon: Globe },
-    { id: 'tools', name: 'Tools', icon: Cpu }
-  ]
+const skillCategories = [
+  { id: 'all', name: 'All Skills', icon: Star },
+  { id: 'AI_STACK', name: 'GenAI Stack', icon: Cpu },
+  { id: 'ml_dl', name: 'ML / Deep Learning', icon: Brain },
+  { id: 'vector_db', name: 'Vector DBs', icon: Database },
+  { id: 'deployment', name: 'Deployment', icon: Cloud },
+  { id: 'programming', name: 'Languages', icon: Code },
+  { id: 'frameworks', name: 'Frameworks', icon: Globe },
+  { id: 'tools', name: 'Tools', icon: Wrench }
+]
 
   const containerVariants = animationVariants.container
   const itemVariants = animationVariants.item

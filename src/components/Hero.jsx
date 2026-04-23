@@ -25,22 +25,21 @@ const Hero = () => {
   return (
     <section
       id="about"
-      className="min-h-screen flex items-center justify-center  pb-20 md:px-4 "
+      className="min-h-screen flex items-center justify-center pb-10 px-4 sm:px-6 lg:px-8"
     >
-      <div className="container mx-auto">
+      <div className="container mx-auto max-w-7xl">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="grid lg:grid-cols-2 gap-12 items-center justify-center "
+          className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center"
         >
           {/* Content */}
 
           <LeftHero />
 
           {/* Profile Image */}
-          <div className="h-full w-full flex items-center justify-center">
-
+          <div className="h-full w-full flex items-center justify-center order-first lg:order-last">
             <ProfileCard
               name="Gaurav Singh"
               title="Gen AI Engineer"
