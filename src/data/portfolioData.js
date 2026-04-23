@@ -133,7 +133,7 @@ skills: {
 
   vector_db: [
     { name: 'Pinecone', level: 85, icon: '🌲' },
-    { name: 'Qdrant', level: 0, icon: '📦' }
+    { name: 'Qdrant', level: 80, icon: '📦' }
   ],
 
   deployment: [
@@ -189,7 +189,7 @@ skills: {
   featured: true
 },
     {
-  id: 4,
+  id: 2,
   title: "AI-Powered EDI Converter & Learning Platform",
   description: "Developed an AI-powered tool that converts EDI (Electronic Data Interchange) data into human-readable, printable formats. The platform also includes an interactive learning module to help users understand EDI concepts and prepare for interviews with curated questions and explanations.",
   technologies: ["Python", "FastAPI", "LangChain", "GPT", "React.js"],
@@ -211,7 +211,27 @@ skills: {
       category: "web",
       status: "completed",
       featured: true
-    }
+    },
+        {
+      id: 5,
+      title: "Car Price Predictor App",
+      description:
+        "A web application that predicts the price of a car based on its features using linear regression.",
+      technologies: [
+        "React",
+        "Node.js",
+        "Machine Learning",
+        "Linear Regression",
+        "Python",
+        "scikit-learn",
+      ],
+      github: "https://github.com/singh-gaurav04/Car_predictor_app",
+      demo: "https://github.com/singh-gaurav04/Car_predictor_app",
+      image: "🤖",
+      category: "AI",
+      status: "completed",
+      featured: true,
+    },
 
 
   ],

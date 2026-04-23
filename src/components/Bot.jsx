@@ -42,9 +42,9 @@ export default function Bot({
       content: message,
     };
 
-      const updatedConversation = [...conversation, userHistory];
+    const updatedConversation = [...conversation, userHistory];
 
-  setConversation(updatedConversation);
+    setConversation(updatedConversation);
     setMessages((prev) => [...prev, userMessage]);
     setMessage("");
     setLoading(true);
@@ -54,7 +54,10 @@ export default function Bot({
       const res = await fetch("https://mychatbot-app.onrender.com/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query: message, conversation: updatedConversation }),
+        body: JSON.stringify({
+          query: message,
+          conversation: updatedConversation,
+        }),
       });
 
       const data = await res.json();

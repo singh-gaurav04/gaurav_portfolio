@@ -25,31 +25,6 @@ const Projects = ({ openBot }) => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const { projects } = portfolioData;
 
-  // Add more projects to the data
-  const extendedProjects = [
-    ...projects,
-    {
-      id: 4,
-      title: "Car Price Predictor App",
-      description:
-        "A web application that predicts the price of a car based on its features using linear regression.",
-      technologies: [
-        "React",
-        "Node.js",
-        "Machine Learning",
-        "Linear Regression",
-        "Python",
-        "scikit-learn",
-      ],
-      github: "https://github.com/singh-gaurav04/Car_predictor_app",
-      demo: "https://github.com/singh-gaurav04/Car_predictor_app",
-      image: "🤖",
-      category: "AI",
-      status: "completed",
-      featured: true,
-    },
-  ];
-
   const categories = [
     { id: "all", name: "All Projects", icon: "🚀" },
     { id: "web", name: "Web Apps", icon: "🌐" },
@@ -59,12 +34,12 @@ const Projects = ({ openBot }) => {
 
   const filteredProjects =
     selectedCategory === "all"
-      ? extendedProjects
-      : extendedProjects.filter(
+      ? projects
+      : projects.filter(
           (project) => project.category === selectedCategory,
         );
 
-  const featuredProjects = extendedProjects.filter(
+  const featuredProjects = projects.filter(
     (project) => project.featured,
   );
 
@@ -109,8 +84,7 @@ const Projects = ({ openBot }) => {
           viewport={{ once: true }}
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 "
         >
-          <AnimatePresence mode="wait">
-            {filteredProjects.map((project, index) => (
+          {filteredProjects.map((project, index) => (
               <ElectricBorder
                 color="#7df9ff"
                 speed={1}
@@ -124,7 +98,6 @@ const Projects = ({ openBot }) => {
                   variants={itemVariants}
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
                   transition={{ duration: 0.3, delay: index * 0.1 }}
                   whileHover={{ y: -5 }}
                   className="group"
@@ -203,7 +176,6 @@ const Projects = ({ openBot }) => {
                 </motion.div>
               </ElectricBorder>
             ))}
-          </AnimatePresence>
         </motion.div>
 
         {/* Call to Action */}

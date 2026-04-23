@@ -72,7 +72,7 @@ function AppContent() {
         COLOR="#A855F7"
       /> */}
       <Navbar />
-      <main className="pt-20">
+      <main className="pt-20 overflow-x-hidden">
         <Hero />
         <Projects />
         <Skills />
