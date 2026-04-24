@@ -113,16 +113,18 @@ const Navbar = () => {
       </motion.div>
 
       {/* Mobile Dropdown */}
-      <motion.div
+      {
+        isOpen && isOpen && <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{
           opacity: isOpen ? 1 : 0,
-          y: isOpen ? 0 : -20,
+          y: isOpen ? 0 : -2,
         }}
         className="absolute top-20 w-[90%] md:hidden
-        bg-white/10 backdrop-blur-xl
-        border border-white/20
-        rounded-xl p-4"
+    bg-white/10 backdrop-blur-xl
+    border border-white/20
+    rounded-xl p-4 bg-red"
+  
       >
         {navItems.map((item) => (
           <button
@@ -141,6 +143,8 @@ const Navbar = () => {
           Get In Touch
         </Button>
       </motion.div>
+      }
+      
     </motion.nav>
   );
 };

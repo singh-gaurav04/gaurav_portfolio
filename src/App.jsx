@@ -40,11 +40,13 @@ function AppContent() {
   }, []);
 
   return (
+
     <div className="overflow-x-hidden min-h-screen bg-[#120F17] text-white transition-colors duration-300">
-      <div style={{ width: "100%", height: "600px", position: "absolute" }}>
+
+          <div style={{ width: "100%", height: "770px", position: "absolute" }}>
         <LightRays
           raysOrigin="top-center"
-          raysColor="#ffffff"
+          raysColor="#14FCD4"
           raysSpeed={1}
           lightSpread={0.5}
           rayLength={3}
@@ -58,7 +60,6 @@ function AppContent() {
           saturation={1}
         />
       </div>
-
       {/* <SplashCursor
         DENSITY_DISSIPATION={3.5}
         VELOCITY_DISSIPATION={2}
