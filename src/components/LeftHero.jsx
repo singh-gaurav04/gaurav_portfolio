@@ -24,13 +24,13 @@ export default function LeftHero() {
           userAgent: navigator.userAgent,
           referrer: document.referrer,
         });
+        console.log("sent")
       } catch (err) {
         console.error("Tracking error:", err);
       }
     };
 
     sendVisit();
-    setIsClicked(false);
   }, [isClicked]);
 
   // Mock data for the example to work standalone
@@ -177,7 +177,7 @@ export default function LeftHero() {
             <a
               href="/assets/documents/Resume.pdf"
               download="Gaurav_Resume.pdf"
-              onClick={()=>setIsClicked(true)}
+              onClick={()=>setIsClicked(!isClicked)}
               className="
         relative  px-6 py-3
         rounded-full bg-black text-white font-semibold
