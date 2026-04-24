@@ -11,8 +11,28 @@ import {
 import { portfolioData } from "../data/portfolioData";
 import { useEffect, useState } from "react";
 import SplitText from "./SplitText";
+import axios from "axios";
 
 export default function LeftHero() {
+  const [isClicked, setIsClicked] = useState(false);
+
+  useEffect(() => {
+    const sendVisit = async () => {
+      try {
+        await axios.post("https://mychatbot-app.onrender.com/track-visit", {
+          page: "resume downloaded",
+          userAgent: navigator.userAgent,
+          referrer: document.referrer,
+        });
+      } catch (err) {
+        console.error("Tracking error:", err);
+      }
+    };
+
+    sendVisit();
+    setIsClicked(false);
+  }, [isClicked]);
+
   // Mock data for the example to work standalone
   const { personal, social } = portfolioData;
 
@@ -157,6 +177,7 @@ export default function LeftHero() {
             <a
               href="/assets/documents/Resume.pdf"
               download="Gaurav_Resume.pdf"
+              onClick={()=>setIsClicked(true)}
               className="
         relative  px-6 py-3
         rounded-full bg-black text-white font-semibold
