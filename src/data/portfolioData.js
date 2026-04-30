@@ -178,6 +178,18 @@ skills: {
   projects: [
     {
   id: 1,
+  title: "AI Face Authentication System",
+  description: "Developed an AI-based face authentication system for secure user verification using facial recognition technology. Implemented real-time face detection, face embedding generation, and identity matching for authentication workflows. Built a FastAPI backend with database integration and image upload handling to provide secure and efficient user verification. Optimized authentication accuracy and response speed for seamless user experience.",
+  technologies: ["Python", "FastAPI", "face-Recognition", "postgress"],
+  github: "https://github.com/singh-gaurav04/face_Authentication",
+  demo: "https://drive.google.com/file/d/1o9APapF5sDmNU_yldhHVppG4ugDrir-h/view?usp=drive_link",
+  image: "🧑‍💻",
+  category: "AI",
+  status: "completed",
+  featured: true
+},
+    {
+  id: 2,
   title: "AI Personal Assistant Chatbot",
   description: "Developed an AI-powered personal assistant chatbot capable of answering queries based on user context using LLMs and Retrieval-Augmented Generation (RAG). Integrated FastAPI backend with a responsive frontend to deliver real-time conversational experience. Implemented prompt engineering, API handling, and optimized response generation for intelligent interactions.",
   technologies: ["Python", "FastAPI", "LangChain", "OpenAI API", "React.js"],
@@ -189,7 +201,7 @@ skills: {
   featured: true
 },
     {
-  id: 2,
+  id: 3,
   title: "AI-Powered EDI Converter & Learning Platform",
   description: "Developed an AI-powered tool that converts EDI (Electronic Data Interchange) data into human-readable, printable formats. The platform also includes an interactive learning module to help users understand EDI concepts and prepare for interviews with curated questions and explanations.",
   technologies: ["Python", "FastAPI", "LangChain", "GPT", "React.js"],
@@ -201,7 +213,7 @@ skills: {
   featured: true
 },
     {
-      id: 3,
+      id: 4,
       title: "Job Portal App",
       description: "Full-stack Job Portal application featuring modules for user registration, job posting, and admin controls with JWT-based authentication and role-based authorization.",
       technologies: ["Java", "Spring Boot", "Spring Security", "React.js", "MongoDB"],
