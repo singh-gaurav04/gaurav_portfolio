@@ -43,7 +43,7 @@ const Skills = () => {
   return (
     <section id="skills" className="relative overflow-hidden py-20 px-4">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(45,212,191,0.16),transparent_40%),radial-gradient(circle_at_bottom_left,rgba(59,130,246,0.14),transparent_35%)]" />
-      <div className="container relative z-10 mx-auto">
+      <div className="container relative z-0 mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="mb-10 text-center">
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-emerald-300/30 bg-emerald-400/10 px-4 py-2 text-sm text-emerald-300">
             <Sparkles className="h-4 w-4" />

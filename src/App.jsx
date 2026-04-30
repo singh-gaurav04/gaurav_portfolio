@@ -18,6 +18,9 @@ import { useEffect } from "react";
 
 function AppContent() {
   const { isBotOpen, setIsBotOpen } = useApp();
+  useEffect(() => {
+    setIsBotOpen(true);
+  }, [setIsBotOpen]);
 
   useEffect(() => {
     const sendVisit = async () => {
