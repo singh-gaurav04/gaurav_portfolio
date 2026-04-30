@@ -67,7 +67,7 @@ export default function LeftHero() {
 
   return (
     // Outer container with a dark background (slate-950)
-    <div className=" flex flex-col px-4 sm:px-6 lg:px-8 font-sans selection:bg-emerald-500/30">
+    <div className=" flex flex-col px-4 sm:px-6 lg:px-8 font-sans selection:bg-emerald-500/30 ">
       {/* Main Content Wrapper */}
       <motion.div
         variants={containerVariants}
@@ -133,6 +133,7 @@ export default function LeftHero() {
         animate-[borderFlow_4s_linear_infinite]
         blur-[6px] opacity-70
         group-hover:opacity-100
+        pointer-events-none
       "
             ></span>
 
@@ -164,6 +165,7 @@ export default function LeftHero() {
         animate-[borderFlow_4s_linear_infinite]
         blur-[6px] opacity-70
         group-hover:opacity-100
+        pointer-events-none
         
       "
             ></span>
@@ -190,10 +192,9 @@ export default function LeftHero() {
 
         {/* Social Icons Row */}
         
-      </motion.div>
       <motion.div
           variants={itemVariants}
-          className="flex items-center justify-center gap-3 mt-6"
+          className="relative z-10 flex items-center justify-center gap-3 mt-6"
         >
           {/* GitHub */}
           <a
@@ -253,6 +254,11 @@ export default function LeftHero() {
             <Code className="h-5 w-5" />
           </a>
         </motion.div>
+        
+      </motion.div>
+
+
+      
     </div>
   );
 }

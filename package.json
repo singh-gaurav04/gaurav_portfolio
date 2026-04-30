@@ -1,8 +1,20 @@
 {
   "name": "portfolio-website",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
+  "description": "A modern, responsive portfolio website for an engineering student built with React, Vite, Tailwind CSS, Framer Motion, and shadcn/ui components.",
+  "homepage": "https://github.com/singh-gaurav04/gaurav_portfolio#readme",
+  "bugs": {
+    "url": "https://github.com/singh-gaurav04/gaurav_portfolio/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/singh-gaurav04/gaurav_portfolio.git"
+  },
+  "license": "ISC",
+  "author": "",
   "type": "module",
+  "main": "postcss.config.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
