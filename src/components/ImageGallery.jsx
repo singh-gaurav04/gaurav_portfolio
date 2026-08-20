@@ -28,7 +28,7 @@ export default function ImageGallery({ featured_image_url, gallery_images, alt =
         className="overflow-hidden rounded-3xl border"
         style={{ borderColor: "color-mix(in srgb, var(--lsw-border) 18%, transparent)", background: "var(--lsw-white)" }}
       >
-        <img src={current} alt={alt} className="h-[340px] w-full object-cover" loading="lazy" />
+        <img src={current} alt={alt} className="h-[280px] w-full object-cover sm:h-[340px]" loading="lazy" />
       </div>
 
       {images.length > 1 ? (

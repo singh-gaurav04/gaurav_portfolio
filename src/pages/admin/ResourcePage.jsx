@@ -139,6 +139,17 @@ const SCHEMAS = {
     empty: { title: "", issuer: "", date: "", description: "", credential_id: "", link: "", icon: "", display_order: 0, is_published: true },
     label: (item) => item.title,
   },
+  faqs: {
+    title: "FAQs",
+    fields: [
+      ["question", "Question"],
+      ["answer", "Answer", "textarea"],
+      ["display_order", "Order", "number"],
+      ["is_active", "Active", "checkbox"],
+    ],
+    empty: { question: "", answer: "", display_order: 0, is_active: true },
+    label: (item) => item.question,
+  },
 };
 
 function toForm(resource, item) {

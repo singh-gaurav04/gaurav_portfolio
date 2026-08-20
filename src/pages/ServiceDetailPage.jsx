@@ -5,6 +5,7 @@ import { ArrowLeft, CalendarDays, Clock3, ListChecks, Phone, Workflow } from "lu
 import Navbar from "../components/Navbar";
 import ImageGallery from "../components/ImageGallery";
 import ServiceBookModal from "../components/ServiceBookModal";
+import SeoHead from "../components/SeoHead";
 import { getServiceBySlug } from "../api/public";
 import { getServiceIcon, normalizeService } from "../data/services";
 import { usePortfolio } from "../hooks/usePortfolio";
@@ -13,7 +14,7 @@ import { DetailPageSkeleton } from "../components/Skeleton";
 function PointCard({ title, icon: Icon, items, accent = "var(--lsw-warning)" }) {
   return (
     <div
-      className="rounded-3xl border p-6"
+      className="rounded-[28px] border p-6"
       style={{
         borderColor: "color-mix(in srgb, var(--lsw-border) 18%, transparent)",
         background: "var(--lsw-surface)",
@@ -100,14 +101,24 @@ export default function ServiceDetailPage() {
   const Icon = getServiceIcon(service.icon);
 
   return (
-    <div className="min-h-screen" style={{ background: "var(--lsw-background)", color: "var(--lsw-text)" }}>
+    <div className="min-h-screen overflow-x-hidden" style={{ background: "var(--lsw-background)", color: "var(--lsw-text)" }}>
+      <SeoHead
+        title={`${service.title} — AI Development Service`}
+        description={
+          service.short_description ||
+          `Book ${service.title} with AI Engineer Gaurav Singh. GenAI, RAG, and software engineering services.`
+        }
+        path={`/services/${service.slug}`}
+        image={service.featured_image_url}
+        type="article"
+      />
       <div className="site-grain" />
       <Navbar />
-      <main className="relative z-10 px-4 pb-24 pt-28">
+      <main className="relative z-10 px-0 pb-16 pt-20 sm:px-4 sm:pb-24 sm:pt-28">
         <div className="container mx-auto max-w-6xl">
           <Link
             to="/#services"
-            className="mb-8 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold"
+            className="mb-4 ml-3 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold sm:mb-8 sm:ml-0"
             style={{
               borderColor: "color-mix(in srgb, var(--lsw-border) 18%, transparent)",
               background: "var(--lsw-surface)",
@@ -118,18 +129,18 @@ export default function ServiceDetailPage() {
           </Link>
 
           <div
-            className="overflow-hidden rounded-[32px] border"
+            className="overflow-hidden border-y sm:rounded-[32px] sm:border"
             style={{
               borderColor: "color-mix(in srgb, var(--lsw-border) 16%, transparent)",
               background: "linear-gradient(135deg, color-mix(in srgb, var(--lsw-warning) 10%, var(--lsw-white)), var(--lsw-surface))",
             }}
           >
             <div className="grid gap-0 lg:grid-cols-[1.05fr_0.95fr]">
-              <div className="p-8 sm:p-10">
+              <div className="p-5 sm:p-8 lg:p-10">
                 <p className="editorial-label">Service details</p>
                 {(service.recommended || service.tag) && (
                   <div
-                    className="mt-4 inline-flex w-fit items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold"
+                    className="mt-4 inline-flex w-fit max-w-full items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold"
                     style={{
                       borderColor: "color-mix(in srgb, var(--lsw-border) 18%, transparent)",
                       background: "var(--lsw-white)",
@@ -139,24 +150,29 @@ export default function ServiceDetailPage() {
                     {service.recommended ? "Recommended" : service.tag}
                   </div>
                 )}
-                <h1 className="mt-3 text-4xl font-semibold leading-tight sm:text-5xl">{service.title}</h1>
-                <p className="mt-4 max-w-2xl text-lg leading-8" style={{ color: "var(--lsw-text-muted)" }}>
+                <h1 className="mt-3 break-words text-3xl font-semibold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
+                  {service.title}
+                </h1>
+                <p className="mt-4 max-w-2xl text-base leading-7 sm:text-lg sm:leading-8" style={{ color: "var(--lsw-text-muted)" }}>
                   {service.short_description}
                 </p>
 
-                <div className="mt-8 flex flex-wrap gap-3">
+                <div className="mt-6 flex flex-wrap items-center gap-3 sm:mt-8">
                   <button type="button" onClick={() => setBookOpen(true)} className="lsw-btn-primary px-5 py-3">
                     <CalendarDays className="h-4 w-4" /> Book this service
                   </button>
                   {phoneHref ? (
                     <a href={phoneHref} className="lsw-btn-secondary px-5 py-3">
-                      <Phone className="h-4 w-4" style={{ color: "var(--lsw-warning)" }} /> Call now
+                      <Phone className="h-4 w-4" /> Call now
                     </a>
                   ) : null}
                 </div>
               </div>
 
-              <div className="relative min-h-[260px] border-t p-4 lg:border-l lg:border-t-0" style={{ borderColor: "color-mix(in srgb, var(--lsw-border) 12%, transparent)" }}>
+              <div
+                className="relative min-h-[240px] border-t p-4 sm:min-h-[260px] sm:p-4 lg:border-l lg:border-t-0"
+                style={{ borderColor: "color-mix(in srgb, var(--lsw-border) 12%, transparent)" }}
+              >
                 {service.featured_image_url || (service.gallery_images || []).length ? (
                   <ImageGallery
                     featured_image_url={service.featured_image_url}
@@ -164,7 +180,7 @@ export default function ServiceDetailPage() {
                     alt={service.title}
                   />
                 ) : (
-                  <div className="flex h-full min-h-[260px] flex-col items-center justify-center gap-4 p-8 text-center">
+                  <div className="flex h-full min-h-[260px] items-center justify-center gap-4 p-8 text-center">
                     <div
                       className="inline-flex h-16 w-16 items-center justify-center rounded-2xl"
                       style={{
@@ -183,21 +199,21 @@ export default function ServiceDetailPage() {
             </div>
           </div>
 
-          <div className="mt-10 space-y-6">
+          <div className="mt-6 space-y-4 px-3 sm:mt-10 sm:space-y-6 sm:px-0">
             <div
-              className="rounded-3xl border p-6"
+              className="rounded-[28px] border p-5 sm:p-6"
               style={{
                 borderColor: "color-mix(in srgb, var(--lsw-border) 18%, transparent)",
                 background: "var(--lsw-surface)",
               }}
             >
               <h2 className="text-xl font-semibold">Overview</h2>
-              <p className="mt-4 whitespace-pre-wrap text-sm leading-8" style={{ color: "var(--lsw-text-muted)" }}>
+              <p className="mt-4 whitespace-pre-wrap break-words text-sm leading-8" style={{ color: "var(--lsw-text-muted)" }}>
                 {service.description}
               </p>
             </div>
 
-            <div className="grid gap-6 sm:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
               <PointCard title="What you get" icon={ListChecks} items={service.features} accent="var(--lsw-warning)" />
               <PointCard title="Duration" icon={Clock3} items={service.duration} accent="var(--lsw-info)" />
               <PointCard title="How it works" icon={Workflow} items={service.how_it_works} accent="var(--lsw-success)" />
@@ -206,7 +222,7 @@ export default function ServiceDetailPage() {
           </div>
 
           {related.length > 0 && (
-            <section className="mt-16">
+            <section className="mt-10 px-3 sm:mt-16 sm:px-0">
               <h2 className="text-2xl font-semibold">Other services</h2>
               <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {related.map((item) => {
@@ -215,7 +231,7 @@ export default function ServiceDetailPage() {
                     <Link
                       key={item.slug}
                       to={`/services/${item.slug}`}
-                      className="group rounded-2xl border p-5 transition hover:-translate-y-1"
+                      className="group rounded-[28px] border p-5 transition hover:-translate-y-1"
                       style={{
                         borderColor: "color-mix(in srgb, var(--lsw-border) 18%, transparent)",
                         background: "var(--lsw-surface)",

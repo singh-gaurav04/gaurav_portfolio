@@ -37,6 +37,7 @@ export default function AdminApp() {
           <Route path="skills" element={<ResourcePage resource="skills" />} />
           <Route path="experiences" element={<ResourcePage resource="experiences" />} />
           <Route path="certifications" element={<ResourcePage resource="certifications" />} />
+          <Route path="faqs" element={<ResourcePage resource="faqs" />} />
           <Route path="testimonials" element={<TestimonialsPage />} />
           <Route path="contacts" element={<ContactsPage />} />
           <Route path="templates" element={<TemplatesPage />} />

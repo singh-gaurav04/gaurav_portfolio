@@ -39,6 +39,7 @@ export const submitFeedback = ({ name, message, email, linkedin_url, avatar }) =
 export const getMyRealProjects = () => api.get("/my_real_projects");
 export const getServices = () => api.get("/services");
 export const getServiceBySlug = (slug) => api.get(`/services/${slug}`);
+export const getFaqs = () => api.get("/faqs");
 
 // Contact & analytics
 export const submitContact = (payload) => api.post("/contact", payload);

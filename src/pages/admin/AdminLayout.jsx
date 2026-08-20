@@ -14,6 +14,7 @@ import {
   User,
   Wrench,
   Bot,
+  HelpCircle,
   X,
 } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
@@ -26,6 +27,7 @@ const links = [
   { to: "/admin/skills", label: "Skills", icon: Wrench },
   { to: "/admin/experiences", label: "Experience", icon: BarChart3 },
   { to: "/admin/certifications", label: "Certifications", icon: Award },
+  { to: "/admin/faqs", label: "FAQs", icon: HelpCircle },
   { to: "/admin/testimonials", label: "Testimonials", icon: Star },
   { to: "/admin/contacts", label: "Inbox", icon: MessageSquare },
   { to: "/admin/chatbot", label: "Chatbot", icon: Bot },

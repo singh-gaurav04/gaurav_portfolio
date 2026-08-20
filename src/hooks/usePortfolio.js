@@ -11,6 +11,7 @@ const empty = {
   certifications: [],
   testimonials: [],
   services: [],
+  faqs: [],
   stats: {},
 };
 

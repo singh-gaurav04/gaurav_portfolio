@@ -93,7 +93,7 @@ function ServiceCard({ service, phoneHref, onBook, onOpen }) {
 
         {phoneHref ? (
           <a href={phoneHref} onClick={(e) => e.stopPropagation()} className="lsw-btn-secondary flex-1 px-4 py-2.5">
-            <Phone className="h-4 w-4" style={{ color: "var(--lsw-warning)" }} /> Call
+            <Phone className="h-4 w-4" /> Call
           </a>
         ) : (
           <button
@@ -116,11 +116,18 @@ function ServiceCard({ service, phoneHref, onBook, onOpen }) {
   );
 }
 
+function getServiceFilterKey(service) {
+  if (service.recommended) return "Recommended";
+  if (service.tag) return String(service.tag).trim();
+  return "Other";
+}
+
 export default function Services({ previewLimit = HOME_PREVIEW_LIMIT, showViewAll = true } = {}) {
   const { data, isLoading } = usePortfolio();
   const profile = data?.profile;
   const phoneHref = profile?.phone ? `tel:${String(profile.phone).replace(/\D/g, "")}` : null;
   const [bookService, setBookService] = useState(null);
+  const [selectedFilter, setSelectedFilter] = useState("all");
   const navigate = useNavigate();
 
   const services = useMemo(
@@ -128,8 +135,21 @@ export default function Services({ previewLimit = HOME_PREVIEW_LIMIT, showViewAl
     [data.services]
   );
 
-  const visibleServices = previewLimit ? services.slice(0, previewLimit) : services;
-  const hasMore = showViewAll && previewLimit && services.length > previewLimit;
+  const filters = useMemo(() => {
+    const tags = new Set();
+    services.forEach((service) => {
+      tags.add(getServiceFilterKey(service));
+    });
+    return ["all", ...Array.from(tags).sort((a, b) => a.localeCompare(b))];
+  }, [services]);
+
+  const filteredServices = useMemo(() => {
+    if (selectedFilter === "all") return services;
+    return services.filter((service) => getServiceFilterKey(service) === selectedFilter);
+  }, [services, selectedFilter]);
+
+  const visibleServices = previewLimit ? filteredServices.slice(0, previewLimit) : filteredServices;
+  const hasMore = showViewAll && previewLimit && filteredServices.length > previewLimit;
 
   return (
     <section id="services" className="px-4 py-12">
@@ -150,10 +170,43 @@ export default function Services({ previewLimit = HOME_PREVIEW_LIMIT, showViewAl
                 color: "var(--lsw-warning)",
               }}
             >
-              {services.length} available
+              {filteredServices.length} available
             </div>
           ) : null}
         </div>
+
+        {!isLoading && filters.length > 1 && (
+          <div className="mb-6 flex flex-wrap gap-2" role="tablist" aria-label="Filter services">
+            {filters.map((filter) => {
+              const active = selectedFilter === filter;
+              return (
+                <button
+                  key={filter}
+                  type="button"
+                  role="tab"
+                  aria-selected={active}
+                  onClick={() => setSelectedFilter(filter)}
+                  className="rounded-full border px-4 py-2 text-sm font-semibold transition"
+                  style={
+                    active
+                      ? {
+                          borderColor: "var(--lsw-warning)",
+                          background: "color-mix(in srgb, var(--lsw-warning) 14%, var(--lsw-white))",
+                          color: "var(--lsw-warning)",
+                        }
+                      : {
+                          borderColor: "color-mix(in srgb, var(--lsw-border) 18%, transparent)",
+                          background: "var(--lsw-white)",
+                          color: "var(--lsw-text-muted)",
+                        }
+                  }
+                >
+                  {filter === "all" ? "All" : filter}
+                </button>
+              );
+            })}
+          </div>
+        )}
 
         {isLoading && (
           <CardGridSkeleton
@@ -174,9 +227,23 @@ export default function Services({ previewLimit = HOME_PREVIEW_LIMIT, showViewAl
           </div>
         )}
 
+        {!isLoading && services.length > 0 && !visibleServices.length && (
+          <div
+            className="rounded-3xl border border-dashed p-10 text-center text-sm"
+            style={{
+              borderColor: "color-mix(in srgb, var(--lsw-border) 20%, transparent)",
+              color: "var(--lsw-text-muted)",
+              background: "var(--lsw-surface)",
+            }}
+          >
+            No services in this category yet.
+          </div>
+        )}
+
         {!isLoading && visibleServices.length > 0 && (
           <>
             <motion.div
+              key={selectedFilter}
               variants={animationVariants.container}
               initial="hidden"
               whileInView="visible"

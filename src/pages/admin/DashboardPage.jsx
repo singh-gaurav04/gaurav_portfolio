@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Award, Briefcase, Eye, Mail, Star, Users, Wrench } from "lucide-react";
+import { Award, Briefcase, Eye, HelpCircle, Mail, Star, Users, Wrench } from "lucide-react";
 import { getDashboard } from "../../api/admin";
 import { AdminDashboardSkeleton } from "../../components/Skeleton";
 
@@ -20,6 +20,7 @@ export default function DashboardPage() {
         <Card icon={Users} label="Visits" value={data.visits?.total} />
         <Card icon={Eye} label="Experience" value={data.experiences?.total} />
         <Card icon={Award} label="Certifications" value={data.certifications?.total} />
+        <Card icon={HelpCircle} label="FAQs" value={data.faqs?.total} hint={`${data.faqs?.active || 0} active`} />
       </div>
     </div>
   );

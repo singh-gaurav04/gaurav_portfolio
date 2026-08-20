@@ -26,10 +26,9 @@ export const animationVariants = {
 
 export const NAV_ITEMS = [
   { name: "About", href: "#about" },
-  { name: "Real Projects", href: "#real-projects" },
-  { name: "Projects", href: "#projects" },
+  { name: "Services", href: "#services" },
+  { name: "Projects", href: "#real-projects" },
   { name: "Skills", href: "#skills" },
   { name: "Experience", href: "#experience" },
-  { name: "Feedback", href: "#feedback" },
   { name: "Contact", href: "#contact" },
 ];

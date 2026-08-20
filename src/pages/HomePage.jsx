@@ -12,6 +12,8 @@ import Feedback from "../components/Feedback";
 import Contact from "../components/Contact";
 import Footer from "../components/Footer";
 import Chatbot from "../components/chatbot/Chatbot";
+import SeoHead from "../components/SeoHead";
+import SeoFaq from "../components/SeoFaq";
 import { useApp } from "../hooks";
 import { trackVisit } from "../api/public";
 
@@ -28,8 +30,18 @@ export default function HomePage() {
     localStorage.setItem("visited", "true");
   }, []);
 
+  useEffect(() => {
+    const hash = window.location.hash?.replace("#", "");
+    if (!hash) return;
+    const timer = window.setTimeout(() => {
+      document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
+    }, 120);
+    return () => window.clearTimeout(timer);
+  }, []);
+
   return (
     <div className="relative min-h-screen overflow-x-hidden" style={{ background: "var(--lsw-background)", color: "var(--lsw-text)" }}>
+      <SeoHead includeHomeSchemas path="/" />
       <div className="site-grain" />
       <Navbar />
       <main className="relative z-10 overflow-x-hidden pt-20">
@@ -41,6 +53,7 @@ export default function HomePage() {
         <Skills />
         <Experience />
         <Certifications />
+        <SeoFaq />
         <Feedback />
         <Contact />
       </main>

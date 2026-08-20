@@ -17,7 +17,10 @@ function formatCategoryLabel(value) {
 
 export default function Projects() {
   const { data, isLoading } = usePortfolio();
-  const projects = data.projects || [];
+  const projects = useMemo(
+    () => (data.projects || []).filter((project) => !project.is_real_project),
+    [data.projects]
+  );
 
   const categories = useMemo(() => {
     const map = new Map();
@@ -163,7 +166,7 @@ export default function Projects() {
                   )}
 
                   <div className="mt-6 flex flex-wrap gap-3">
-                    <Link to={`/projects/${project.slug}`} className="lsw-btn-secondary px-4 py-2.5">
+                    <Link to={`/projects/${project.slug}`} className="lsw-btn-primary px-4 py-2.5">
                       View details <span aria-hidden>→</span>
                     </Link>
 

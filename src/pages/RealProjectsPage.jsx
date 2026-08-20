@@ -3,6 +3,7 @@ import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import RealProjectCard from "../components/RealProjectCard";
+import SeoHead from "../components/SeoHead";
 import { usePortfolio } from "../hooks/usePortfolio";
 import { animationVariants } from "../lib/motion";
 import { ProjectCardSkeleton } from "../components/Skeleton";
@@ -13,6 +14,11 @@ export default function RealProjectsPage() {
 
   return (
     <div className="min-h-screen" style={{ background: "var(--lsw-background)", color: "var(--lsw-text)" }}>
+      <SeoHead
+        title="Real AI & Software Projects"
+        description="Shipped AI and software projects by Gaurav Singh — RAG systems, GenAI apps, FastAPI backends, and production case studies."
+        path="/real-projects"
+      />
       <div className="site-grain" />
       <Navbar />
       <main className="relative z-10 px-4 pb-24 pt-28">

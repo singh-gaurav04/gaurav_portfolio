@@ -162,18 +162,15 @@ export function ProjectCardSkeleton({ count = 3, columns = "grid-cols-1 sm:grid-
 
 export function SkillsSkeleton() {
   return (
-    <div className="space-y-6" aria-busy="true" aria-label="Loading skills">
-      <div className="flex flex-wrap justify-center gap-2">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <Skeleton key={i} className="h-10 w-20" rounded="full" />
+    <div className="mx-auto max-w-6xl space-y-8" aria-busy="true" aria-label="Loading skills">
+      <div className="flex justify-center">
+        <Skeleton className="h-28 w-28 sm:h-32 sm:w-32" rounded="full" />
+      </div>
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <Skeleton key={i} className="h-28 w-full" rounded="2xl" />
         ))}
       </div>
-      <div className="mx-auto flex max-w-xl flex-wrap justify-center gap-3">
-        {Array.from({ length: 12 }).map((_, i) => (
-          <Skeleton key={i} className="h-10" style={{ width: `${64 + (i % 4) * 18}px` }} rounded="full" />
-        ))}
-      </div>
-      <Skeleton className="mx-auto h-64 w-full max-w-lg" rounded="full" />
     </div>
   );
 }
