@@ -51,7 +51,7 @@ export default function Bot({
     setError(null);
 
     try {
-      const res = await fetch("https://mychatbot-app.onrender.com/chat", {
+      const res = await fetch(import.meta.env.VITE_CHAT_API_URL || "https://mychatbot-app.onrender.com/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

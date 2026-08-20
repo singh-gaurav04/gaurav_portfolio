@@ -1,12 +1,24 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/geist";
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
+    --lsw-success: #16a34a;
+    --lsw-warning: #f59e0b;
+    --lsw-error: #ef4444;
+    --lsw-info: #3b82f6;
+    --lsw-white: #fffcf2;
+    --lsw-background: #fffcf2;
+    --lsw-surface: #fffcf2;
+    --lsw-border: #061c3a;
+    --lsw-text: #0f172a;
+    --lsw-text-muted: #64748b;
+
     --background: oklch(1 0 0);
     --foreground: oklch(0.145 0 0);
     --card: oklch(1 0 0);
@@ -102,9 +114,18 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
-    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background-image: radial-gradient(circle at top left, rgba(255,255,255,0.35), transparent 25%), radial-gradient(circle at bottom right, rgba(0,0,0,0.05), transparent 20%);
+    @apply antialiased;
+    font-family: Poppins, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--lsw-text);
+    background-color: var(--lsw-background);
+    background-image:
+      radial-gradient(circle at 10% 12%, rgba(59, 130, 246, 0.08), transparent 22%),
+      radial-gradient(circle at 90% 18%, rgba(245, 158, 11, 0.06), transparent 20%),
+      linear-gradient(180deg, var(--lsw-background) 0%, #fff8e8 100%);
+  }
+
+  body.modal-open {
+    overflow: hidden;
   }
 }
 
@@ -151,7 +172,181 @@
   @apply bg-primary/80;
 }
 
-/* Smooth scrolling */
 html {
   scroll-behavior: smooth;
 }
+
+.site-grain {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.editorial-label {
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  color: var(--lsw-warning);
+  font-weight: 700;
+}
+
+.lsw-border {
+  border-color: color-mix(in srgb, var(--lsw-border) 16%, transparent);
+}
+
+.lsw-input {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--lsw-border) 16%, transparent);
+  background: var(--lsw-white);
+  padding: 0.65rem 0.85rem;
+  color: var(--lsw-text);
+  outline: none;
+}
+
+.lsw-input:focus {
+  border-color: var(--lsw-info);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--lsw-info) 18%, transparent);
+}
+
+.lsw-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 1rem;
+  background: var(--lsw-warning);
+  padding: 0.7rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #fff;
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--lsw-warning) 28%, transparent);
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.lsw-btn-primary:hover {
+  filter: brightness(0.97);
+  transform: translateY(-1px);
+}
+
+.lsw-btn-primary:disabled {
+  opacity: 0.6;
+}
+
+.lsw-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 1rem;
+  border: 1px solid color-mix(in srgb, var(--lsw-border) 18%, transparent);
+  background: var(--lsw-white);
+  padding: 0.7rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--lsw-text);
+  transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.lsw-btn-secondary:hover {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--lsw-warning) 35%, transparent);
+  color: var(--lsw-warning);
+}
+
+.lsw-btn-secondary:disabled {
+  opacity: 0.6;
+}
+
+.lsw-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(6px);
+}
+
+@media (min-width: 640px) {
+  .lsw-modal-overlay {
+    align-items: center;
+    padding: 1rem;
+  }
+}
+
+.lsw-modal-panel {
+  width: 100%;
+  max-width: 640px;
+  max-height: min(92dvh, 820px);
+  overflow-y: auto;
+  border-radius: 1.5rem 1.5rem 0 0;
+  border: 1px solid color-mix(in srgb, var(--lsw-border) 18%, transparent);
+  background: var(--lsw-surface);
+  color: var(--lsw-text);
+  box-shadow: 0 24px 60px rgba(6, 28, 58, 0.18);
+  padding: 1.25rem;
+  padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
+}
+
+@media (min-width: 640px) {
+  .lsw-modal-panel {
+    width: min(640px, calc(100vw - 24px));
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+  }
+}
+
+.chatbot-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #c5cad1 transparent;
+}
+
+.chatbot-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.chatbot-scroll::-webkit-scrollbar-thumb {
+  background: #c5cad1;
+  border-radius: 999px;
+}
+
+@keyframes testimonial-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.testimonial-marquee-track {
+  animation: testimonial-marquee 40s linear infinite;
+  will-change: transform;
+}
+
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.skeleton-shimmer {
+  background-image: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--lsw-border) 7%, var(--lsw-white)) 0%,
+    color-mix(in srgb, var(--lsw-warning) 12%, var(--lsw-white)) 45%,
+    color-mix(in srgb, var(--lsw-border) 7%, var(--lsw-white)) 90%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+}
+

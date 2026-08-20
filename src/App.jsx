@@ -1,98 +1,79 @@
-import React from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { AppProvider } from "./contexts/AppContext";
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import Projects from "./components/Projects";
-import Skills from "./components/Skills";
-import Certifications from "./components/Certifications";
-import Contact from "./components/Contact";
-import Footer from "./components/Footer";
-import Bot from "./components/Bot";
-import { useApp } from "./hooks";
-import axios from "axios";
-import LightRays from "./components/LightRays";
-import SplashCursor from "./components/SplashCursor";
+import HomePage from "./pages/HomePage";
+import AdminLayout from "./pages/admin/AdminLayout";
+import LoginPage from "./pages/admin/LoginPage";
+import DashboardPage from "./pages/admin/DashboardPage";
+import ProfilePage from "./pages/admin/ProfilePage";
+import ResourcePage from "./pages/admin/ResourcePage";
+import ContactsPage from "./pages/admin/ContactsPage";
+import TestimonialsPage from "./pages/admin/TestimonialsPage";
+import TemplatesPage from "./pages/admin/TemplatesPage";
+import ChatbotPage from "./pages/admin/ChatbotPage";
+import ProjectDetailPage from "./pages/ProjectDetailPage";
+import RealProjectsPage from "./pages/RealProjectsPage";
+import ServiceDetailPage from "./pages/ServiceDetailPage";
+import ServicesPage from "./pages/ServicesPage";
+import { ToastProvider } from "./components/Toast";
+import { useAuth } from "./contexts/AuthContext";
+import { AuthSkeleton } from "./components/Skeleton";
 
-import { useEffect } from "react";
+function RequireAdmin({ children }) {
+  const { isAuthenticated, loading } = useAuth();
+  if (loading) return <AuthSkeleton />;
+  if (!isAuthenticated) return <Navigate to="/admin/login" replace />;
+  return children;
+}
 
-function AppContent() {
-  const { isBotOpen, setIsBotOpen } = useApp();
-
-  useEffect(() => {
-    const sendVisit = async () => {
-      try {
-        await axios.post("https://mychatbot-app.onrender.com/track-visit", {
-          page: window.location.href,
-          userAgent: navigator.userAgent,
-          referrer: document.referrer,
-        });
-      } catch (err) {
-        console.error("Tracking error:", err);
-      }
-    };
-
-    // prevent spam (send only once per user)
-    if (!localStorage.getItem("visited")) {
-      sendVisit();
-      localStorage.setItem("visited", "true");
-    }
-  }, []);
-
-  return (
-
-    <div className="overflow-x-hidden min-h-screen bg-[#120F17] text-white transition-colors duration-300">
-
-          <div style={{ width: "100%", height: "770px", position: "absolute" }}>
-        <LightRays
-          raysOrigin="top-center"
-          raysColor="#14FCD4"
-          raysSpeed={1}
-          lightSpread={0.5}
-          rayLength={3}
-          followMouse={true}
-          mouseInfluence={0.1}
-          noiseAmount={0}
-          distortion={0}
-          className="custom-rays"
-          pulsating={false}
-          fadeDistance={1}
-          saturation={1}
-        />
-      </div>
-      {/* <SplashCursor
-        DENSITY_DISSIPATION={3.5}
-        VELOCITY_DISSIPATION={2}
-        PRESSURE={0.1}
-        CURL={3}
-        SPLAT_RADIUS={0.2}
-        SPLAT_FORCE={6000}
-        COLOR_UPDATE_SPEED={10}
-        SHADING
-        RAINBOW_MODE={true}
-        COLOR="#A855F7"
-      /> */}
-      <Navbar />
-      <main className="pt-20 overflow-x-hidden">
-        <Hero />
-        <Projects />
-        <Skills />
-        <Certifications />
-        <Contact />
-      </main>
-      <Footer />
-      <Bot isOpen={isBotOpen} setIsOpen={setIsBotOpen} />
-    </div>
-  );
+function AdminLoginRoute() {
+  const { isAuthenticated, loading } = useAuth();
+  if (loading) return <AuthSkeleton />;
+  if (isAuthenticated) return <Navigate to="/admin" replace />;
+  return <LoginPage />;
 }
 
 function App() {
   return (
-    <ThemeProvider>
-      <AppProvider>
-        <AppContent />
-      </AppProvider>
-    </ThemeProvider>
+    <ToastProvider>
+      <Routes>
+      <Route
+        path="/"
+        element={
+          <ThemeProvider>
+            <AppProvider>
+              <HomePage />
+            </AppProvider>
+          </ThemeProvider>
+        }
+      />
+      <Route path="/projects/:slug" element={<ProjectDetailPage />} />
+      <Route path="/real-projects" element={<RealProjectsPage />} />
+      <Route path="/services" element={<ServicesPage />} />
+      <Route path="/services/:slug" element={<ServiceDetailPage />} />
+      <Route path="/admin/login" element={<AdminLoginRoute />} />
+      <Route
+        path="/admin"
+        element={
+          <RequireAdmin>
+            <AdminLayout />
+          </RequireAdmin>
+        }
+      >
+        <Route index element={<DashboardPage />} />
+        <Route path="profile" element={<ProfilePage />} />
+        <Route path="projects" element={<ResourcePage resource="projects" />} />
+        <Route path="services" element={<ResourcePage resource="services" />} />
+        <Route path="skills" element={<ResourcePage resource="skills" />} />
+        <Route path="experiences" element={<ResourcePage resource="experiences" />} />
+        <Route path="certifications" element={<ResourcePage resource="certifications" />} />
+        <Route path="testimonials" element={<TestimonialsPage />} />
+        <Route path="contacts" element={<ContactsPage />} />
+        <Route path="templates" element={<TemplatesPage />} />
+        <Route path="chatbot" element={<ChatbotPage />} />
+      </Route>
+    </Routes>
+    </ToastProvider>
   );
 }
 

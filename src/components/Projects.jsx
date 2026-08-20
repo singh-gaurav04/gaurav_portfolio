@@ -1,229 +1,190 @@
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  Code,
-  ExternalLink,
-  Github,
-  Star,
-  Calendar,
-  Users,
-  Zap,
-  Eye,
-} from "lucide-react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "./ui/card";
-import { Button } from "./ui/button";
-import { portfolioData, animationVariants } from "../data/portfolioData";
-import ElectricBorder from "./ElectricBorder";
+import { motion } from "framer-motion";
+import { ExternalLink, Github } from "lucide-react";
+import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+import CardImageCarousel from "./CardImageCarousel";
+import { usePortfolio } from "../hooks/usePortfolio";
+import { animationVariants } from "../lib/motion";
+import { ProjectCardSkeleton } from "./Skeleton";
 
-const Projects = ({ openBot }) => {
+function normalizeCategory(value) {
+  return String(value || "").trim().toLowerCase();
+}
+
+function formatCategoryLabel(value) {
+  return String(value || "").replaceAll("_", " ");
+}
+
+export default function Projects() {
+  const { data, isLoading } = usePortfolio();
+  const projects = data.projects || [];
+
+  const categories = useMemo(() => {
+    const map = new Map();
+    projects.forEach((project) => {
+      if (!project.category) return;
+      const key = normalizeCategory(project.category);
+      if (!map.has(key)) map.set(key, project.category);
+    });
+    return [{ key: "all", label: "All" }, ...Array.from(map.entries()).map(([key, label]) => ({ key, label }))];
+  }, [projects]);
+
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const { projects } = portfolioData;
 
-  const categories = [
-    { id: "all", name: "All Projects", icon: "🚀" },
-    { id: "web", name: "Web Apps", icon: "🌐" },
-    { id: "mobile", name: "Mobile Apps", icon: "📱" },
-    { id: "AI", name: "AI/ML", icon: "🤖" },
-  ];
+  const filtered = useMemo(() => {
+    if (selectedCategory === "all") return projects;
+    return projects.filter((project) => normalizeCategory(project.category) === selectedCategory);
+  }, [projects, selectedCategory]);
 
-  const filteredProjects =
-    selectedCategory === "all"
-      ? projects
-      : projects.filter(
-          (project) => project.category === selectedCategory,
-        );
-
-  const featuredProjects = projects.filter(
-    (project) => project.featured,
-  );
-
-  const containerVariants = animationVariants.container;
-  const itemVariants = animationVariants.item;
-  const cardVariants = animationVariants.card;
+  const emptyMessage = !projects.length
+    ? "No projects published yet. Check back soon."
+    : selectedCategory === "all"
+      ? "No projects available right now."
+      : `No projects in "${formatCategoryLabel(categories.find((c) => c.key === selectedCategory)?.label || selectedCategory)}" yet.`;
 
   return (
-    <section
-      id="projects"
-      className=" px-4 bg-gradient-to-br from-background to-secondary/20"
-    >
-      <div className="container mx-auto">
-        {/* Category Filter */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          viewport={{ once: true }}
-          className="flex justify-center mb-12"
-        >
-          <div className="bg-secondary rounded-sm border-4 border-black p-1 flex space-x-1 overflow-x-auto">
-            {categories.map((category) => (
-              <Button
-                key={category.id}
-                variant={selectedCategory === category.id ? "default" : "ghost"}
-                onClick={() => setSelectedCategory(category.id)}
-                className="px-4 whitespace-nowrap border-2 border-black"
+    <section id="projects" className="px-4 py-12">
+      <div className="container mx-auto max-w-7xl">
+        <div className="mb-6 max-w-2xl">
+          <p className="editorial-label">Archive</p>
+          <h2 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl" style={{ color: "var(--lsw-text)" }}>
+            PROJECT ARCHIVE
+          </h2>
+        </div>
+
+        {categories.length > 1 && (
+          <div className="mb-6 flex flex-wrap gap-2">
+            {categories.map(({ key, label }) => (
+              <button
+                key={key}
+                type="button"
+                onClick={() => setSelectedCategory(key)}
+                className="rounded-full border px-4 py-2 text-sm font-semibold transition"
+                style={
+                  selectedCategory === key
+                    ? {
+                        borderColor: "var(--lsw-warning)",
+                        background: "var(--lsw-warning)",
+                        color: "var(--lsw-white)",
+                      }
+                    : {
+                        borderColor: "color-mix(in srgb, var(--lsw-border) 18%, transparent)",
+                        background: "var(--lsw-white)",
+                        color: "var(--lsw-text-muted)",
+                      }
+                }
               >
-                <span className="mr-2">{category.icon}</span>
-                {category.name}
-              </Button>
+                {key === "all" ? "All" : formatCategoryLabel(label)}
+              </button>
             ))}
           </div>
-        </motion.div>
+        )}
 
-        {/* All Projects Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 "
-        >
-          {filteredProjects.map((project, index) => (
-              <ElectricBorder
-                color="#7df9ff"
-                speed={1}
-                chaos={0.12}
-                thickness={10}
-                style={{ borderRadius: 16 }}
-                className={""}
+        {isLoading && <ProjectCardSkeleton count={6} />}
+
+        {!isLoading && !filtered.length && (
+          <div
+            className="rounded-3xl border border-dashed px-6 py-12 text-center text-sm"
+            style={{
+              borderColor: "color-mix(in srgb, var(--lsw-border) 20%, transparent)",
+              color: "var(--lsw-text-muted)",
+              background: "var(--lsw-surface)",
+            }}
+          >
+            {emptyMessage}
+          </div>
+        )}
+
+        {!isLoading && filtered.length > 0 && (
+          <motion.div
+            key={selectedCategory}
+            variants={animationVariants.container}
+            initial="hidden"
+            animate="visible"
+            className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3"
+          >
+            {filtered.map((project) => (
+              <motion.article
+                key={project.id}
+                variants={animationVariants.card}
+                whileHover={{ y: -4 }}
+                className="group flex flex-col overflow-hidden rounded-[28px] border"
+                style={{
+                  borderColor: "color-mix(in srgb, var(--lsw-border) 18%, transparent)",
+                  background: "var(--lsw-surface)",
+                  boxShadow: "0 14px 40px rgba(6, 28, 58, 0.06)",
+                }}
               >
-                <motion.div
-                  key={project.id}
-                  variants={itemVariants}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                  whileHover={{ y: -5 }}
-                  className="group"
+                <div
+                  className="relative aspect-[16/10] overflow-hidden"
+                  style={{ background: "color-mix(in srgb, var(--lsw-warning) 8%, var(--lsw-white))" }}
                 >
-                  <Card className="h-full hover:shadow-[15px_15px_0px_rgba(0,0,0,0.75)] transition-all duration-300 border-4 border-black hover:border-primary/50">
-                    <CardHeader>
-                      <div className="flex items-center justify-between mb-4">
-                        <span className="text-3xl">{project.image}</span>
-                        <div className="flex space-x-2">
-                          <motion.a
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.95 }}
-                            href={project.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="p-2 rounded-sm border-2 border-black bg-secondary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
-                          >
-                            <Github className="h-4 w-4" />
-                          </motion.a>
-                          <motion.a
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.95 }}
-                            href={project.demo}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="p-2 rounded-sm border-2 border-black bg-secondary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
-                          >
-                            <ExternalLink className="h-4 w-4" />
-                          </motion.a>
-                        </div>
-                      </div>
-                      <CardTitle className="group-hover:text-primary transition-colors">
-                        {project.title}
-                      </CardTitle>
-                      <div className="flex items-center space-x-2 mt-2">
+                  <CardImageCarousel
+                    featured_image_url={project.featured_image_url}
+                    gallery_images={project.gallery_images}
+                    alt={project.title}
+                    emptyLabel="No project media"
+                  />
+                  <div
+                    className="absolute left-4 top-4 rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-wider"
+                    style={{
+                      borderColor: "color-mix(in srgb, var(--lsw-border) 18%, transparent)",
+                      background: "var(--lsw-white)",
+                      color: "var(--lsw-warning)",
+                    }}
+                  >
+                    {formatCategoryLabel(project.category)}
+                  </div>
+                </div>
+
+                <div className="flex flex-1 flex-col p-6">
+                  <h3 className="text-xl font-semibold" style={{ color: "var(--lsw-text)" }}>
+                    {project.title}
+                  </h3>
+                  <p className="mt-3 flex-1 text-sm leading-7" style={{ color: "var(--lsw-text-muted)" }}>
+                    {project.short_description || project.description}
+                  </p>
+
+                  {!!(project.technologies || []).length && (
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {(project.technologies || []).slice(0, 4).map((tech) => (
                         <span
-                          className={`px-2 py-1 rounded-sm border-2 border-black text-xs font-medium ${
-                            project.status === "completed"
-                              ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
-                              : "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200"
-                          }`}
+                          key={tech}
+                          className="rounded-full border px-3 py-1.5 text-xs"
+                          style={{
+                            borderColor: "color-mix(in srgb, var(--lsw-border) 18%, transparent)",
+                            color: "var(--lsw-text-muted)",
+                          }}
                         >
-                          {project.status === "completed"
-                            ? "Completed"
-                            : "In Progress"}
+                          {tech}
                         </span>
-                        <span className="text-xs text-muted-foreground">
-                          {project.category}
-                        </span>
-                      </div>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                      <CardDescription className="text-sm leading-relaxed">
-                        {project.description}
-                      </CardDescription>
+                      ))}
+                    </div>
+                  )}
 
-                      
+                  <div className="mt-6 flex flex-wrap gap-3">
+                    <Link to={`/projects/${project.slug}`} className="lsw-btn-secondary px-4 py-2.5">
+                      View details <span aria-hidden>→</span>
+                    </Link>
 
-                      <div>
-                        <h4 className="font-semibold text-foreground mb-2 text-sm">
-                          Technologies:
-                        </h4>
-                        <div className="flex flex-wrap gap-1">
-                          {project.technologies.map((tech) => (
-                            <span
-                              key={tech}
-                              className="px-2 py-1 bg-secondary border-2 border-black rounded-sm text-xs text-foreground"
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              </ElectricBorder>
+                    {project.github_url ? (
+                      <a href={project.github_url} target="_blank" rel="noreferrer" className="lsw-btn-secondary px-4 py-2.5">
+                        <Github className="h-4 w-4" /> Source
+                      </a>
+                    ) : null}
+
+                    {project.live_url ? (
+                      <a href={project.live_url} target="_blank" rel="noreferrer" className="lsw-btn-primary px-4 py-2.5">
+                        <ExternalLink className="h-4 w-4" /> Live
+                      </a>
+                    ) : null}
+                  </div>
+                </div>
+              </motion.article>
             ))}
-        </motion.div>
-
-        {/* Call to Action */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="text-center mt-16"
-        >
-          <div className="bg-gradient-to-r from-primary/10 to-blue-600/10 rounded-sm p-8 border-4 border-black">
-            <h3 className="text-2xl font-bold text-foreground mb-4">
-              Interested in Collaborating?
-            </h3>
-            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-              I'm always excited to work on new projects and explore innovative
-              solutions. Let's discuss how we can bring your ideas to life!
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                size="lg"
-                onClick={() =>
-                  document
-                    .getElementById("contact")
-                    ?.scrollIntoView({ behavior: "smooth" })
-                }
-                className="group"
-              >
-                <Eye className="mr-2 h-4 w-4 group-hover:animate-pulse" />
-                View More Projects
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                onClick={() =>
-                  window.open("https://github.com/singh-gaurav04", "_blank")
-                }
-                className="group"
-              >
-                <Github className="mr-2 h-4 w-4 group-hover:animate-bounce" />
-                GitHub Profile
-              </Button>
-            </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        )}
       </div>
     </section>
   );
-};
-
-export default Projects;
+}

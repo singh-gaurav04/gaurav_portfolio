@@ -1,182 +1,112 @@
-import React, { useState } from 'react'
-import { motion } from 'framer-motion'
-import { Code, Globe, Cpu, Zap, Star } from 'lucide-react'
-import { 
-  Brain, 
-  Database, 
-  Cloud, 
-  Wrench 
-} from "lucide-react";
-import { Card, CardContent } from './ui/card'
-import { Button } from './ui/button'
-import { portfolioData, animationVariants } from '../data/portfolioData'
+import { motion } from "framer-motion";
+import { useMemo, useState } from "react";
+import { usePortfolio } from "../hooks/usePortfolio";
+import TechOrbit from "./TechOrbit";
+import { SkillsSkeleton } from "./Skeleton";
 
-const Skills = () => {
-  const [selectedCategory, setSelectedCategory] = useState('all')
-  const { skills } = portfolioData
-
-const skillCategories = [
-  { id: 'all', name: 'All Skills', icon: Star },
-  { id: 'AI_STACK', name: 'GenAI Stack', icon: Cpu },
-  { id: 'ml_dl', name: 'ML / Deep Learning', icon: Brain },
-  { id: 'vector_db', name: 'Vector DBs', icon: Database },
-  { id: 'deployment', name: 'Deployment', icon: Cloud },
-  { id: 'programming', name: 'Languages', icon: Code },
-  { id: 'frameworks', name: 'Frameworks', icon: Globe },
-  { id: 'tools', name: 'Tools', icon: Wrench }
-]
-
-  const containerVariants = animationVariants.container
-  const itemVariants = animationVariants.item
-
-  // Get all skills or filtered by category
-  const getDisplaySkills = () => {
-    if (selectedCategory === 'all') {
-      return Object.values(skills).flat()
-    }
-    return skills[selectedCategory] || []
-  }
-
-  // Simple skill card component
-  const SkillCard = ({ skill, index }) => (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      whileHover={{ y: -5, scale: 1.02 }}
-      className="group"
-    >
-      <Card className="h-full hover:shadow-[15px_15px_0px_rgba(0,0,0,0.75)] transition-all duration-300 border-4 border-black hover:border-primary/50 bg-gradient-to-br from-background to-secondary/20">
-        <CardContent className="p-6">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center space-x-3">
-              <span className="text-2xl">{skill.icon}</span>
-              <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
-                {skill.name}
-              </h3>
-            </div>
-            <span className="text-sm font-medium text-primary">
-              {skill.level}%
-            </span>
-          </div>
-          
-          <div className="w-full bg-secondary rounded-sm h-2 overflow-hidden">
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: `${skill.level}%` }}
-              transition={{ duration: 1, delay: index * 0.1 + 0.3 }}
-              className="h-2 bg-gradient-to-r from-primary to-blue-600 rounded-sm"
-            />
-          </div>
-        </CardContent>
-      </Card>
-    </motion.div>
-  )
-
-  return (
-    <section id="skills" className="py-20 px-4 bg-gradient-to-br from-background to-secondary/20">
-      <div className="container mx-auto">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <motion.div
-            initial={{ scale: 0 }}
-            whileInView={{ scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-sm mb-6 border-2 border-black"
-          >
-            <Zap className="h-8 w-8 text-primary-foreground" />
-          </motion.div>
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Skills & Expertise
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Technologies and tools I work with to build amazing digital experiences
-          </p>
-        </motion.div>
-
-        {/* Category Filter */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          viewport={{ once: true }}
-          className="flex justify-center mb-12"
-        >
-          <div className="bg-secondary rounded-sm border-4 border-black p-1 flex space-x-1 overflow-x-auto">
-            {skillCategories.map((category) => (
-              <Button
-                key={category.id}
-                variant={selectedCategory === category.id ? 'default' : 'ghost'}
-                onClick={() => setSelectedCategory(category.id)}
-                className="px-4 whitespace-nowrap border-2 border-black"
-              >
-                <category.icon className="h-4 w-4 mr-2" />
-                {category.name}
-              </Button>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Skills Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          {getDisplaySkills().map((skill, index) => (
-            <SkillCard key={skill.name} skill={skill} index={index} />
-          ))}
-        </motion.div>
-
-        {/* Skills Summary */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="mt-16"
-        >
-          <div className="bg-gradient-to-r from-primary/10 to-blue-600/10 rounded-sm p-8 border-4 border-black">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-              <div className="space-y-2">
-                <div className="text-3xl font-bold text-primary">
-                  {Object.values(skills).flat().length}
-                </div>
-                <div className="text-sm text-muted-foreground">Total Skills</div>
-              </div>
-              <div className="space-y-2">
-                <div className="text-3xl font-bold text-primary">
-                  {Math.round(Object.values(skills).flat().reduce((acc, skill) => acc + skill.level, 0) / Object.values(skills).flat().length)}%
-                </div>
-                <div className="text-sm text-muted-foreground">Average Level</div>
-              </div>
-              <div className="space-y-2">
-                <div className="text-3xl font-bold text-primary">
-                  {Object.values(skills).flat().filter(skill => skill.level >= 90).length}
-                </div>
-                <div className="text-sm text-muted-foreground">Expert Level</div>
-              </div>
-              <div className="space-y-2">
-                <div className="text-3xl font-bold text-primary">
-                  {skillCategories.length - 1}
-                </div>
-                <div className="text-sm text-muted-foreground">Categories</div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-      </div>
-    </section>
-  )
+function formatCategory(category) {
+  return String(category || "Other").replaceAll("_", " ");
 }
 
-export default Skills
+export default function Skills() {
+  const { data, isLoading } = usePortfolio();
+  const skills = data.skills || [];
+  const [selectedCategory, setSelectedCategory] = useState("all");
+
+  const skillCategories = useMemo(() => {
+    const map = new Map();
+    skills.forEach((skill) => {
+      const key = formatCategory(skill.category);
+      if (!map.has(key)) map.set(key, []);
+      map.get(key).push(skill.name);
+    });
+
+    return Array.from(map.entries())
+      .map(([category, items]) => ({
+        category,
+        items: [...new Set(items)].sort((a, b) => a.localeCompare(b)),
+      }))
+      .sort((a, b) => a.category.localeCompare(b.category));
+  }, [skills]);
+
+  const categories = useMemo(() => ["all", ...skillCategories.map((g) => g.category)], [skillCategories]);
+
+  const displayedSkillCategories =
+    selectedCategory === "all"
+      ? skillCategories
+      : skillCategories.filter((g) => g.category === selectedCategory);
+
+  return (
+    <section
+      id="skills"
+      className="border-t px-4 py-12"
+      style={{ borderColor: "color-mix(in srgb, var(--lsw-border) 16%, transparent)" }}
+    >
+      <div className="container mx-auto max-w-6xl space-y-8">
+        <div className="mx-auto max-w-2xl space-y-3 text-center">
+          <p className="editorial-label">AI STACK</p>
+          <h2 className="text-4xl font-semibold sm:text-5xl" style={{ color: "var(--lsw-text)" }}>
+            The ecosystem I build with
+          </h2>
+          <p className="text-lg leading-7" style={{ color: "var(--lsw-text-muted)" }}>
+            Languages, frameworks, and AI tooling that power real shipped work — not vanity percentages.
+          </p>
+        </div>
+
+        {!isLoading && skillCategories.length > 0 && (
+          <div className="flex flex-wrap justify-center gap-2">
+            {categories.map((category) => (
+              <button
+                key={category}
+                type="button"
+                onClick={() => setSelectedCategory(category)}
+                className="rounded-full border px-4 py-2 text-sm font-semibold transition"
+                style={
+                  category === selectedCategory
+                    ? {
+                        borderColor: "var(--lsw-warning)",
+                        background: "color-mix(in srgb, var(--lsw-warning) 16%, var(--lsw-white))",
+                        color: "var(--lsw-warning)",
+                      }
+                    : {
+                        borderColor: "color-mix(in srgb, var(--lsw-border) 18%, transparent)",
+                        background: "var(--lsw-white)",
+                        color: "var(--lsw-text-muted)",
+                      }
+                }
+              >
+                {category === "all" ? "All" : category}
+              </button>
+            ))}
+          </div>
+        )}
+
+        <div>
+          {isLoading ? (
+            <SkillsSkeleton />
+          ) : !displayedSkillCategories.length ? (
+            <div
+              className="rounded-3xl border border-dashed px-6 py-12 text-center text-sm"
+              style={{
+                borderColor: "color-mix(in srgb, var(--lsw-border) 20%, transparent)",
+                color: "var(--lsw-text-muted)",
+                background: "var(--lsw-surface)",
+              }}
+            >
+              {skills.length ? "No skills in this category yet." : "Skills will appear here once published."}
+            </div>
+          ) : (
+            <motion.div
+              key={selectedCategory}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35 }}
+            >
+              <TechOrbit skillCategories={displayedSkillCategories} />
+            </motion.div>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
