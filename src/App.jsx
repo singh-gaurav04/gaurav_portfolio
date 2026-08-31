@@ -3,6 +3,8 @@ import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { AppProvider } from "./contexts/AppContext";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import { ToastProvider } from "./components/Toast";
+import PageLoader from "./components/PageLoader";
 import { AuthSkeleton } from "./components/Skeleton";
 
 const HomePage = lazy(() => import("./pages/HomePage"));
