@@ -19,7 +19,8 @@ export function usePortfolio() {
   const query = useQuery({
     queryKey: ["portfolio"],
     queryFn: getPortfolio,
-    staleTime: 60_000,
+    staleTime: 5 * 60_000,
+    gcTime: 10 * 60_000,
   });
 
   return {

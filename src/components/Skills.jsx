@@ -1,10 +1,6 @@
 import TechOrbit, { SKILL_ORBIT_CATEGORIES } from "./TechOrbit";
-import { SkillsSkeleton } from "./Skeleton";
-import { usePortfolio } from "../hooks/usePortfolio";
 
 export default function Skills() {
-  const { isLoading } = usePortfolio();
-
   return (
     <section
       id="skills"
@@ -34,7 +30,7 @@ export default function Skills() {
           </p>
         </div>
 
-        {isLoading ? <SkillsSkeleton /> : <TechOrbit categories={SKILL_ORBIT_CATEGORIES} />}
+        <TechOrbit categories={SKILL_ORBIT_CATEGORIES} />
       </div>
     </section>
   );

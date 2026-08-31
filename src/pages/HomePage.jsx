@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import Stats from "../components/Stats";
@@ -6,19 +6,27 @@ import Services from "../components/Services";
 import RealProjects from "../components/RealProjects";
 import Projects from "../components/Projects";
 import Skills from "../components/Skills";
-import Experience from "../components/Experience";
-import Certifications from "../components/Certifications";
-import Feedback from "../components/Feedback";
-import Contact from "../components/Contact";
 import Footer from "../components/Footer";
-import Chatbot from "../components/chatbot/Chatbot";
 import SeoHead from "../components/SeoHead";
-import SeoFaq from "../components/SeoFaq";
+import {
+  CertificationsSkeleton,
+  ContactSkeleton,
+  ExperienceSkeleton,
+  FeedbackSkeleton,
+} from "../components/Skeleton";
 import { useApp } from "../hooks";
 import { trackVisit } from "../api/public";
 
+const Experience = lazy(() => import("../components/Experience"));
+const Certifications = lazy(() => import("../components/Certifications"));
+const SeoFaq = lazy(() => import("../components/SeoFaq"));
+const Feedback = lazy(() => import("../components/Feedback"));
+const Contact = lazy(() => import("../components/Contact"));
+const Chatbot = lazy(() => import("../components/chatbot/Chatbot"));
+
 export default function HomePage() {
   const { isBotOpen, setIsBotOpen } = useApp();
+  const [loadChatbot, setLoadChatbot] = useState(false);
 
   useEffect(() => {
     if (localStorage.getItem("visited")) return;
@@ -39,6 +47,19 @@ export default function HomePage() {
     return () => window.clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    if (isBotOpen) {
+      setLoadChatbot(true);
+      return undefined;
+    }
+
+    const timer = window.setTimeout(() => {
+      import("../components/chatbot/Chatbot").catch(() => {});
+    }, 2500);
+
+    return () => window.clearTimeout(timer);
+  }, [isBotOpen]);
+
   return (
     <div className="relative min-h-screen overflow-x-hidden" style={{ background: "var(--lsw-background)", color: "var(--lsw-text)" }}>
       <SeoHead includeHomeSchemas path="/" />
@@ -51,14 +72,28 @@ export default function HomePage() {
         <RealProjects />
         <Projects />
         <Skills />
-        <Experience />
-        <Certifications />
-        <SeoFaq />
-        <Feedback />
-        <Contact />
+        <Suspense fallback={<ExperienceSkeleton />}>
+          <Experience />
+        </Suspense>
+        <Suspense fallback={<CertificationsSkeleton />}>
+          <Certifications />
+        </Suspense>
+        <Suspense fallback={null}>
+          <SeoFaq />
+        </Suspense>
+        <Suspense fallback={<FeedbackSkeleton />}>
+          <Feedback />
+        </Suspense>
+        <Suspense fallback={<ContactSkeleton />}>
+          <Contact />
+        </Suspense>
       </main>
       <Footer />
-      <Chatbot isOpen={isBotOpen} setIsOpen={setIsBotOpen} />
+      {loadChatbot ? (
+        <Suspense fallback={null}>
+          <Chatbot isOpen={isBotOpen} setIsOpen={setIsBotOpen} />
+        </Suspense>
+      ) : null}
     </div>
   );
 }

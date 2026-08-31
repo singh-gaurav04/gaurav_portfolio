@@ -275,6 +275,11 @@ export default function Hero() {
                   src={imageSrc}
                   alt={profile?.name || "Gaurav Singh"}
                   className="h-[320px] w-full object-cover object-top sm:h-[380px]"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
+                  width={440}
+                  height={380}
                   onError={(event) => {
                     if (event.currentTarget.src.endsWith(FALLBACK_IMAGE)) return;
                     event.currentTarget.src = FALLBACK_IMAGE;
