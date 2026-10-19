@@ -11,7 +11,7 @@ export default function ChatHeader({ config, onClose }) {
           <img
             src={config.avatar_url}
             alt={config.bot_name}
-            className="h-10 w-10 shrink-0 rounded-full border-2 border-[#DDD6FE] object-cover"
+            className="h-10 w-10 shrink-0 rounded-full object-cover"
           />
         ) : (
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-[#DDD6FE] bg-[#EEE9FF] text-sm font-bold text-[#5B2EFF]">

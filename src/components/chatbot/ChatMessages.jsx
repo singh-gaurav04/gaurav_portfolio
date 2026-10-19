@@ -30,7 +30,11 @@ export default function ChatMessages({ messages, config, loading }) {
 
       {loading && (
         <div className="mb-4 flex items-start gap-2.5">
-          <div className="mt-1 h-7 w-7 rounded-full bg-[#E8EAED]" />
+          {config?.avatar_url ? (
+            <img src={config.avatar_url} alt="" className="mt-1 h-7 w-7 shrink-0 rounded-full object-cover" />
+          ) : (
+            <div className="mt-1 h-7 w-7 rounded-full bg-[#E8EAED]" />
+          )}
           <div className="rounded-[4px] bg-[#F0F2F4] px-5 py-4">
             <div className="flex gap-1.5">
               <span className="h-2 w-2 animate-bounce rounded-full bg-[#9CA3AF] [animation-delay:-0.2s]" />

@@ -306,12 +306,12 @@ export default function Hero() {
             <ExpertiseCard icon={Brain} title="GenAI" className="absolute -left-4 top-36 hidden w-44 xl:block" delay={0.35}>
               RAG · Agents · LLMs
             </ExpertiseCard>
-            <ExpertiseCard icon={Server} title="Backend" className="absolute -right-4 top-64 hidden w-48 xl:block" delay={0.45}>
+            <ExpertiseCard icon={Server} title="Backend" className="absolute -right-4 top-40 hidden w-48 xl:block" delay={0.45}>
               FastAPI · Node.js
               <br />
               PostgreSQL · Redis
             </ExpertiseCard>
-            <ExpertiseCard icon={Layers} title="System Design" className="absolute bottom-[-28px] left-4 hidden w-48 xl:block" delay={0.55}>
+            <ExpertiseCard icon={Layers} title="System Design" className="absolute -right-4 bottom-[-28px] hidden w-48 xl:block" delay={0.55}>
               Caching · Scaling · Queues
             </ExpertiseCard>
           </motion.div>

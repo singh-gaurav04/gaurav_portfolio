@@ -6,7 +6,10 @@ import ChatMessages from "./ChatMessages";
 import ChatInput from "./ChatInput";
 import ChatFooter from "./ChatFooter";
 
+const AGENT_LOGO = "/assets/images/agent-logo.png";
+
 const DEFAULT_CONFIG = {
+  avatar_url: AGENT_LOGO,
   bot_name: "Gaurav's AI Agent",
   bot_subtitle: "Ask me about Gaurav's work",
   welcome_message:
@@ -39,7 +42,7 @@ export default function Chatbot({ isOpen, setIsOpen }) {
     if (!isOpen || initialized) return;
     getChatbotConfig()
       .then((data) => {
-        const nextConfig = { ...DEFAULT_CONFIG, ...data };
+        const nextConfig = { ...DEFAULT_CONFIG, ...data, avatar_url: AGENT_LOGO };
         setConfig(nextConfig);
         setMessages([
           createMessage(
@@ -110,10 +113,10 @@ export default function Chatbot({ isOpen, setIsOpen }) {
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.96 }}
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-[max(1rem,env(safe-area-inset-right))] z-[90] flex h-14 w-14 items-center justify-center rounded-full bg-[#14FCD4] text-lg font-bold text-[#07130f] shadow-[0_8px_24px_rgba(20,252,212,0.35)] sm:bottom-5 sm:right-5"
+            className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-[max(1rem,env(safe-area-inset-right))] z-[90] h-16 w-16 rounded-full sm:bottom-5 sm:right-5"
             aria-label="Open chat"
           >
-            💬
+            <img src={AGENT_LOGO} alt="" className="h-full w-full rounded-full" width={64} height={64} />
           </motion.button>
         )}
       </AnimatePresence>
