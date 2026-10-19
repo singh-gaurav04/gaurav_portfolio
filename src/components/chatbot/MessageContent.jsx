@@ -1,4 +1,4 @@
-import { Copy, Check, Mail, Phone, ExternalLink, Linkedin, Globe } from "lucide-react";
+import { Copy, Check, Mail, Phone, ExternalLink, Linkedin, Globe, FileText } from "lucide-react";
 import { useMemo, useState } from "react";
 
 function extractEmails(text) {
@@ -222,13 +222,14 @@ function ContactCard({ contacts }) {
     });
   }
   for (const url of contacts.urls.slice(0, 2)) {
+    const isPdf = /\.pdf(?:$|[?#])/i.test(url);
     items.push({
       key: `url-${url}`,
-      icon: Globe,
-      label: "Website",
-      value: url.replace(/^https?:\/\//i, "").slice(0, 36),
+      icon: isPdf ? FileText : Globe,
+      label: isPdf ? "Resume" : "Website",
+      value: isPdf ? "Gaurav's latest resume" : url.replace(/^https?:\/\//i, "").slice(0, 36),
       href: url,
-      action: "Open",
+      action: isPdf ? "Download" : "Open",
     });
   }
 

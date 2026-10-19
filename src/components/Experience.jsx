@@ -9,7 +9,7 @@ export default function Experience() {
     ...item,
     year: item.period,
     role: item.title,
-    duration: item.period,
+    duration: item.location,
     summary: item.description,
     impact: item.achievements || [],
   }));

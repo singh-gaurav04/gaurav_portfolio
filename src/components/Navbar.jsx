@@ -49,11 +49,11 @@ export default function Navbar() {
         <div className="flex items-center gap-3">
           <button
             type="button"
-            onClick={() => scrollToSection("about")}
+            onClick={() => scrollToSection("home")}
             className="group flex items-center gap-2.5"
             aria-label="Go to top"
           >
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-900 text-sm font-semibold tracking-wide text-white transition group-hover:bg-slate-800">
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl border bg-slate-900 text-sm font-semibold tracking-wide text-white transition group-hover:bg-slate-800">
               GS
             </span>
             <span className="hidden text-sm font-semibold tracking-tight text-slate-900 sm:inline">
@@ -87,9 +87,9 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => scrollToSection("contact")}
-            className="hidden items-center gap-1.5 rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[var(--lsw-warning)] sm:inline-flex"
+            className="lsw-btn-primary hidden px-4 py-2.5 sm:inline-flex"
           >
-            Hire Me <ArrowUpRight className="h-4 w-4" />
+            Contact Me <ArrowUpRight className="h-4 w-4" />
           </button>
 
           <button
@@ -125,9 +125,9 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => scrollToSection("contact")}
-              className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white transition hover:bg-[var(--lsw-warning)]"
+              className="lsw-btn-primary mt-2 flex w-full px-4 py-3"
             >
-              Hire Me <ArrowUpRight className="h-4 w-4" />
+              Contact Me <ArrowUpRight className="h-4 w-4" />
             </button>
           </motion.div>
         ) : null}

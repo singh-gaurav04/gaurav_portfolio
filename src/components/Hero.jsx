@@ -4,28 +4,27 @@ import {
   ArrowUpRight,
   Brain,
   Briefcase,
-  Calendar,
-  Clock3,
   Download,
+  Github,
+  GraduationCap,
   Grid2x2,
+  Layers,
   MapPin,
   Server,
 } from "lucide-react";
-import { trackVisit } from "../api/public";
 import { usePortfolio } from "../hooks/usePortfolio";
-import { HeroSkeleton } from "./Skeleton";
 
 const FALLBACK_IMAGE = "/assets/images/profile.png";
-const FALLBACK_RESUME = "/assets/documents/Resume.pdf";
+const FALLBACK_RESUME = "/assets/documents/gaurav_singh_resume.pdf";
 
 const HIGHLIGHT_PHRASES = [
-  "ship to production.",
-  "answer real questions.",
-  "cut manual work.",
-  "scale with traffic.",
+  "applications.",
+  "backend systems.",
+  "production APIs.",
+  "RAG pipelines.",
 ];
 
-const HEADLINE_LINES = ["I design and ship", "AI systems that"];
+const HEADLINE_LINES = ["I build intelligent", "AI-powered"];
 
 const fadeUp = {
   hidden: { opacity: 0, y: 22 },
@@ -80,7 +79,7 @@ function InfoItem({ icon: Icon, label, value, withBorder = true }) {
 }
 
 export default function Hero() {
-  const { data, isLoading } = usePortfolio();
+  const { data } = usePortfolio();
   const profile = data.profile;
   const imageSrc = profile?.profile_image_url || FALLBACK_IMAGE;
   // Prefer CMS/DB resume URL; fall back to bundled PDF
@@ -94,20 +93,8 @@ export default function Hero() {
     return () => window.clearInterval(timer);
   }, []);
 
-  const downloadResume = () => {
-    trackVisit({
-      page: "resume downloaded",
-      userAgent: navigator.userAgent,
-      referrer: document.referrer,
-    }).catch(() => {});
-  };
-
-  if (isLoading && !profile) {
-    return <HeroSkeleton />;
-  }
-
   return (
-    <section id="about" className="relative overflow-hidden px-4 py-10 sm:py-12">
+    <section id="home" className="relative overflow-hidden px-4 py-10 sm:py-12">
       <div
         aria-hidden
         className="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-indigo-200/30 blur-3xl"
@@ -127,7 +114,7 @@ export default function Hero() {
               animate="visible"
               className="text-[12px] font-semibold uppercase tracking-[0.24em] text-indigo-500"
             >
-              AI Engineer · GenAI · Available for hire
+              {profile?.name || "Gaurav Singh"} · Software Engineer · AI & Generative AI Engineer
             </motion.p>
 
             <h1 className="max-w-3xl text-[2.35rem] font-semibold leading-[1.08] tracking-[-0.03em] text-slate-900 sm:text-5xl lg:text-[3.5rem]">
@@ -163,21 +150,40 @@ export default function Hero() {
               </span>
             </h1>
 
-            <motion.p
+            <motion.div
               custom={0.28}
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              className="max-w-[540px] text-base leading-7 text-slate-500 sm:text-lg"
+              className="max-w-[560px] space-y-3 text-base leading-7 text-slate-500 sm:text-lg"
             >
-              {profile?.bio
-                ? profile.bio
-                    .replace(/\baspiring\b/gi, "")
-                    .replace(/\bentusiast\b/gi, "")
-                    .replace(/\s{2,}/g, " ")
-                    .trim()
-                : "I work on RAG pipelines, agent workflows, and FastAPI backends — from prototype to a usable product teams can actually run."}
-            </motion.p>
+              <p>{profile?.bio}</p>
+              {profile?.hero_detail ? <p className="text-sm leading-7 sm:text-base">{profile.hero_detail}</p> : null}
+            </motion.div>
+
+            {!!(profile?.focus || []).length && (
+              <motion.ul
+                custom={0.32}
+                variants={fadeUp}
+                initial="hidden"
+                animate="visible"
+                className="flex flex-wrap gap-2"
+                aria-label="Core focus"
+              >
+                {profile.focus.map((item) => (
+                  <li
+                    key={item}
+                    className="rounded-full border px-3 py-1 font-mono text-xs"
+                    style={{
+                      borderColor: "color-mix(in srgb, var(--lsw-border) 18%, transparent)",
+                      color: "var(--lsw-text)",
+                    }}
+                  >
+                    {item}
+                  </li>
+                ))}
+              </motion.ul>
+            )}
 
             <motion.div
               custom={0.36}
@@ -190,10 +196,10 @@ export default function Hero() {
                 type="button"
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                onClick={() => document.getElementById("real-projects")?.scrollIntoView({ behavior: "smooth" })}
                 className="lsw-btn-primary px-5 py-3"
               >
-                Hire Me <ArrowUpRight className="h-4 w-4" />
+                <Grid2x2 className="h-4 w-4" /> View Projects
               </motion.button>
 
               <motion.a
@@ -201,7 +207,6 @@ export default function Hero() {
                 download
                 target="_blank"
                 rel="noreferrer"
-                onClick={downloadResume}
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 className="lsw-btn-secondary px-5 py-3"
@@ -214,11 +219,24 @@ export default function Hero() {
                 type="button"
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })}
+                onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
                 className="lsw-btn-primary px-5 py-3"
               >
-                <Grid2x2 className="h-4 w-4" /> View Services
+                Contact Me <ArrowUpRight className="h-4 w-4" />
               </motion.button>
+
+              {profile?.github_url ? (
+                <motion.a
+                  href={profile.github_url}
+                  target="_blank"
+                  rel="noreferrer"
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="lsw-btn-secondary px-5 py-3"
+                >
+                  <Github className="h-4 w-4" /> GitHub
+                </motion.a>
+              ) : null}
             </motion.div>
 
             <motion.div
@@ -229,8 +247,8 @@ export default function Hero() {
               className="flex flex-col gap-3 rounded-2xl border border-slate-200/90 bg-white px-4 py-3.5 shadow-[0_10px_30px_rgba(15,23,42,0.04)] md:flex-row md:items-center md:gap-4"
             >
               <InfoItem icon={MapPin} label="Based in" value={profile?.location || "Bengaluru, India"} />
-              <InfoItem icon={Calendar} label="Open to" value="Full-time & Freelance" />
-              <InfoItem icon={Clock3} label="Response time" value={profile?.response_time || "Within 12 hrs"} withBorder={false} />
+              <InfoItem icon={Briefcase} label="Experience" value="AI Software Engineer" />
+              <InfoItem icon={GraduationCap} label="Education" value="B.Tech CSE (AI & ML)" withBorder={false} />
             </motion.div>
           </div>
 
@@ -251,15 +269,7 @@ export default function Hero() {
                   <h2 className="text-lg font-semibold tracking-tight text-slate-900 sm:text-xl">
                     {profile?.name || "Gaurav Singh"}
                   </h2>
-                  <p className="text-sm text-slate-500">
-                    {(profile?.title || "AI Engineer")
-                      .replace(/\baspiring\b/gi, "")
-                      .replace(/\bentusiast\b/gi, "")
-                      .replace(/\s{2,}/g, " ")
-                      .replace(/\s*\|\s*/g, " | ")
-                      .replace(/^\s*\|\s*|\s*\|\s*$/g, "")
-                      .trim() || "AI Engineer"}
-                  </p>
+                  <p className="text-sm text-slate-500">{profile?.title || "Software Engineer"}</p>
                 </div>
                 <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-medium text-emerald-700 sm:text-sm">
                   <span className="relative flex h-2 w-2">
@@ -288,21 +298,21 @@ export default function Hero() {
               </div>
 
               <div className="absolute bottom-8 left-6 rounded-xl border border-slate-200/80 bg-white/95 px-3.5 py-2.5 shadow-md backdrop-blur sm:left-8 sm:px-4 sm:py-3">
-                <p className="text-sm font-semibold text-slate-900">Currently shipping</p>
-                <p className="font-mono text-xs text-slate-500 sm:text-sm">RAG · Agents · APIs</p>
+                <p className="text-sm font-semibold text-slate-900">Core focus</p>
+                <p className="font-mono text-xs text-slate-500 sm:text-sm">GenAI · RAG · Backend</p>
               </div>
             </div>
 
-            <ExpertiseCard icon={Brain} title="GenAI" className="absolute -left-4 top-14 hidden w-44 xl:block" delay={0.35}>
+            <ExpertiseCard icon={Brain} title="GenAI" className="absolute -left-4 top-36 hidden w-44 xl:block" delay={0.35}>
               RAG · Agents · LLMs
             </ExpertiseCard>
-            <ExpertiseCard icon={Server} title="Backend" className="absolute -right-4 top-40 hidden w-48 xl:block" delay={0.45}>
-              FastAPI · Python
+            <ExpertiseCard icon={Server} title="Backend" className="absolute -right-4 top-64 hidden w-48 xl:block" delay={0.45}>
+              FastAPI · Node.js
               <br />
-              PostgreSQL · Docker
+              PostgreSQL · Redis
             </ExpertiseCard>
-            <ExpertiseCard icon={Briefcase} title="Available" className="absolute bottom-[-28px] left-4 hidden w-48 xl:block" delay={0.55}>
-              Freelance & Full-time
+            <ExpertiseCard icon={Layers} title="System Design" className="absolute bottom-[-28px] left-4 hidden w-48 xl:block" delay={0.55}>
+              Caching · Scaling · Queues
             </ExpertiseCard>
           </motion.div>
         </div>

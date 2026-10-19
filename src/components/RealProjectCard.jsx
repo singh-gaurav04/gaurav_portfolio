@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, ExternalLink } from "lucide-react";
+import { ArrowRight, ExternalLink, Github } from "lucide-react";
 import { Link } from "react-router-dom";
 import CardImageCarousel from "./CardImageCarousel";
 import { animationVariants } from "../lib/motion";
@@ -42,6 +42,7 @@ export default function RealProjectCard({ project, index = 0 }) {
       <div className="flex flex-1 flex-col p-6">
         <p className="text-xs font-semibold tracking-widest" style={{ color: "var(--lsw-warning)" }}>
           {String(index + 1).padStart(2, "0")}
+          {project.period ? <span style={{ color: "var(--lsw-text-muted)" }}> · {project.period}</span> : null}
         </p>
         <h3 className="mt-2 text-xl font-semibold" style={{ color: "var(--lsw-text)" }}>
           {project.title}
@@ -76,8 +77,14 @@ export default function RealProjectCard({ project, index = 0 }) {
           </Link>
 
           {project.live_url ? (
-            <a href={project.live_url} target="_blank" rel="noreferrer" className="lsw-btn-secondary w-full px-3 py-2.5 sm:w-auto sm:flex-1">
-              <ExternalLink className="h-4 w-4" /> Live demo
+            <a href={project.live_url} target="_blank" rel="noreferrer" className="lsw-btn-secondary flex-1 px-3 py-2.5 text-sm">
+              <ExternalLink className="h-4 w-4" /> Live
+            </a>
+          ) : null}
+
+          {project.github_url ? (
+            <a href={project.github_url} target="_blank" rel="noreferrer" className="lsw-btn-secondary flex-1 px-3 py-2.5 text-sm">
+              <Github className="h-4 w-4" /> GitHub
             </a>
           ) : null}
         </div>

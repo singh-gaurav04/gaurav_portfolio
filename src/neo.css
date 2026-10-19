@@ -1,0 +1,304 @@
+/*
+ * Dark neobrutalist theme, scoped to html.neo (set in index.html).
+ * Many rules use !important because components set colors/shadows inline.
+ */
+
+html.neo {
+  color-scheme: dark;
+
+  --neo-bg: #0e0e0e;
+  --neo-surface: #171717;
+  --neo-surface-2: #222222;
+  --neo-line: #f5f1e8;
+  --neo-shadow: #f5f1e8;
+  --neo-text: #f5f1e8;
+  --neo-muted: #b8b3a9;
+  --neo-ink: #0e0e0e;
+  --neo-yellow: #ffd23f;
+  --neo-orange: #ff8a3d;
+  --neo-pink: #ff6b9d;
+  --neo-cyan: #5ce1e6;
+  --neo-lime: #a3e635;
+  --neo-violet: #b9a6ff;
+
+  --lsw-success: var(--neo-lime);
+  --lsw-warning: var(--neo-yellow);
+  --lsw-error: #ff5c5c;
+  --lsw-info: var(--neo-cyan);
+  --lsw-accent: var(--neo-yellow);
+  --lsw-white: var(--neo-surface-2);
+  --lsw-background: var(--neo-bg);
+  --lsw-surface: var(--neo-surface);
+  --lsw-border: var(--neo-line);
+  --lsw-text: var(--neo-text);
+  --lsw-text-muted: var(--neo-muted);
+}
+
+html.neo body {
+  color: var(--neo-text);
+  background-color: var(--neo-bg);
+  background-image: radial-gradient(rgba(245, 241, 232, 0.07) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+html.neo h1,
+html.neo h2,
+html.neo h3 {
+  font-family: "Space Grotesk", "Geist Variable", Inter, ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+html.neo ::selection {
+  background: var(--neo-yellow);
+  color: var(--neo-ink);
+}
+
+html.neo .site-grain,
+html.neo .blur-3xl,
+html.neo .blur-2xl {
+  display: none !important;
+}
+
+html.neo .backdrop-blur,
+html.neo .backdrop-blur-md,
+html.neo .backdrop-blur-xl {
+  backdrop-filter: none !important;
+}
+
+/* ---------- Labels ---------- */
+
+html.neo .editorial-label {
+  display: inline-block;
+  border: 2px solid var(--neo-line);
+  background: var(--neo-yellow);
+  color: var(--neo-ink) !important;
+  padding: 0.3rem 0.6rem;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  box-shadow: 3px 3px 0 0 var(--neo-shadow);
+}
+
+/* ---------- Borders, radius, hard shadows ---------- */
+
+html.neo .border {
+  border-width: 2px !important;
+}
+html.neo .border-y {
+  border-top-width: 2px !important;
+  border-bottom-width: 2px !important;
+}
+html.neo .border-t {
+  border-top-width: 2px !important;
+}
+html.neo .border-b {
+  border-bottom-width: 2px !important;
+}
+html.neo .border-l {
+  border-left-width: 2px !important;
+}
+
+html.neo [style*="border-color"]:not(.border-dashed),
+html.neo .border-slate-200,
+html.neo .border-slate-200\/70,
+html.neo .border-slate-200\/80,
+html.neo .border-slate-200\/90,
+html.neo .border-slate-100,
+html.neo .border-slate-300,
+html.neo .border-\[\#E7E8EF\],
+html.neo .border-\[\#ECEFF2\],
+html.neo .border-\[\#E4E7F0\],
+html.neo .border-\[\#DDD6FE\] {
+  border-color: var(--neo-line) !important;
+}
+
+html.neo .rounded-\[28px\],
+html.neo .rounded-\[32px\],
+html.neo .rounded-3xl {
+  border-radius: 14px !important;
+}
+html.neo .rounded-2xl {
+  border-radius: 12px !important;
+}
+
+html.neo [class*="shadow-["],
+html.neo [style*="box-shadow"] {
+  border: 2px solid var(--neo-line) !important;
+  box-shadow: 5px 5px 0 0 var(--neo-shadow) !important;
+}
+
+html.neo .rounded-\[28px\].border,
+html.neo .rounded-\[32px\].border,
+html.neo .rounded-3xl.border {
+  box-shadow: 5px 5px 0 0 var(--neo-shadow);
+}
+
+html.neo .rounded-full.border:not(.border-dashed) {
+  box-shadow: 2px 2px 0 0 var(--neo-shadow);
+}
+
+/* ---------- Light utility remaps ---------- */
+
+html.neo .bg-white,
+html.neo .bg-white\/95,
+html.neo .bg-white\/90,
+html.neo .bg-white\/80 {
+  background-color: var(--neo-surface) !important;
+}
+
+html.neo .bg-slate-50,
+html.neo .bg-slate-100,
+html.neo .bg-indigo-50,
+html.neo .bg-\[\#F7F7FC\],
+html.neo .bg-\[\#FCFCFF\],
+html.neo .bg-\[\#F0F2F4\],
+html.neo .bg-\[\#E8EAED\],
+html.neo .bg-\[\#EEF2FF\],
+html.neo .bg-\[\#EEE9FF\],
+html.neo .bg-\[\#EAF0FF\],
+html.neo .bg-\[\#EAF8EF\] {
+  background-color: var(--neo-surface-2) !important;
+}
+
+html.neo .bg-gradient-to-b.from-slate-50 {
+  background-image: none !important;
+  background-color: var(--neo-surface) !important;
+}
+
+html.neo .hover\:bg-slate-50:hover,
+html.neo .hover\:bg-white\/80:hover {
+  background-color: var(--neo-surface-2) !important;
+}
+
+html.neo .bg-slate-900 {
+  background-color: var(--neo-yellow) !important;
+  color: var(--neo-ink) !important;
+}
+
+html.neo .text-slate-900,
+html.neo .text-slate-800,
+html.neo .hover\:text-slate-900:hover,
+html.neo .text-\[\#111525\],
+html.neo .text-\[\#1A1F36\],
+html.neo .text-\[\#111827\],
+html.neo .hover\:text-\[\#111525\]:hover,
+html.neo .hover\:text-\[\#111827\]:hover {
+  color: var(--neo-text) !important;
+}
+
+html.neo .text-slate-700,
+html.neo .text-slate-600,
+html.neo .text-slate-500,
+html.neo .text-slate-400,
+html.neo .text-\[\#596174\],
+html.neo .text-\[\#7A8088\],
+html.neo .text-\[\#5B6472\],
+html.neo .text-\[\#4B5563\] {
+  color: var(--neo-muted) !important;
+}
+
+html.neo .text-indigo-500,
+html.neo .text-\[\#5B2EFF\] {
+  color: var(--neo-violet) !important;
+}
+
+html.neo .text-\[\#315BFF\] {
+  color: var(--neo-cyan) !important;
+}
+
+html.neo .bg-emerald-50 {
+  background-color: transparent !important;
+}
+html.neo .border-emerald-200 {
+  border-color: var(--neo-lime) !important;
+}
+html.neo .text-emerald-700 {
+  color: var(--neo-lime) !important;
+}
+
+/* ---------- Buttons ---------- */
+
+html.neo .lsw-btn-primary,
+html.neo .lsw-btn-secondary {
+  border: 2px solid var(--neo-line) !important;
+  border-radius: 10px;
+  color: var(--neo-ink) !important;
+  font-weight: 700;
+  box-shadow: 4px 4px 0 0 var(--neo-shadow) !important;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease;
+}
+
+html.neo .lsw-btn-primary {
+  background: var(--neo-yellow) !important;
+}
+
+html.neo .lsw-btn-secondary {
+  background: var(--neo-cyan) !important;
+}
+
+html.neo .lsw-btn-primary:hover,
+html.neo .lsw-btn-secondary:hover {
+  background: var(--neo-orange) !important;
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 0 var(--neo-shadow) !important;
+}
+
+html.neo .lsw-btn-primary:active,
+html.neo .lsw-btn-secondary:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 0 var(--neo-shadow) !important;
+}
+
+/* ---------- Forms & modals ---------- */
+
+html.neo .lsw-input {
+  border: 2px solid var(--neo-line);
+  border-radius: 10px;
+  background: var(--neo-bg);
+  color: var(--neo-text);
+}
+
+html.neo .lsw-input::placeholder {
+  color: #7d786f;
+}
+
+html.neo .lsw-input:focus {
+  border-color: var(--neo-yellow);
+  box-shadow: 3px 3px 0 0 var(--neo-yellow);
+}
+
+html.neo .lsw-modal-overlay {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: none;
+}
+
+html.neo .lsw-modal-panel {
+  border: 2px solid var(--neo-line);
+  background: var(--neo-surface);
+  box-shadow: 8px 8px 0 0 var(--neo-shadow);
+}
+
+/* ---------- Misc ---------- */
+
+html.neo ::-webkit-scrollbar-track {
+  background: var(--neo-bg);
+}
+
+html.neo ::-webkit-scrollbar-thumb {
+  background: var(--neo-yellow);
+  border: 2px solid var(--neo-bg);
+  border-radius: 0;
+}
+
+html.neo .chatbot-scroll {
+  scrollbar-color: var(--neo-yellow) transparent;
+}
+
+html.neo .chatbot-scroll::-webkit-scrollbar-thumb {
+  background: var(--neo-yellow);
+}
+
+html.neo .skeleton-shimmer {
+  background-image: linear-gradient(90deg, #1c1c1c 0%, #2c2c2c 45%, #1c1c1c 90%);
+}

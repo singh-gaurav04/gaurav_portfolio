@@ -7,12 +7,12 @@ import ChatInput from "./ChatInput";
 import ChatFooter from "./ChatFooter";
 
 const DEFAULT_CONFIG = {
-  bot_name: "Gaurav's Assistant",
-  bot_subtitle: "Personal AI Assistant",
+  bot_name: "Gaurav's AI Agent",
+  bot_subtitle: "Ask me about Gaurav's work",
   welcome_message:
-    "Hello! I'm Gaurav's personal assistant. I can help you explore his real-world projects, skills, experience, and how to collaborate. How may I assist you today?",
-  privacy_policy_url: "#",
-  privacy_policy_label: "Privacy Policy",
+    "Hi! I'm Gaurav's AI agent. Ask me about his projects, skills, experience, or how to get in touch.",
+  privacy_policy_url: "#contact",
+  privacy_policy_label: "Contact Gaurav",
   quick_actions: [],
 };
 
@@ -84,7 +84,12 @@ export default function Chatbot({ isOpen, setIsOpen }) {
         setMessages((prev) => [...prev, botMessage]);
         setConversation((prev) => [...prev, { role: "assistant", content: data.response }]);
       } catch (err) {
-        setError(err.message || "Failed to get response.");
+        const busy = /429|rate limit/i.test(err?.message || "");
+        setError(
+          busy
+            ? "The assistant is busy right now. Please try again in a minute."
+            : "Sorry, I couldn't reply just now. Please try again."
+        );
       } finally {
         setLoading(false);
       }

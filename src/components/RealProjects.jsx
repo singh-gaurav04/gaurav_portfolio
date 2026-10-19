@@ -6,7 +6,7 @@ import { animationVariants } from "../lib/motion";
 import RealProjectCard from "./RealProjectCard";
 import { ProjectCardSkeleton } from "./Skeleton";
 
-const PREVIEW_LIMIT = 3;
+const PREVIEW_LIMIT = 4;
 
 export default function RealProjects() {
   const { data, isLoading } = usePortfolio();
@@ -19,11 +19,10 @@ export default function RealProjects() {
       <div className="container mx-auto max-w-7xl">
         <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
           <div className="max-w-2xl">
-            <p className="editorial-label">Real work</p>
+            <p className="editorial-label">Projects</p>
             <h2 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl" style={{ color: "var(--lsw-text)" }}>
-              REAL PROJECTS
+              Featured projects
             </h2>
-
           </div>
 
           <div
@@ -34,7 +33,7 @@ export default function RealProjects() {
               color: "var(--lsw-warning)",
             }}
           >
-            {projects.length} published
+            {projects.length} projects
           </div>
         </div>
 
@@ -48,7 +47,7 @@ export default function RealProjects() {
               color: "var(--lsw-text-muted)",
             }}
           >
-            Real projects will appear here once marked as &quot;Real project&quot; in the admin CMS.
+            No real projects yet.
           </div>
         )}
 
@@ -59,7 +58,7 @@ export default function RealProjects() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              className="grid gap-6 md:grid-cols-2 xl:grid-cols-3"
+              className="grid gap-6 md:grid-cols-2"
             >
               {preview.map((project, index) => (
                 <RealProjectCard key={project.id} project={project} index={index} />

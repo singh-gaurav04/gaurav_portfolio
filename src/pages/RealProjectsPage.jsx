@@ -15,8 +15,8 @@ export default function RealProjectsPage() {
   return (
     <div className="min-h-screen" style={{ background: "var(--lsw-background)", color: "var(--lsw-text)" }}>
       <SeoHead
-        title="Real AI & Software Projects"
-        description="Shipped AI and software projects by Gaurav Singh — RAG systems, GenAI apps, FastAPI backends, and production case studies."
+        title="Featured Projects"
+        description="Featured projects by Gaurav Singh — LocalShopWala, LinkedIn Scouting Agent, and an AI Personal Assistant built with GenAI, RAG, and FastAPI."
         path="/real-projects"
       />
       <div className="site-grain" />
@@ -28,11 +28,8 @@ export default function RealProjectsPage() {
           </Link>
 
           <div className="mb-12 max-w-2xl">
-            <p className="editorial-label">Real work</p>
-            <h1 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">All real projects</h1>
-            <p className="mt-4" style={{ color: "var(--lsw-text-muted)" }}>
-              Complete portfolio of shipped work with case studies, source code, and live demos.
-            </p>
+            <p className="editorial-label">Projects</p>
+            <h1 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">Featured projects</h1>
           </div>
 
           {isLoading && <ProjectCardSkeleton count={6} columns="md:grid-cols-2 xl:grid-cols-3" />}
@@ -54,7 +51,7 @@ export default function RealProjectsPage() {
               variants={animationVariants.container}
               initial="hidden"
               animate="visible"
-              className="grid gap-6 md:grid-cols-2 xl:grid-cols-3"
+              className="grid gap-6 md:grid-cols-2"
             >
               {projects.map((project, index) => (
                 <RealProjectCard key={project.id} project={project} index={index} />

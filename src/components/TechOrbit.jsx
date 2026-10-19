@@ -5,60 +5,30 @@ import {
   Cloud,
   Code2,
   Database,
+  Network,
   Server,
-  Wrench,
 } from "lucide-react";
+import portfolio from "../data/portfolio.json";
 
-export const SKILL_ORBIT_CATEGORIES = [
-  {
-    id: "ai",
-    title: "AI & GenAI",
-    description: "Python, LangChain, LangGraph, RAG, OpenAI, Gemini, Mistral, Hugging Face",
-    icon: Brain,
-    accent: "#7C6CF0",
-    slot: "top-left",
-  },
-  {
-    id: "frontend",
-    title: "Frontend Development",
-    description: "React.js, JavaScript, HTML, CSS, Tailwind CSS, Vite",
-    icon: Code2,
-    accent: "#3B82F6",
-    slot: "top-right",
-  },
-  {
-    id: "backend",
-    title: "Backend Development",
-    description: "FastAPI, Spring Boot, Node.js, Express.js, REST APIs, JWT",
-    icon: Server,
-    accent: "#0EA5E9",
-    slot: "left",
-  },
-  {
-    id: "cloud",
-    title: "Cloud & DevOps",
-    description: "Docker, Azure, Render, Netlify, Vercel",
-    icon: Cloud,
-    accent: "#14B8A6",
-    slot: "right",
-  },
-  {
-    id: "databases",
-    title: "Databases",
-    description: "PostgreSQL, MongoDB, Pinecone, Qdrant, Weaviate",
-    icon: Database,
-    accent: "#F59E0B",
-    slot: "bottom-left",
-  },
-  {
-    id: "tools",
-    title: "Tools & Platforms",
-    description: "Git, GitHub, Postman, Cursor, n8n",
-    icon: Wrench,
-    accent: "#EC4899",
-    slot: "bottom-right",
-  },
-];
+const CATEGORY_STYLES = {
+  ai: { icon: Brain, accent: "#7C6CF0", slot: "top-left" },
+  languages: { icon: Code2, accent: "#3B82F6", slot: "top-right" },
+  backend: { icon: Server, accent: "#0EA5E9", slot: "left" },
+  cloud: { icon: Cloud, accent: "#14B8A6", slot: "right" },
+  databases: { icon: Database, accent: "#F59E0B", slot: "bottom-left" },
+  "system-design": { icon: Network, accent: "#EC4899", slot: "bottom-right" },
+};
+
+const SKILL_GROUPS = portfolio.skills || [];
+
+export const SKILL_ORBIT_CATEGORIES = SKILL_GROUPS.filter((group) => CATEGORY_STYLES[group.id]).map((group) => ({
+  id: group.id,
+  title: group.title,
+  description: group.items.join(", "),
+  ...CATEGORY_STYLES[group.id],
+}));
+
+export const CORE_CS_SKILLS = SKILL_GROUPS.find((group) => group.id === "core-cs")?.items || [];
 
 const SLOT_STYLES = {
   "top-left": "lg:left-[2%] lg:top-[6%] xl:left-[4%] xl:top-[8%]",
@@ -106,7 +76,7 @@ function SkillCard({ category, active, onHover, index, reduceMotion }) {
         <div
           className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl"
           style={{
-            background: `color-mix(in srgb, ${category.accent} 14%, white)`,
+            background: `color-mix(in srgb, ${category.accent} 18%, var(--lsw-white))`,
             color: category.accent,
           }}
         >
@@ -149,7 +119,7 @@ export default function TechOrbit({ categories = SKILL_ORBIT_CATEGORIES }) {
       </div>
 
       {/* Desktop orbital composition */}
-      <div className="relative hidden min-h-[640px] w-full lg:block xl:min-h-[700px]">
+      <div className="relative hidden min-h-[720px] w-full lg:block xl:min-h-[760px]">
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
           <div
             className="absolute h-[520px] w-[520px] rounded-full xl:h-[580px] xl:w-[580px]"
@@ -255,7 +225,7 @@ function OrbitHub({ reduceMotion, pulse }) {
     >
       <div
         className="mb-1 flex h-10 w-10 items-center justify-center rounded-full"
-        style={{ background: "color-mix(in srgb, #7C6CF0 14%, white)", color: "#7C6CF0" }}
+        style={{ background: "var(--lsw-warning)", color: "var(--neo-ink, #0e0e0e)" }}
       >
         <Brain className="h-5 w-5" />
       </div>

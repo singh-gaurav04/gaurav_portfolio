@@ -1,47 +1,31 @@
-import { lazy, Suspense } from "react";
-import { Navigate, Outlet, Route, Routes } from "react-router-dom";
+import { lazy, Suspense, useEffect, useState } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { AppProvider } from "./contexts/AppContext";
-import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import { ToastProvider } from "./components/Toast";
 import PageLoader from "./components/PageLoader";
-import { AuthSkeleton } from "./components/Skeleton";
 
 const HomePage = lazy(() => import("./pages/HomePage"));
 const ProjectDetailPage = lazy(() => import("./pages/ProjectDetailPage"));
 const RealProjectsPage = lazy(() => import("./pages/RealProjectsPage"));
-const ServiceDetailPage = lazy(() => import("./pages/ServiceDetailPage"));
-const ServicesPage = lazy(() => import("./pages/ServicesPage"));
-const AdminLayout = lazy(() => import("./pages/admin/AdminLayout"));
-const LoginPage = lazy(() => import("./pages/admin/LoginPage"));
-const DashboardPage = lazy(() => import("./pages/admin/DashboardPage"));
-const ProfilePage = lazy(() => import("./pages/admin/ProfilePage"));
-const ResourcePage = lazy(() => import("./pages/admin/ResourcePage"));
-const ContactsPage = lazy(() => import("./pages/admin/ContactsPage"));
-const TestimonialsPage = lazy(() => import("./pages/admin/TestimonialsPage"));
-const TemplatesPage = lazy(() => import("./pages/admin/TemplatesPage"));
-const ChatbotPage = lazy(() => import("./pages/admin/ChatbotPage"));
+const Chatbot = lazy(() => import("./components/chatbot/Chatbot"));
 
-function AdminAuthShell() {
+function PublicChatbot() {
+  const [ready, setReady] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setReady(true), 600);
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  if (!ready) return null;
+
   return (
-    <AuthProvider>
-      <Outlet />
-    </AuthProvider>
+    <Suspense fallback={null}>
+      <Chatbot isOpen={open} setIsOpen={setOpen} />
+    </Suspense>
   );
-}
-
-function RequireAdmin({ children }) {
-  const { isAuthenticated, loading } = useAuth();
-  if (loading) return <AuthSkeleton />;
-  if (!isAuthenticated) return <Navigate to="/admin/login" replace />;
-  return children;
-}
-
-function AdminLoginRoute() {
-  const { isAuthenticated, loading } = useAuth();
-  if (loading) return <AuthSkeleton />;
-  if (isAuthenticated) return <Navigate to="/admin" replace />;
-  return <LoginPage />;
 }
 
 function App() {
@@ -61,35 +45,11 @@ function App() {
           />
           <Route path="/projects/:slug" element={<ProjectDetailPage />} />
           <Route path="/real-projects" element={<RealProjectsPage />} />
-          <Route path="/services" element={<ServicesPage />} />
-          <Route path="/services/:slug" element={<ServiceDetailPage />} />
-
-          <Route element={<AdminAuthShell />}>
-            <Route path="/admin/login" element={<AdminLoginRoute />} />
-            <Route
-              path="/admin"
-              element={
-                <RequireAdmin>
-                  <AdminLayout />
-                </RequireAdmin>
-              }
-            >
-              <Route index element={<DashboardPage />} />
-              <Route path="profile" element={<ProfilePage />} />
-              <Route path="projects" element={<ResourcePage resource="projects" />} />
-              <Route path="services" element={<ResourcePage resource="services" />} />
-              <Route path="skills" element={<ResourcePage resource="skills" />} />
-              <Route path="experiences" element={<ResourcePage resource="experiences" />} />
-              <Route path="certifications" element={<ResourcePage resource="certifications" />} />
-              <Route path="faqs" element={<ResourcePage resource="faqs" />} />
-              <Route path="testimonials" element={<TestimonialsPage />} />
-              <Route path="contacts" element={<ContactsPage />} />
-              <Route path="templates" element={<TemplatesPage />} />
-              <Route path="chatbot" element={<ChatbotPage />} />
-            </Route>
-          </Route>
+          <Route path="/services/*" element={<Navigate to="/" replace />} />
+          <Route path="/admin/*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>
+      <PublicChatbot />
     </ToastProvider>
   );
 }

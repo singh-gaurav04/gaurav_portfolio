@@ -1,29 +1,19 @@
 import { useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft } from "lucide-react";
-import { getProjectBySlug } from "../api/public";
 import ImageGallery from "../components/ImageGallery";
 import Navbar from "../components/Navbar";
 import SeoHead from "../components/SeoHead";
-import { usePortfolio } from "../hooks/usePortfolio";
+import { findProjectBySlug, usePortfolio } from "../hooks/usePortfolio";
 import { DetailPageSkeleton } from "../components/Skeleton";
 
 export default function ProjectDetailPage() {
   const { slug } = useParams();
   const { data: portfolio } = usePortfolio();
 
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["project", slug],
-    queryFn: async () => {
-      if (!slug) return null;
-      const res = await getProjectBySlug(slug);
-      return res?.data || res;
-    },
-    enabled: !!slug,
-  });
-
-  const project = data || null;
+  const project = findProjectBySlug(slug);
+  const isLoading = false;
+  const error = null;
   const realProjects = portfolio?.real_projects || [];
 
   const nextProject = useMemo(() => {
@@ -102,6 +92,16 @@ export default function ProjectDetailPage() {
                 <h1 className="mt-3 break-words text-3xl font-semibold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
                   {project.title}
                 </h1>
+                {project.period ? (
+                  <p className="mt-2 font-mono text-xs" style={{ color: "var(--lsw-text-muted)" }}>
+                    {project.period}
+                  </p>
+                ) : null}
+                {(project.focus || []).length ? (
+                  <p className="mt-2 font-mono text-xs" style={{ color: "var(--lsw-text-muted)" }}>
+                    Focus: {project.focus.join(" · ")}
+                  </p>
+                ) : null}
                 <p className="mt-4 max-w-2xl text-sm leading-7 sm:mt-5" style={{ color: "var(--lsw-text-muted)" }}>
                   {project.short_description || project.description}
                 </p>
@@ -151,7 +151,9 @@ export default function ProjectDetailPage() {
             </div>
 
             <section className="mt-10 sm:mt-12">
-              <h2 className="text-xl font-semibold sm:text-2xl">Project summary</h2>
+              <h2 className="text-xl font-semibold sm:text-2xl">
+                {(project.highlights || []).length ? project.highlights_label || "Key contributions" : "Project summary"}
+              </h2>
               <div
                 className="mt-4 rounded-2xl border p-5 sm:rounded-3xl sm:p-6"
                 style={{
@@ -159,15 +161,26 @@ export default function ProjectDetailPage() {
                   background: "var(--lsw-surface)",
                 }}
               >
-                <p className="whitespace-pre-wrap break-words text-sm leading-7 sm:leading-8" style={{ color: "var(--lsw-text-muted)" }}>
-                  {project.description}
-                </p>
+                {(project.highlights || []).length ? (
+                  <ul className="space-y-3">
+                    {project.highlights.map((line) => (
+                      <li key={line} className="flex gap-3 text-sm leading-7" style={{ color: "var(--lsw-text-muted)" }}>
+                        <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "var(--lsw-warning)" }} />
+                        {line}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="whitespace-pre-wrap break-words text-sm leading-7 sm:leading-8" style={{ color: "var(--lsw-text-muted)" }}>
+                    {project.description}
+                  </p>
+                )}
               </div>
             </section>
 
             {nextProject ? (
               <section className="mt-10 sm:mt-12">
-                <h2 className="text-xl font-semibold sm:text-2xl">Next real project</h2>
+                <h2 className="text-xl font-semibold sm:text-2xl">Next project</h2>
                 <div
                   className="mt-4 rounded-2xl border p-5 sm:rounded-3xl sm:p-6"
                   style={{

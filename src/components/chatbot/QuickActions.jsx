@@ -13,7 +13,7 @@ export default function QuickActions({ actions = [], onAction, disabled }) {
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
           onClick={() => onAction(action.message)}
-          className="inline-flex items-center rounded-[5px] bg-black px-3 py-2 text-[15px] font-semibold text-white transition-colors hover:bg-[#111827] disabled:opacity-50"
+          className="lsw-btn-primary px-3 py-2 text-[14px] disabled:opacity-50"
         >
           {action.label}
         </motion.button>

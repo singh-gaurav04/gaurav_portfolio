@@ -1,31 +1,27 @@
 /**
  * SEO + GEO helpers for web search and LLM/AI answer engines.
- * Targets: AI engineer jobs, GenAI/RAG services, software roles.
+ * Targets: AI engineer jobs, GenAI/RAG projects, software roles.
  */
 
-const DEFAULT_SITE_URL = "https://gauravsingh.dev";
+const DEFAULT_SITE_URL = "https://gaurav26lnct.netlify.app";
 
-export const SITE_NAME = "Gaurav Singh — AI Engineer";
+export const SITE_NAME = "Gaurav Singh | Software Engineer & GenAI Engineer";
 
 export const DEFAULT_DESCRIPTION =
-  "AI Engineer specializing in GenAI, RAG pipelines, LangChain/LangGraph agents, FastAPI backends, and production AI products. Available for AI engineer jobs, software engineer roles, and freelance AI development services.";
+  "Gaurav Singh is a Software Engineer specializing in Generative AI, Agentic AI, RAG systems, Python, FastAPI, and scalable backend engineering.";
 
 export const DEFAULT_KEYWORDS = [
+  "Gaurav Singh",
   "AI Engineer",
-  "GenAI Engineer",
-  "Machine Learning Engineer",
-  "RAG developer",
-  "LangChain developer",
+  "Generative AI Engineer",
+  "Software Engineer",
+  "Agentic AI",
+  "RAG",
+  "LangChain",
   "LangGraph",
-  "FastAPI developer",
-  "AI chatbot developer",
-  "LLM engineer",
-  "software engineer India",
-  "hire AI engineer",
-  "AI development services",
-  "OpenAI developer",
-  "full stack AI engineer",
-  "Bengaluru AI engineer",
+  "Python Developer",
+  "FastAPI Developer",
+  "Backend Engineer",
 ].join(", ");
 
 export function getSiteUrl() {
@@ -73,7 +69,7 @@ export function upsertJsonLd(id, data) {
 
 export function buildPersonSchema(profile, siteUrl) {
   const name = profile?.name || "Gaurav Singh";
-  const title = profile?.title || "AI Engineer";
+  const title = profile?.title || "Software Engineer";
   const sameAs = [profile?.github_url, profile?.linkedin_url].filter(Boolean);
 
   return {
@@ -84,9 +80,7 @@ export function buildPersonSchema(profile, siteUrl) {
     url: siteUrl,
     image: profile?.profile_image_url || `${siteUrl}/assets/images/profile.png`,
     jobTitle: title,
-    description:
-      profile?.bio ||
-      "AI Engineer building GenAI products, RAG systems, agent workflows, and FastAPI backends. Open to AI engineer and software engineer roles.",
+    description: profile?.bio || DEFAULT_DESCRIPTION,
     email: profile?.email || undefined,
     telephone: profile?.phone || undefined,
     address: profile?.location
@@ -97,21 +91,25 @@ export function buildPersonSchema(profile, siteUrl) {
         }
       : undefined,
     sameAs: sameAs.length ? sameAs : undefined,
+    alumniOf: {
+      "@type": "CollegeOrUniversity",
+      name: "Lakshmi Narain College of Technology, Bhopal",
+    },
     knowsAbout: [
-      "Artificial Intelligence",
       "Generative AI",
+      "Agentic AI",
+      "Retrieval-Augmented Generation",
       "Large Language Models",
-      "Retrieval Augmented Generation",
       "LangChain",
       "LangGraph",
-      "FastAPI",
+      "Model Context Protocol",
       "Python",
-      "React",
-      "Software Engineering",
-      "RAG Pipelines",
-      "AI Agents",
-      "OpenAI",
-      "Docker",
+      "FastAPI",
+      "Node.js",
+      "Backend Engineering",
+      "System Design",
+      "PostgreSQL",
+      "Redis",
     ],
     knowsLanguage: ["English", "Hindi"],
   };
@@ -127,106 +125,6 @@ export function buildWebsiteSchema(siteUrl) {
     description: DEFAULT_DESCRIPTION,
     inLanguage: "en",
     publisher: { "@id": `${siteUrl}/#person` },
-    potentialAction: {
-      "@type": "SearchAction",
-      target: `${siteUrl}/?q={search_term_string}`,
-      "query-input": "required name=search_term_string",
-    },
-  };
-}
-
-export function buildProfessionalServiceSchema(profile, services, siteUrl) {
-  const offers = (services || []).slice(0, 12).map((service) => ({
-    "@type": "Offer",
-    itemOffered: {
-      "@type": "Service",
-      name: service.title,
-      description: service.short_description || service.description || service.title,
-      provider: { "@id": `${siteUrl}/#person` },
-      serviceType: service.tag || "AI Development",
-      url: service.slug ? `${siteUrl}/services/${service.slug}` : `${siteUrl}/#services`,
-    },
-  }));
-
-  return {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "@id": `${siteUrl}/#services`,
-    name: `${profile?.name || "Gaurav Singh"} — AI Development Services`,
-    description:
-      "Professional AI and software services: RAG systems, AI chatbots, LangChain agents, FastAPI backends, and full-stack AI product development.",
-    url: `${siteUrl}/#services`,
-    provider: { "@id": `${siteUrl}/#person` },
-    areaServed: ["IN", "Worldwide"],
-    serviceType: [
-      "AI Engineering",
-      "Generative AI Development",
-      "RAG System Development",
-      "AI Chatbot Development",
-      "Backend API Development",
-      "Software Engineering Consulting",
-    ],
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      name: "AI & Software Services",
-      itemListElement: offers.length
-        ? offers
-        : [
-            {
-              "@type": "Offer",
-              itemOffered: {
-                "@type": "Service",
-                name: "RAG & GenAI Systems",
-                description: "Production RAG pipelines with LangChain, vector databases, and LLM APIs.",
-              },
-            },
-            {
-              "@type": "Offer",
-              itemOffered: {
-                "@type": "Service",
-                name: "AI Chatbots & Agents",
-                description: "Custom AI assistants and LangGraph agent workflows for real business use cases.",
-              },
-            },
-            {
-              "@type": "Offer",
-              itemOffered: {
-                "@type": "Service",
-                name: "FastAPI Backend Development",
-                description: "Scalable Python APIs, auth, and integrations for AI-powered products.",
-              },
-            },
-          ],
-    },
-  };
-}
-
-export function buildFaqSchema(siteUrl, faqs = []) {
-  const items = (faqs || [])
-    .filter((item) => item?.question && item?.answer)
-    .map((item) => ({
-      "@type": "Question",
-      name: item.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: item.answer,
-      },
-    }));
-
-  if (!items.length) {
-    return {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "@id": `${siteUrl}/#faq`,
-      mainEntity: [],
-    };
-  }
-
-  return {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "@id": `${siteUrl}/#faq`,
-    mainEntity: items,
   };
 }
 

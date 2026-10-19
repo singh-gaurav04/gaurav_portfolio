@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Github, Linkedin, Mail, MapPin, Phone } from "lucide-react";
 import EmailOtpModal from "./EmailOtpModal";
 import { useToast } from "./Toast";
 import { submitContact } from "../api/public";
@@ -55,20 +55,44 @@ export default function Contact() {
   return (
     <section id="contact" className="px-4 py-12">
       <div className="container mx-auto max-w-6xl">
-        <p className="editorial-label">Inbox</p>
+        <p className="editorial-label">Contact</p>
         <h2 className="mt-2 text-4xl font-semibold sm:text-5xl" style={{ color: "var(--lsw-text)" }}>
-          Let&apos;s build something.
+          Let&apos;s build something intelligent
         </h2>
+        <p className="mt-4 max-w-3xl text-base leading-7" style={{ color: "var(--lsw-text-muted)" }}>
+          I&apos;m interested in building impactful AI products, scalable backend systems, and Generative AI applications.
+          If you&apos;re hiring, collaborating on an interesting project, or exploring AI-driven solutions, let&apos;s connect.
+        </p>
+        <div className="mt-5 flex flex-wrap gap-2.5">
+          {profile?.linkedin_url && (
+            <a href={profile.linkedin_url} target="_blank" rel="noreferrer" className="lsw-btn-primary px-5 py-3">
+              <Linkedin className="h-4 w-4" /> Let&apos;s Connect
+            </a>
+          )}
+          {profile?.email && (
+            <a href={`mailto:${profile.email}`} className="lsw-btn-secondary px-5 py-3">
+              <Mail className="h-4 w-4" /> Email Me
+            </a>
+          )}
+          {profile?.github_url && (
+            <a href={profile.github_url} target="_blank" rel="noreferrer" className="lsw-btn-secondary px-5 py-3">
+              <Github className="h-4 w-4" /> View GitHub
+            </a>
+          )}
+        </div>
         <div className="mt-6 grid gap-6 lg:grid-cols-2">
           <div className="space-y-3">
             {profile?.email && <Info icon={Mail} label="Email" value={profile.email} href={`mailto:${profile.email}`} />}
             {profile?.phone && <Info icon={Phone} label="Phone" value={profile.phone} href={`tel:${profile.phone.replace(/\D/g, "")}`} />}
-            {profile?.location && (
-              <Info icon={MapPin} label="Location" value={profile.location} href={`https://maps.google.com/?q=${encodeURIComponent(profile.location)}`} />
+            {profile?.linkedin_url && (
+              <Info icon={Linkedin} label="LinkedIn" value="linkedin.com/in/gaurav26lnct" href={profile.linkedin_url} external />
             )}
-            <p className="pt-4 text-sm" style={{ color: "var(--lsw-text-muted)" }}>
-              {profile?.response_time}
-            </p>
+            {profile?.github_url && (
+              <Info icon={Github} label="GitHub" value="github.com/singh-gaurav04" href={profile.github_url} external />
+            )}
+            {profile?.location && (
+              <Info icon={MapPin} label="Location" value={profile.location} href={`https://maps.google.com/?q=${encodeURIComponent(profile.location)}`} external />
+            )}
           </div>
           <motion.form
             initial={{ opacity: 0, y: 20 }}
@@ -141,10 +165,11 @@ function Field({ label, ...props }) {
   );
 }
 
-function Info({ icon: Icon, label, value, href }) {
+function Info({ icon: Icon, label, value, href, external = false }) {
   return (
     <a
       href={href}
+      {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
       className="flex items-center gap-4 rounded-2xl border p-4 transition hover:-translate-y-0.5"
       style={{
         borderColor: "color-mix(in srgb, var(--lsw-border) 18%, transparent)",

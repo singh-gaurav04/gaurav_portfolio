@@ -1,15 +1,5 @@
 import axios from "axios";
 
-const TOKEN_KEY = "portfolio-admin-token";
-
-export const getAdminToken = () => sessionStorage.getItem(TOKEN_KEY);
-
-export const setAdminToken = (token) =>
-  sessionStorage.setItem(TOKEN_KEY, token);
-
-export const clearAdminToken = () =>
-  sessionStorage.removeItem(TOKEN_KEY);
-
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 if (!API_BASE_URL) {
@@ -21,16 +11,6 @@ const api = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-});
-
-api.interceptors.request.use((config) => {
-  const token = getAdminToken();
-
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-
-  return config;
 });
 
 api.interceptors.response.use(

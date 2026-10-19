@@ -51,7 +51,7 @@ export default function Projects() {
         <div className="mb-6 max-w-2xl">
           <p className="editorial-label">Archive</p>
           <h2 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl" style={{ color: "var(--lsw-text)" }}>
-            PROJECT ARCHIVE
+            More projects
           </h2>
         </div>
 
