@@ -1,1 +1,1 @@
-export { getChatbotConfig, sendChatMessage } from "./public";
+export { sendChatMessage } from "./public";

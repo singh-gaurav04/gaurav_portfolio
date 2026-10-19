@@ -2,7 +2,6 @@ export {
   submitContact,
   sendEmailOtp,
   verifyEmailOtp,
-  getChatbotConfig,
   sendChatMessage,
 } from "./public";
 

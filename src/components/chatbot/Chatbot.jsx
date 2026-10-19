@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { getChatbotConfig, sendChatMessage } from "../../api/public";
+import { sendChatMessage } from "../../api/public";
 import ChatHeader from "./ChatHeader";
 import ChatMessages from "./ChatMessages";
 import ChatInput from "./ChatInput";
@@ -8,7 +8,7 @@ import ChatFooter from "./ChatFooter";
 
 const AGENT_LOGO = "/assets/images/agent-logo.png";
 
-const DEFAULT_CONFIG = {
+const CHAT_CONFIG = {
   avatar_url: AGENT_LOGO,
   bot_name: "Gaurav's AI Agent",
   bot_subtitle: "Ask me about Gaurav's work",
@@ -30,33 +30,17 @@ function createMessage(text, sender, extra = {}) {
 }
 
 export default function Chatbot({ isOpen, setIsOpen }) {
-  const [config, setConfig] = useState(DEFAULT_CONFIG);
+  const config = CHAT_CONFIG;
   const [messages, setMessages] = useState([]);
   const [conversation, setConversation] = useState([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
-    if (!isOpen || initialized) return;
-    getChatbotConfig()
-      .then((data) => {
-        const nextConfig = { ...DEFAULT_CONFIG, ...data, avatar_url: AGENT_LOGO };
-        setConfig(nextConfig);
-        setMessages([
-          createMessage(
-            nextConfig.welcome_message || DEFAULT_CONFIG.welcome_message,
-            "bot"
-          ),
-        ]);
-        setInitialized(true);
-      })
-      .catch(() => {
-        setMessages([createMessage(DEFAULT_CONFIG.welcome_message, "bot")]);
-        setInitialized(true);
-      });
-  }, [isOpen, initialized]);
+    if (!isOpen) return;
+    setMessages((prev) => (prev.length ? prev : [createMessage(CHAT_CONFIG.welcome_message, "bot")]));
+  }, [isOpen]);
 
   useEffect(() => {
     if (!isOpen) return undefined;

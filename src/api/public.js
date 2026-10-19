@@ -6,5 +6,4 @@ export const sendEmailOtp = ({ email, purpose }) => api.post("/email-verificatio
 export const verifyEmailOtp = ({ email, purpose, otp }) => api.post("/email-verification/verify", { email, purpose, otp });
 
 // Chatbot
-export const getChatbotConfig = () => api.get("/chatbot/config");
 export const sendChatMessage = (payload) => api.post("/chat", payload);
